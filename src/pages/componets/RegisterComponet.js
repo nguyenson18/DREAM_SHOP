@@ -18,7 +18,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast, ToastContainer } from "react-toastify";
 import apiService from "../../app/apiService";
-import AlertMsg from "../../componets/AlertMsg";
+import { useSnackbar } from "notistack";
 
 const schemaRegister = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -40,6 +40,7 @@ const defaultValues = {
 function RegisterComponet({ setCurrentTab }) {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordConfirmation, setPasswordConfirmation] = useState(false);
+  const { enqueueSnackbar} = useSnackbar();
   const methods = useForm({
     defaultValues,
     resolver: yupResolver(schemaRegister),
@@ -61,13 +62,13 @@ function RegisterComponet({ setCurrentTab }) {
         password,
       });
       if (reponse.success) {
-        toast.success("Register Successlly");
+        enqueueSnackbar("Register Successlly", {variant:"success"})
         setCurrentTab("LOGIN");
       }
     } catch (error) {
       reset();
       setError("responseError", error);
-      toast.error(error.message);
+      enqueueSnackbar(error.message, {variant:"error"})
     }
   };
 

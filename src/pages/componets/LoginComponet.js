@@ -21,8 +21,8 @@ import GoogleIcon from "@mui/icons-material/Google";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useAuth from "../../hooks/useAuth";
-import AlertMsg from "../../componets/AlertMsg";
 import { toast, ToastContainer } from "react-toastify";
+import { useSnackbar } from "notistack";
 
 const schemaLogin = Yup.object().shape({
   email: Yup.string().email("Invalid Email").required("Email is required"),
@@ -37,9 +37,9 @@ const defaultValues = {
 
 function LoginComponet({ setCurrentTab }) {
   const [showPassword, setShowPassword] = useState(false);
-
   const auth = useAuth();
   const navigate = useNavigate();
+  const { enqueueSnackbar} = useSnackbar();
   const methods = useForm({
     defaultValues,
     resolver: yupResolver(schemaLogin),
@@ -61,7 +61,7 @@ function LoginComponet({ setCurrentTab }) {
     } catch (error) {
       reset();
       setError("responseError", error);
-      toast.error(error.message);
+      enqueueSnackbar("login error", { variant: "error" });
     }
   };
   return (
@@ -69,7 +69,6 @@ function LoginComponet({ setCurrentTab }) {
       maxWidth="xs"
       style={{ marginBottom: "20px", marginTop: "10px" }}
     >
-      <AlertMsg />
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={3}>
           {!!errors.responseError && (

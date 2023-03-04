@@ -24,11 +24,11 @@ function Router() {
         }
       >
         <Route index element={<HomePage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/order" element={<OrderPage />} />
-        <Route path="/customrcare" element={<CustomerCarePage />} />
-        <Route path="/account" element={<AccountPages />} />
-        <Route path="/products/:id" element={<DetailPages />} />
+        <Route path="checkout" element={<CheckoutPage />} />
+        <Route path="order" element={<OrderPage />} />
+        <Route path="customrcare" element={<CustomerCarePage />} />
+        <Route path="account" element={<AccountPages />} />
+        <Route path="products/:id" element={<DetailPages />} />
       </Route>
 
       <Route element={<BlankLayout />}>

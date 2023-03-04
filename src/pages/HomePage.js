@@ -17,7 +17,7 @@ import FSelect from "../componets/form/FSelect";
 import SearchIcon from "@mui/icons-material/Search";
 import { useForm } from "react-hook-form";
 import SortIcon from "@mui/icons-material/Sort";
-import AlertMsg from "../componets/AlertMsg";
+import { useSnackbar } from "notistack";
 
 const SORT_OPTIONS = [
   { value: "featured", label: "Featured" },
@@ -29,7 +29,6 @@ const SORT_OPTIONS = [
 function HomePage() {
   const [sort, setSort] = useState("");
   const methods = useForm({});
-
   const {
     handleSubmit,
     reset,

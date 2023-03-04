@@ -1,3 +1,4 @@
+import { useSnackbar } from "notistack";
 import { createContext, useEffect, useReducer } from "react";
 import { toast } from "react-toastify";
 import apiService from "../app/apiService";
@@ -46,7 +47,7 @@ const AuthContext = createContext({ ...initialState });
 
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-
+  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     const initialize = async () => {
       try {
@@ -97,13 +98,14 @@ function AuthProvider({ children }) {
       payload: { user },
     });
     callBack();
-    toast.success("login success");
+    enqueueSnackbar("login success", { variant: "success" });
+
   };
   const logout = async (callback) => {
     setSession(null);
     dispatch({ type: LOGOUT });
     callback();
-    toast.success("logout success");
+    
   };
 
   return (

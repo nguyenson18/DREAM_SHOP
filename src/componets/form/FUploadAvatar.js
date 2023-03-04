@@ -1,6 +1,6 @@
 import { useFormContext, Controller } from "react-hook-form";
 import { FormHelperText } from "@mui/material";
-// import UploadAvatar from "../UploadAvatar";
+import UploadAvatar from "../UploadAvatar";
 
 function FUploadAvatar({ name, ...other }) {
   const { control } = useFormContext();
@@ -14,7 +14,7 @@ function FUploadAvatar({ name, ...other }) {
 
         return (
           <div>
-            {/* <UploadAvatar error={checkError} {...other} file={field.value} /> */}
+            <UploadAvatar error={checkError} {...other} file={field.value} />
             {checkError && (
               <FormHelperText error sx={{ px: 2, textAlign: "center" }}>
                 {error.message}
