@@ -1,0 +1,8 @@
+.img{
+    background: url('../img/backgroulogin2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 87%;
+    min-height: 1000px;
+    width: 100%;
+}

@@ -1,0 +1,32 @@
+
+.link-effect-3 {
+	a {
+		padding: 10px 0;
+		margin: 0 20px;
+		color: "#020659";
+		cursor: pointer;
+		font-weight: 500;
+		text-shadow: none;
+		text-decoration: none;
+		position: relative;
+		&::before {
+			position: absolute;
+			top: 0;
+			left: 0;
+			overflow: hidden;
+			padding: 10px 0;
+			max-width: 0;
+			border-bottom: 2px solid #fff;
+			color: rgb(237, 50, 56);
+			content: attr(data-hover);
+			-webkit-transition: max-width 0.5s;
+			-moz-transition: max-width 0.5s;
+			transition: max-width 0.5s;
+		}
+		&:hover{
+			&::before{
+				max-width: 100%;
+			}
+		}
+	}
+} 
