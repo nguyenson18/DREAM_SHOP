@@ -35,6 +35,7 @@ export default slice.reducer;
 export const updateUserProfile =
   ({ userId, email, name, phone, address, avatarUrl }, enqueueSnackbar) =>
   async (dispatch) => {
+    dispatch(slice.actions.startLoading());
     try {
       const data = {
         email,

@@ -20,15 +20,10 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { Link as RouterLink, Navigate, useNavigate } from "react-router-dom";
-import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import AvatarImg from "../img/avatar.jpg";
 import Logo from "../componets/Logo";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import styled from "@emotion/styled";
 import "./mainHeader.scss";
 import useAuth from "../hooks/useAuth";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
@@ -36,34 +31,48 @@ import { FormProvider, FTextField } from "../componets/form";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useForm } from "react-hook-form";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useSnackbar } from "notistack";
+
+const schemaChangePassword = Yup.object().shape({
+  password: Yup.string().required(""),
+  changePassword: Yup.string().required("Change Password is required"),
+  passwordConfirmation: Yup.string()
+    .required()
+    .oneOf([Yup.ref("changePassword")], "Password must match"),
+});
 
 const defaultValues = {
-  currentpassword: "",
   password: "",
+  changePassword: "",
   passwordConfirmation: "",
 };
 
 function MainHeader() {
   const [anchorElAvatar, setAnchorElAvatar] = useState(null);
   const [anchorElMobile, setAnchorElMobile] = useState(null);
-  const [showPassword, setShowPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState(false);
   const [passwordConfirmation, setPasswordConfirmation] = useState(false);
-  const [currentPassword, setCurrentPassword] = useState(false);
+  const [password, setPassword] = useState(false);
 
   const [open, setOpen] = useState(false);
-
+  const { enqueueSnackbar } = useSnackbar();
   const auth = useAuth();
   const navigate = useNavigate();
-  const { isInitialized, isAuthenticated, logout } = auth;
   const isMenuOpen = Boolean(anchorElAvatar);
   const isMobileOpen = Boolean(anchorElMobile);
-  const methods = useForm({ defaultValues });
+  const methods = useForm({
+    defaultValues,
+    resolver: yupResolver(schemaChangePassword),
+  });
   const {
     handleSubmit,
     reset,
     setError,
     formState: { errors, isSubmitted },
   } = methods;
+
   const handleProfileMenuOpen = (event) => {
     setAnchorElAvatar(event.currentTarget);
     setAnchorElMobile(null);
@@ -84,7 +93,7 @@ function MainHeader() {
   const handleLogout = async () => {
     try {
       handleMenuClose();
-      await logout(() => {
+      await auth.logout(() => {
         navigate("/login");
       });
     } catch (error) {
@@ -97,8 +106,32 @@ function MainHeader() {
   };
   const handleCloseDailog = () => {
     setOpen(false);
+    setNewPassword(false);
+    setPassword(false);
+    setPasswordConfirmation(false);
   };
-  const onSubmit = () => {};
+  const onSubmit = async (data) => {
+    const { password, changePassword } = data;
+    try {
+      await auth.handleChangePassword(
+        {
+          password,
+          changePassword,
+          userId: auth.user._id,
+        },
+        enqueueSnackbar
+      );
+      reset();
+      setOpen(false);
+      setNewPassword(false);
+      setPassword(false);
+      setPasswordConfirmation(false);
+    } catch (error) {
+      reset();
+      setError("responseError", error.message);
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
+  };
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -214,7 +247,7 @@ function MainHeader() {
                 <ShoppingCartIcon sx={{ color: "#020659" }} />
               </Badge>
             </IconButton>
-            {isAuthenticated ? (
+            {auth?.isAuthenticated ? (
               <IconButton onClick={handleProfileMenuOpen}>
                 <Avatar
                   alt={auth?.user?.name}
@@ -309,21 +342,17 @@ function MainHeader() {
           <DialogContent>
             <FTextField
               sx={{ marginTop: "10px" }}
-              name="currentpassword"
+              name="password"
               label="Current Password"
-              type={showPassword ? "text" : "password"}
+              type={password ? "text" : "password"}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton
-                      onClick={() => setCurrentPassword(!currentPassword)}
+                      onClick={() => setPassword(!password)}
                       edge="end"
                     >
-                      {showPassword ? (
-                        <VisibilityIcon />
-                      ) : (
-                        <VisibilityOffIcon />
-                      )}
+                      {password ? <VisibilityIcon /> : <VisibilityOffIcon />}
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -331,21 +360,17 @@ function MainHeader() {
             />
             <FTextField
               sx={{ my: 3 }}
-              name="password"
+              name="changePassword"
               label="New Password"
-              type={showPassword ? "text" : "password"}
+              type={newPassword ? "text" : "password"}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton
-                      onClick={() => setShowPassword(!showPassword)}
+                      onClick={() => setNewPassword(!newPassword)}
                       edge="end"
                     >
-                      {showPassword ? (
-                        <VisibilityIcon />
-                      ) : (
-                        <VisibilityOffIcon />
-                      )}
+                      {newPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -387,7 +412,7 @@ function MainHeader() {
             <Button
               sx={{ backgroundColor: "#001c44" }}
               variant="contained"
-              onClick={handleCloseDailog}
+              type="submit"
               autoFocus
             >
               yes

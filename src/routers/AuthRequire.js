@@ -9,9 +9,9 @@ function AuthRequire({ children }) {
   if (location.pathname == "/account" && !accessToken) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
-  // if (!isInitialized) {
-  //   return <LoadingScreen />;
-  // }
+  if (!isInitialized) {
+    return <LoadingScreen />;
+  }
   // if (!isAuthenticated) {
   //   return <Navigate to="/login" state={{ from: location }} replace />;
   // }

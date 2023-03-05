@@ -17,6 +17,7 @@ const INITIALIZE = "AUTH.INITIALIZE";
 const LOGOUT = "AUTH.LOGOUT";
 const UPDATEDPROFILE = "AUTH.UPDATEDPROFILE";
 const RESETPASSWORD = "Auth.RESETPASSWORD";
+const CHANGEPASSWORD = "AUTH.CHANGEPASSWORD";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -33,6 +34,8 @@ const reducer = (state, action) => {
     case REGISTER_SUCCESS:
       return { ...state };
     case RESETPASSWORD:
+      return { ...state };
+    case CHANGEPASSWORD:
       return { ...state };
     case LOGOUT:
       return { ...state, isAuthenticated: false, user: null };
@@ -69,45 +72,45 @@ function AuthProvider({ children }) {
   }, [updatedProfile]);
 
   const { enqueueSnackbar } = useSnackbar();
-  // useEffect(() => {
-  //   const initialize = async () => {
-  //     try {
-  //       const accessToken = window.localStorage.getItem("accessToken");
-  //       if (accessToken && isValidToken(accessToken)) {
-  //         setSession(accessToken);
-  //         const reponse = await apiService.get("users/me");
-  //         const user = reponse.data;
-  //         dispatch({
-  //           type: INITIALIZE,
-  //           payload: {
-  //             user: user,
-  //             isAuthenticated: true,
-  //           },
-  //         });
-  //       } else {
-  //         setSession(null);
-  //         dispatch({
-  //           type: INITIALIZE,
-  //           payload: {
-  //             user: null,
-  //             isAuthenticated: false,
-  //           },
-  //         });
-  //       }
-  //     } catch (error) {
-  //       setSession(null);
-  //       dispatch({
-  //         type: INITIALIZE,
-  //         payload: {
-  //           isAuthenticated: false,
-  //           user: null,
-  //         },
-  //       });
-  //     }
-  //   };
+  useEffect(() => {
+    const initialize = async () => {
+      try {
+        const accessToken = window.localStorage.getItem("accessToken");
+        if (accessToken && isValidToken(accessToken)) {
+          setSession(accessToken);
+          const reponse = await apiService.get("users/me");
+          const user = reponse.data;
+          dispatch({
+            type: INITIALIZE,
+            payload: {
+              user: user,
+              isAuthenticated: true,
+            },
+          });
+        } else {
+          setSession(null);
+          dispatch({
+            type: INITIALIZE,
+            payload: {
+              user: null,
+              isAuthenticated: false,
+            },
+          });
+        }
+      } catch (error) {
+        setSession(null);
+        dispatch({
+          type: INITIALIZE,
+          payload: {
+            isAuthenticated: false,
+            user: null,
+          },
+        });
+      }
+    };
 
-  //   initialize();
-  // }, []);
+    initialize();
+  }, []);
 
   const login = async ({ email, password }, callBack) => {
     const reponse = await apiService.post("/auth/login", { email, password });
@@ -146,9 +149,28 @@ function AuthProvider({ children }) {
     enqueueSnackbar("Reset Password successfully", { variant: "success" });
     setCurrentTab("LOGIN");
   };
+
+  const handleChangePassword = async (
+    { password, changePassword, userId },
+    enqueueSnackbar
+  ) => {
+    const reponse = await apiService.post(`/users/changepassword/${userId}`, {
+      password,
+      changePassword,
+    });
+    enqueueSnackbar("Change Password Successfully", { variant: "success" });
+  };
+
   return (
     <AuthContext.Provider
-      value={{ ...state, login, logout, register, reserPassword }}
+      value={{
+        ...state,
+        login,
+        logout,
+        register,
+        reserPassword,
+        handleChangePassword,
+      }}
     >
       {children}
     </AuthContext.Provider>
