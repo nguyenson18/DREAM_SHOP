@@ -4,6 +4,8 @@ import { FormProvider, FTextField } from "../../componets/form";
 import { Link as RouterLink } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
 import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+import { useSnackbar } from "notistack";
 
 const defaultValues = {
   email: "",
@@ -11,14 +13,24 @@ const defaultValues = {
 
 function ReserPasswordComponet({ setCurrentTab }) {
   const methods = useForm({ defaultValues });
-
+  const auth = useAuth();
+  const { enqueueSnackbar } = useSnackbar();
   const {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
     setError,
   } = methods;
-  const onSubmit = () => {};
+  const onSubmit = async (data) => {
+    const { email } = data;
+    try {
+      await auth.reserPassword({ email }, setCurrentTab,enqueueSnackbar);
+    } catch (error) {
+      reset();
+      setError("responseError", error.message);
+      enqueueSnackbar(error.message || "Not Found", { variant: "error" });
+    }
+  };
   return (
     <Container
       maxWidth="xs"
@@ -35,7 +47,7 @@ function ReserPasswordComponet({ setCurrentTab }) {
               Get Started
             </Link>
           </Alert>
-          <FTextField variant="standard" name="name" label="Full Email" />
+          <FTextField variant="standard" name="email" label="Full Email" />
         </Stack>
 
         <LoadingButton

@@ -40,7 +40,8 @@ const defaultValues = {
 function RegisterComponet({ setCurrentTab }) {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordConfirmation, setPasswordConfirmation] = useState(false);
-  const { enqueueSnackbar} = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
+  const auth = useAuth();
   const methods = useForm({
     defaultValues,
     resolver: yupResolver(schemaRegister),
@@ -56,19 +57,15 @@ function RegisterComponet({ setCurrentTab }) {
   const onSubmit = async (data) => {
     const { name, email, password } = data;
     try {
-      const reponse = await apiService.post("/users", {
-        name,
-        email,
-        password,
-      });
-      if (reponse.success) {
-        enqueueSnackbar("Register Successlly", {variant:"success"})
-        setCurrentTab("LOGIN");
-      }
+      await auth.register(
+        { name, email, password },
+        enqueueSnackbar,
+        setCurrentTab
+      );
     } catch (error) {
       reset();
       setError("responseError", error);
-      enqueueSnackbar(error.message, {variant:"error"})
+      enqueueSnackbar(error.message, { variant: "error" });
     }
   };
 

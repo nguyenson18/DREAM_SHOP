@@ -33,7 +33,7 @@ const slice = createSlice({
 export default slice.reducer;
 
 export const updateUserProfile =
-  ({ userId, email, name, phone, address, avatarUrl }) =>
+  ({ userId, email, name, phone, address, avatarUrl }, enqueueSnackbar) =>
   async (dispatch) => {
     try {
       const data = {
@@ -49,9 +49,9 @@ export const updateUserProfile =
       }
       const response = await apiService.put(`/users/update/${userId}`, data);
       dispatch(slice.actions.updateUserProfileSuccess(response.data));
-      toast.success("Update profile successfully");
+      enqueueSnackbar("Update profile successfully", { variant: "success" });
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
-      toast.error(error.message);
+      enqueueSnackbar(error.message, { variant: "error" });
     }
   };

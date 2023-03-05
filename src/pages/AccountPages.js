@@ -1,6 +1,6 @@
 import { LoadingButton } from "@mui/lab";
 import { Box, Card, Grid, Stack, Typography } from "@mui/material";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FormProvider, FTextField } from "../componets/form";
 import FUploadAvatar from "../componets/form/FUploadAvatar";
@@ -8,10 +8,18 @@ import { fDate } from "../utils/formatTime";
 import useAuth from "../hooks/useAuth";
 import { Container } from "@mui/system";
 import { useDispatch } from "react-redux/es";
-import { updateUserProfile } from "../freature/userSlice";
+import { updateUserProfile } from "../features/userSlice";
+import { useSnackbar } from "notistack";
 
 function AccountPages() {
+  const [isSubmit, setIsSubmit] = useState(false);
   const { user } = useAuth();
+  const { enqueueSnackbar } = useSnackbar();
+  useEffect(() => {
+    setValue("name", user?.name);
+    setValue("email", user?.email);
+    setValue("phone", user?.phone);
+  }, [user]);
 
   let defaultValues = {
     name: user?.name || "",
@@ -32,8 +40,8 @@ function AccountPages() {
   } = methods;
 
   const onSubmit = async (data) => {
-    console.log(data);
-    dispatch(updateUserProfile({ userId: user._id, ...data }));
+    setIsSubmit(!isSubmit);
+    dispatch(updateUserProfile({ userId: user._id, ...data }, enqueueSnackbar));
   };
 
   const handleDrop = useCallback(
@@ -111,6 +119,13 @@ function AccountPages() {
                   type="submit"
                   variant="contained"
                   loading={isSubmitting}
+                  sx={{
+                    backgroundColor: "#001c44",
+                    "&:hover": {
+                      backgroundColor: "#001c44",
+                      opacity: 0.8,
+                    },
+                  }}
                 >
                   Save Changes
                 </LoadingButton>

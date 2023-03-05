@@ -4,9 +4,15 @@ import {
   Avatar,
   Badge,
   Box,
+  Button,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Divider,
   IconButton,
+  InputAdornment,
   Menu,
   MenuItem,
   Toolbar,
@@ -26,17 +32,38 @@ import styled from "@emotion/styled";
 import "./mainHeader.scss";
 import useAuth from "../hooks/useAuth";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
+import { FormProvider, FTextField } from "../componets/form";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useForm } from "react-hook-form";
+
+const defaultValues = {
+  currentpassword: "",
+  password: "",
+  passwordConfirmation: "",
+};
 
 function MainHeader() {
   const [anchorElAvatar, setAnchorElAvatar] = useState(null);
   const [anchorElMobile, setAnchorElMobile] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordConfirmation, setPasswordConfirmation] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState(false);
+
+  const [open, setOpen] = useState(false);
+
   const auth = useAuth();
   const navigate = useNavigate();
   const { isInitialized, isAuthenticated, logout } = auth;
-  console.log(auth);
   const isMenuOpen = Boolean(anchorElAvatar);
   const isMobileOpen = Boolean(anchorElMobile);
-
+  const methods = useForm({ defaultValues });
+  const {
+    handleSubmit,
+    reset,
+    setError,
+    formState: { errors, isSubmitted },
+  } = methods;
   const handleProfileMenuOpen = (event) => {
     setAnchorElAvatar(event.currentTarget);
     setAnchorElMobile(null);
@@ -64,7 +91,14 @@ function MainHeader() {
       console.error(error);
     }
   };
-
+  const handleOpenDailog = () => {
+    setAnchorElAvatar(null);
+    setOpen(true);
+  };
+  const handleCloseDailog = () => {
+    setOpen(false);
+  };
+  const onSubmit = () => {};
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -100,19 +134,13 @@ function MainHeader() {
         component={RouterLink}
         sx={{ mx: 1 }}
       >
-        My Profile
-      </MenuItem>
-
-      <MenuItem
-        onClick={handleMenuClose}
-        to="/account"
-        component={RouterLink}
-        sx={{ mx: 1 }}
-      >
         Account Settings
       </MenuItem>
 
       <Divider sx={{ borderStyle: "dashed" }} />
+      <MenuItem onClick={handleOpenDailog} sx={{ mx: 1 }}>
+        Change the password
+      </MenuItem>
 
       <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
         Logout
@@ -270,6 +298,103 @@ function MainHeader() {
           </div>
         </Container>
       </div>
+
+      <Dialog
+        open={open}
+        onClose={handleCloseDailog}
+        sx={{ width: "32em", margin: "0 auto" }}
+      >
+        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+          <DialogTitle>Change the password</DialogTitle>
+          <DialogContent>
+            <FTextField
+              sx={{ marginTop: "10px" }}
+              name="currentpassword"
+              label="Current Password"
+              type={showPassword ? "text" : "password"}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setCurrentPassword(!currentPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? (
+                        <VisibilityIcon />
+                      ) : (
+                        <VisibilityOffIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <FTextField
+              sx={{ my: 3 }}
+              name="password"
+              label="New Password"
+              type={showPassword ? "text" : "password"}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? (
+                        <VisibilityIcon />
+                      ) : (
+                        <VisibilityOffIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <FTextField
+              sx={{ marginBottom: "10px" }}
+              name="passwordConfirmation"
+              label="passwordConfirmation"
+              type={passwordConfirmation ? "text" : "password"}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() =>
+                        setPasswordConfirmation(!passwordConfirmation)
+                      }
+                      edge="end"
+                    >
+                      {passwordConfirmation ? (
+                        <VisibilityIcon />
+                      ) : (
+                        <VisibilityOffIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              sx={{ border: "1px soild #001c44" }}
+              variant="outlined"
+              onClick={handleCloseDailog}
+            >
+              huy bo
+            </Button>
+            <Button
+              sx={{ backgroundColor: "#001c44" }}
+              variant="contained"
+              onClick={handleCloseDailog}
+              autoFocus
+            >
+              yes
+            </Button>
+          </DialogActions>
+        </FormProvider>
+      </Dialog>
     </Box>
   );
 }

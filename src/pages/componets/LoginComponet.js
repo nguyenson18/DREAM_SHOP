@@ -39,7 +39,7 @@ function LoginComponet({ setCurrentTab }) {
   const [showPassword, setShowPassword] = useState(false);
   const auth = useAuth();
   const navigate = useNavigate();
-  const { enqueueSnackbar} = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const methods = useForm({
     defaultValues,
     resolver: yupResolver(schemaLogin),
@@ -61,7 +61,7 @@ function LoginComponet({ setCurrentTab }) {
     } catch (error) {
       reset();
       setError("responseError", error);
-      enqueueSnackbar("login error", { variant: "error" });
+      enqueueSnackbar(error.message, { variant: "error" });
     }
   };
   return (
