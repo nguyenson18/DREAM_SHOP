@@ -23,6 +23,7 @@ import { Link as RouterLink, Navigate, useNavigate } from "react-router-dom";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import AvatarImg from "../img/avatar.jpg";
 import Logo from "../componets/Logo";
+import LogoWhite from "../componets/LogoWhite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import "./mainHeader.scss";
 import useAuth from "../hooks/useAuth";
@@ -223,14 +224,20 @@ function MainHeader() {
   );
   return (
     <Box sx={{ backgroundColor: "rgb(255, 255, 255)" }}>
-      <AppBar position="static" color="transparent">
+      <AppBar
+        position="fixed"
+        color="transparent"
+        sx={{ backgroundColor: "#001c44" }}
+      >
         <Toolbar>
-          <Logo sx={{ margin: "10px 0", width: "60px", paddingRight: "7px" }} />
+          <LogoWhite
+            sx={{ margin: "10px 0", width: "60px", paddingRight: "7px" }}
+          />
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{ display: { xs: "none", sm: "block" }, color: "white" }}
           >
             DREAM SHOP
           </Typography>
@@ -244,7 +251,7 @@ function MainHeader() {
               color="inherit"
             >
               <Badge badgeContent={0} color="error">
-                <ShoppingCartIcon sx={{ color: "#020659" }} />
+                <ShoppingCartIcon sx={{ color: "white", fontSize: "30px" }} />
               </Badge>
             </IconButton>
             {auth?.isAuthenticated ? (
@@ -252,7 +259,7 @@ function MainHeader() {
                 <Avatar
                   alt={auth?.user?.name}
                   src={auth?.user?.avatarUrl}
-                  sx={{ width: 40, height: 40 }}
+                  sx={{ width: 45, height: 45 }}
                 />
               </IconButton>
             ) : (
@@ -290,8 +297,10 @@ function MainHeader() {
           width: "100%",
           boxShadow: "rgb(43 52 69 / 10%) 0px 4px 16px",
           justifyContent: "space-around",
+          position: "relative",
+          paddingTop: "80px",
         }}
-      >
+      > 
         <Container
           style={{
             display: "flex",
@@ -338,10 +347,20 @@ function MainHeader() {
         sx={{ width: "32em", margin: "0 auto" }}
       >
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-          <DialogTitle>Change the password</DialogTitle>
+          <DialogTitle
+            sx={{
+              backgroundColor: "#001c44",
+              color: "white",
+              textAlign: "center",
+              borderBottomLeftRadius: "5px",
+              borderBottomRightRadius: "5px",
+            }}
+          >
+            Change the password
+          </DialogTitle>
           <DialogContent>
             <FTextField
-              sx={{ marginTop: "10px" }}
+              sx={{ marginTop: "20px" }}
               name="password"
               label="Current Password"
               type={password ? "text" : "password"}
