@@ -124,7 +124,9 @@ function AccountPages() {
                   sx={{
                     backgroundColor: "#001c44",
                     "&:hover": {
-                      backgroundColor: "#001c44",
+                      backgroundColor: "tomato",
+                      color: "white",
+                      fontWeight: 600,
                       opacity: 0.8,
                     },
                   }}

@@ -127,10 +127,10 @@ function LoginComponet({ setCurrentTab }) {
         </LoadingButton>
         <Divider>Or</Divider>
         <Box sx={{ my: 2, display: "flex", justifyContent: "space-between" }}>
-          <Button sx={{ width: "40%" }} variant="contained">
+          <Button sx={{ width: "40%",backgroundColor: "#001c44" }} variant="contained">
             <FacebookIcon />
           </Button>
-          <Button sx={{ width: "40%" }} variant="contained">
+          <Button sx={{ width: "40%",backgroundColor: "#001c44" }} variant="contained">
             <GoogleIcon />
           </Button>
         </Box>

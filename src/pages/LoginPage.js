@@ -71,10 +71,11 @@ function LoginPage() {
             allowScrollButtonsMobile
             onChange={(e, value) => handleChangeTab(value)}
             style={{ marginBottom: "15px" }}
+            sx={{"& .css-1aquho2-MuiTabs-indicator":{backgroundColor:"#001c44"}}}
           >
             {PROFILE_TABS.map((tab) => (
               <Tab
-                style={{ width: "33.33%" }}
+                style={{ width: "33.33%", color: "#001c44" }}
                 disableRipple
                 key={tab.value}
                 value={tab.value}

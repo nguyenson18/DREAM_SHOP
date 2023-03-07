@@ -433,7 +433,7 @@ function MainHeader() {
               huy bo
             </Button>
             <LoadingButton
-              sx={{ backgroundColor: "#001c44" }}
+              sx={{ backgroundColor: "#001c44","&:hover": { backgroundColor: "#001c44",color:"white", opacity: 0.9 } }}
               variant="contained"
               type="submit"
               loading={isSubmitting}

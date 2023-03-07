@@ -51,7 +51,7 @@ function ProductCard({ product }) {
         <Button
           sx={{
             background: "#001c44",
-            "&:hover": { backgroundColor: "#001c44", opacity: 0.8 },
+            "&:hover": { backgroundColor: "tomato",color:"white", opacity: 0.8 },
           }}
           variant="contained"
         >

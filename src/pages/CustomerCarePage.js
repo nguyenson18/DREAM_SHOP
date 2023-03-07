@@ -120,9 +120,9 @@ function CustomerCarePage() {
           backgroundColor: "tomato",
           color: "white",
           height: "150px",
-          display:"flex",
-          alignItems:"center",
-          justifyContent:"center"
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <Box>
@@ -138,11 +138,15 @@ function CustomerCarePage() {
             sx={{
               marginTop: "10px",
               background: "#001c44",
-              "&:hover": { backgroundColor: "#001c44", opacity: 0.9 },
+              "&:hover": {
+                backgroundColor: "white",
+                color: "#001c44",
+                opacity: 0.9,
+              },
             }}
             variant="contained"
           >
-            Trò chuyện ngay
+            <Typography>Trò chuyện ngay</Typography>
           </Button>
         </Box>
       </Box>
