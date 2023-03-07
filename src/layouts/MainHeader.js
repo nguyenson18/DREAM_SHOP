@@ -253,6 +253,7 @@ function MainHeader() {
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
+              onClick={() => navigate("/checkout")}
             >
               <Badge badgeContent={0} color="error">
                 <ShoppingCartIcon sx={{ color: "white", fontSize: "30px" }} />
@@ -317,28 +318,36 @@ function MainHeader() {
             className="link-effect-3"
             style={{ display: "flex", alignItems: "center" }}
           >
-            <a style={{color:"#001c44"}} href="/" data-hover="Home">
+            <a style={{ color: "#001c44" }} href="/" data-hover="Home">
               Home
             </a>
             <Divider
               orientation="vertical"
               style={{ height: "30px", margin: "0 10px" }}
             />
-            <a style={{color:"#001c44"}} href="/checkout" data-hover="Checkout">
+            <a
+              style={{ color: "#001c44" }}
+              href="/checkout"
+              data-hover="Checkout"
+            >
               Checkout
             </a>
             <Divider
               orientation="vertical"
               style={{ height: "30px", margin: "0 10px" }}
             />
-            <a style={{color:"#001c44"}} href="/order" data-hover="Order">
+            <a style={{ color: "#001c44" }} href="/order" data-hover="Order">
               Order
             </a>
             <Divider
               orientation="vertical"
               style={{ height: "30px", margin: "0 10px" }}
             />
-            <a style={{color:"#001c44"}} href="/customrcare" data-hover="CustomerCare">
+            <a
+              style={{ color: "#001c44" }}
+              href="/customrcare"
+              data-hover="CustomerCare"
+            >
               CustomerCare
             </a>
           </div>
@@ -426,14 +435,25 @@ function MainHeader() {
           </DialogContent>
           <DialogActions>
             <Button
-              sx={{ border: "1px soild #001c44" }}
+              sx={{
+                border: " 1px solid tomato ",
+                color: "tomato",
+                "&:hover": { color: "tomato", border: " 1px solid tomato " },
+              }}
               variant="outlined"
               onClick={handleCloseDailog}
             >
               huy bo
             </Button>
             <LoadingButton
-              sx={{ backgroundColor: "#001c44","&:hover": { backgroundColor: "#001c44",color:"white", opacity: 0.9 } }}
+              sx={{
+                backgroundColor: "#001c44",
+                "&:hover": {
+                  backgroundColor: "#001c44",
+                  color: "white",
+                  opacity: 0.9,
+                },
+              }}
               variant="contained"
               type="submit"
               loading={isSubmitting}
