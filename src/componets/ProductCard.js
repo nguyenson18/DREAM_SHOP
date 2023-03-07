@@ -10,11 +10,18 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 import { fCurrency } from "../utils/numberFormat";
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
+  const auth = useAuth();
 
+  const handleAddToCard = () => {
+    if (!auth?.isAuthenticated) {
+      navigate("/login");
+    }
+  };
   return (
     <Card>
       <CardActionArea onClick={() => navigate(`/products/${product.id}`)}>
@@ -51,11 +58,16 @@ function ProductCard({ product }) {
         <Button
           sx={{
             background: "#001c44",
-            "&:hover": { backgroundColor: "tomato",color:"white", opacity: 0.8 },
+            "&:hover": {
+              backgroundColor: "tomato",
+              color: "white",
+              opacity: 0.8,
+            },
           }}
           variant="contained"
+          onClick={handleAddToCard}
         >
-          Add to Cart
+          Add to Card
         </Button>
       </CardActions>
     </Card>
