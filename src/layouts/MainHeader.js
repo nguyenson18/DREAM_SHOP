@@ -318,7 +318,12 @@ function MainHeader() {
             className="link-effect-3"
             style={{ display: "flex", alignItems: "center" }}
           >
-            <a style={{ color: "#001c44" }} href="/" data-hover="Home">
+            <a
+              style={{ color: "#001c44" }}
+              onClick={() => navigate("/")}
+              // href="/"
+              data-hover="Home"
+            >
               Home
             </a>
             <Divider
@@ -327,7 +332,8 @@ function MainHeader() {
             />
             <a
               style={{ color: "#001c44" }}
-              href="/checkout"
+              onClick={() => navigate("/checkout")}
+              // href="/checkout"
               data-hover="Checkout"
             >
               Checkout
@@ -336,7 +342,12 @@ function MainHeader() {
               orientation="vertical"
               style={{ height: "30px", margin: "0 10px" }}
             />
-            <a style={{ color: "#001c44" }} href="/order" data-hover="Order">
+            <a
+              style={{ color: "#001c44" }}
+              onClick={() => navigate("/order")}
+              // href="/order"
+              data-hover="Order"
+            >
               Order
             </a>
             <Divider
@@ -345,7 +356,8 @@ function MainHeader() {
             />
             <a
               style={{ color: "#001c44" }}
-              href="/customrcare"
+              // href="/customrcare"
+              onClick={() => navigate("/customrcare")}
               data-hover="CustomerCare"
             >
               CustomerCare
