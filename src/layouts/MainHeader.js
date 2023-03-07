@@ -1,5 +1,4 @@
 import {
-  alpha,
   AppBar,
   Avatar,
   Badge,
@@ -35,14 +34,17 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSnackbar } from "notistack";
+import { LoadingButton } from "@mui/lab";
 
-const schemaChangePassword = Yup.object().shape({
-  password: Yup.string().required(""),
-  changePassword: Yup.string().required("Change Password is required"),
-  passwordConfirmation: Yup.string()
-    .required()
-    .oneOf([Yup.ref("changePassword")], "Password must match"),
-});
+const schemaChangePassword = Yup.object()
+  .shape({
+    password: Yup.string().required(""),
+    changePassword: Yup.string().required("Change Password is required"),
+    passwordConfirmation: Yup.string()
+      .required()
+      .oneOf([Yup.ref("changePassword")], "Password must match"),
+  })
+  .required();
 
 const defaultValues = {
   password: "",
@@ -71,7 +73,8 @@ function MainHeader() {
     handleSubmit,
     reset,
     setError,
-    formState: { errors, isSubmitted },
+    clearErrors,
+    formState: { errors, isSubmitting },
   } = methods;
 
   const handleProfileMenuOpen = (event) => {
@@ -105,11 +108,12 @@ function MainHeader() {
     setAnchorElAvatar(null);
     setOpen(true);
   };
-  const handleCloseDailog = () => {
+  const handleCloseDailog = async () => {
     setOpen(false);
     setNewPassword(false);
     setPassword(false);
     setPasswordConfirmation(false);
+    clearErrors();
   };
   const onSubmit = async (data) => {
     const { password, changePassword } = data;
@@ -283,7 +287,7 @@ function MainHeader() {
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              <MoreIcon />
+              <MoreIcon sx={{ color: "white" }} />
             </IconButton>
           </Box>
         </Toolbar>
@@ -300,7 +304,7 @@ function MainHeader() {
           position: "relative",
           paddingTop: "80px",
         }}
-      > 
+      >
         <Container
           style={{
             display: "flex",
@@ -313,28 +317,28 @@ function MainHeader() {
             className="link-effect-3"
             style={{ display: "flex", alignItems: "center" }}
           >
-            <a href="/" data-hover="Home">
+            <a style={{color:"#001c44"}} href="/" data-hover="Home">
               Home
             </a>
             <Divider
               orientation="vertical"
               style={{ height: "30px", margin: "0 10px" }}
             />
-            <a href="/checkout" data-hover="Checkout">
+            <a style={{color:"#001c44"}} href="/checkout" data-hover="Checkout">
               Checkout
             </a>
             <Divider
               orientation="vertical"
               style={{ height: "30px", margin: "0 10px" }}
             />
-            <a href="/order" data-hover="Order">
+            <a style={{color:"#001c44"}} href="/order" data-hover="Order">
               Order
             </a>
             <Divider
               orientation="vertical"
               style={{ height: "30px", margin: "0 10px" }}
             />
-            <a href="/customrcare" data-hover="CustomerCare">
+            <a style={{color:"#001c44"}} href="/customrcare" data-hover="CustomerCare">
               CustomerCare
             </a>
           </div>
@@ -428,14 +432,15 @@ function MainHeader() {
             >
               huy bo
             </Button>
-            <Button
+            <LoadingButton
               sx={{ backgroundColor: "#001c44" }}
               variant="contained"
               type="submit"
+              loading={isSubmitting}
               autoFocus
             >
               yes
-            </Button>
+            </LoadingButton>
           </DialogActions>
         </FormProvider>
       </Dialog>

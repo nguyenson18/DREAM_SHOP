@@ -2,13 +2,23 @@ import {
   Box,
   Button,
   Card,
+  Collapse,
   Container,
+  Divider,
   FormControl,
+  IconButton,
   InputAdornment,
   InputLabel,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
   MenuItem,
+  Rating,
   Select,
+  Slider,
   Stack,
+  Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
@@ -18,16 +28,17 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useForm } from "react-hook-form";
 import SortIcon from "@mui/icons-material/Sort";
 import { useSnackbar } from "notistack";
+import ProductList from "../componets/ProductList";
+import { products } from "../jsonTest/productJson";
 
-const SORT_OPTIONS = [
-  { value: "featured", label: "Featured" },
-  { value: "newest", label: "Newest" },
-  { value: "priceDesc", label: "Price: High-Low" },
-  { value: "priceAsc", label: "Price: Low-High" },
-];
+import { RATING_OPTIONS, SORT_OPTIONS } from "../options/option";
+import CollapseFilter from "../componets/CollapseFilter";
 
 function HomePage() {
   const [sort, setSort] = useState("");
+  const [price, setPrice] = useState([0, 100]);
+  const [rating, useRating] = useState(0);
+
   const methods = useForm({});
   const {
     handleSubmit,
@@ -39,11 +50,64 @@ function HomePage() {
   const handleChangeSelect = (e) => {
     setSort(e.target.value);
   };
+  const handleChangePrice = (event, newValue) => {
+    console.log(event, newValue);
+    setPrice(newValue);
+  };
+  const handleChangeClear = () => {
+
+  }
   return (
     <Container sx={{ display: "flex", minHeight: "100vh", mt: 3 }}>
-      <Stack sx={{ width: "25%" }}>
-        <Card sx={{ maxWidth: "100%", textAlign: "center" }}>
-          <Button variant="outlined" startIcon={<ClearAllIcon />}>
+      <Stack sx={{ paddingRight: "24px", width: 270 }}>
+        <Card sx={{ maxWidth: "100%", textAlign: "center", padding: "10px" }}>
+          <CollapseFilter />
+          <Divider />
+          <Box>
+            <Typography sx={{ marginTop: "10px", fontWeight: 600 }}>
+              Price
+            </Typography>
+            <Slider
+              aria-label="Volume"
+              sx={{
+                width: "100%",
+                marginTop: "10px",
+                marginBottom: "10px",
+                color: "#001c44",
+              }}
+              value={price}
+              onChange={handleChangePrice}
+            />
+          </Box>
+          <Divider />
+
+          <Typography sx={{ marginTop: "10px", fontWeight: 600 }}>
+            Rating
+          </Typography>
+
+          {RATING_OPTIONS.map((rating) => (
+            <Button
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <Rating name="simple-controlled" value={rating?.value} readOnly />
+              <Typography sx={{ color: "#001c44" }}>{rating?.title}</Typography>
+            </Button>
+          ))}
+          <Button
+            sx={{
+              marginTop: "15px",
+              width: "100%",
+              border: " 1px solid tomato ",
+              color:"tomato"
+            }}
+            variant="outlined"
+            startIcon={<ClearAllIcon sx={{color:"tomato"}} />}
+            onChange={handleChangeClear}
+          >
             Clear All
           </Button>
         </Card>
@@ -95,6 +159,7 @@ function HomePage() {
             </Box>
           </Stack>
         </FormProvider>
+        <ProductList products={products} />
       </Stack>
     </Container>
   );

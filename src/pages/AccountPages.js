@@ -7,13 +7,15 @@ import FUploadAvatar from "../componets/form/FUploadAvatar";
 import { fDate } from "../utils/formatTime";
 import useAuth from "../hooks/useAuth";
 import { Container } from "@mui/system";
-import { useDispatch } from "react-redux/es";
+import { useDispatch, useSelector } from "react-redux/es";
 import { updateUserProfile } from "../features/userSlice";
 import { useSnackbar } from "notistack";
 
 function AccountPages() {
   const [isSubmit, setIsSubmit] = useState(false);
   const { user } = useAuth();
+  const { isLoading } = useSelector((state) => state.user);
+  console.log(isLoading);
   const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     setValue("name", user?.name);
@@ -118,7 +120,7 @@ function AccountPages() {
                 <LoadingButton
                   type="submit"
                   variant="contained"
-                  loading={isSubmitting}
+                  loading={isSubmitting || isLoading}
                   sx={{
                     backgroundColor: "#001c44",
                     "&:hover": {
