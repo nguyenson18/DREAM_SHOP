@@ -95,7 +95,7 @@ function MainFooter() {
           <StyledDiv sx={{ justifyContent: "start", marginTop: "5px" }}>
             <EmailIcon sx={{ marginRight: "15px", cursor: "pointer" }} />
             <div>
-              <Typography>Email</Typography>
+              <Typography sx={{}}>Email</Typography>
               <Typography>dreamvn@gmail.com</Typography>
             </div>
           </StyledDiv>
