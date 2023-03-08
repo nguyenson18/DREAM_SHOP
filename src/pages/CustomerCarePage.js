@@ -126,13 +126,12 @@ function CustomerCarePage() {
         }}
       >
         <Box>
-          <Typography variant="h5">Bạn vẫn cần trợ giúp ?</Typography>
+          <Typography variant="h5">You still need help ?</Typography>
           <Typography>
-            DREAM luôn hỗ trợ bất cứ khi nào bạn cần (24/7).
+            DREAM always support whenever you need (24/7).
           </Typography>
           <Typography>
-            Bạn có thể chọn "Trò chuyện ngay" bên dưới hoặc gọi số hotline
-            1900123456
+            You can select "Chat Now" below or call the hotline 1900123456
           </Typography>
           <Button
             sx={{
@@ -146,7 +145,7 @@ function CustomerCarePage() {
             }}
             variant="contained"
           >
-            <Typography>Trò chuyện ngay</Typography>
+            <Typography>Chat Now</Typography>
           </Button>
         </Box>
       </Box>

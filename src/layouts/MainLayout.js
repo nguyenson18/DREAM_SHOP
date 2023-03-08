@@ -10,11 +10,14 @@ import MainFooter from "./MainFooter";
 import { Stack } from "@mui/material";
 
 function MainLayout() {
+  const location = useLocation()
+  console.log(location)
   return (
     <Stack sx={{ minHeight: "100vh" }}>
       <MainHearder />
       <Outlet />
-      <MainFooter />
+      {location?.pathname != "/account" && (<MainFooter />)}
+      
     </Stack>
   );
 }

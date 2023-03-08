@@ -128,7 +128,7 @@ function ProductCard({ product }) {
             </Typography>
             <Typography
               variant="body2"
-              color="text.secondary"
+              color="#001c44"
               style={{ marginLeft: "5px", fontWeight: 600, fontSize: "16px" }}
             >
               {fCurrency(product.price)}
