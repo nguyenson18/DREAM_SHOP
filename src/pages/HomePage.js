@@ -162,7 +162,7 @@ function HomePage() {
         <Pagination
           sx={{
             my: 2,
-            "& .css-wjh20t-MuiPagination-ul": { justifyContent: "end" },
+            "& .css-wjh20t-MuiPagination-ul": { justifyContent: "center" },
           }}
           count={10}
         />
