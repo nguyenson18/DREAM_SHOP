@@ -2,17 +2,11 @@ import {
   Box,
   Button,
   Card,
-  Collapse,
   Container,
   Divider,
   FormControl,
-  IconButton,
   InputAdornment,
   InputLabel,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   MenuItem,
   Pagination,
   Rating,
@@ -52,14 +46,13 @@ function HomePage() {
     setSort(e.target.value);
   };
   const handleChangePrice = (event, newValue) => {
-    console.log(event, newValue);
     setPrice(newValue);
   };
   const handleChangeClear = () => {};
   return (
     <Container sx={{ display: "flex", minHeight: "100vh", mt: 3 }}>
-      <Stack sx={{ paddingRight: "24px", width: 270 }}>
-        <Card sx={{ maxWidth: "100%", textAlign: "center", padding: "10px" }}>
+      <Stack sx={{ paddingRight: "24px", width: 300 }}>
+        <Card sx={{ width: "100%", textAlign: "center", padding: "10px" }}>
           <CollapseFilter />
           <Divider />
           <Box>

@@ -117,7 +117,7 @@ function ProductCard({ product }) {
           alignItems="center"
           sx={{ display: "block" }}
         >
-          <Rating name="read-only" value={3.5} readOnly size="small" />
+          <Rating name="read-only" value={3.5} readOnly size="small" sx={{my: 0.5}}/>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Typography
               variant="body2"

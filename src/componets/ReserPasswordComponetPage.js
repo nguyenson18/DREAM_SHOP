@@ -1,17 +1,16 @@
 import { Alert, Container, Link, Stack } from "@mui/material";
 import React from "react";
-import { FormProvider, FTextField } from "../../componets/form";
-import { Link as RouterLink } from "react-router-dom";
+import { FormProvider, FTextField } from "./form";
 import { LoadingButton } from "@mui/lab";
 import { useForm } from "react-hook-form";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 import { useSnackbar } from "notistack";
 
 const defaultValues = {
   email: "",
 };
 
-function ReserPasswordComponet({ setCurrentTab }) {
+function ReserPasswordComponetPage({ setCurrentTab }) {
   const methods = useForm({ defaultValues });
   const auth = useAuth();
   const { enqueueSnackbar } = useSnackbar();
@@ -65,4 +64,4 @@ function ReserPasswordComponet({ setCurrentTab }) {
   );
 }
 
-export default ReserPasswordComponet;
+export default ReserPasswordComponetPage;

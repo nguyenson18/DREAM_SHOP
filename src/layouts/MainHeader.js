@@ -235,7 +235,7 @@ function MainHeader() {
       >
         <Toolbar>
           <LogoWhite
-            sx={{ margin: "10px 0", width: "60px", paddingRight: "7px" }}
+            sx={{ margin: "10px 0", width: "50px", paddingRight: "10px" }}
           />
           <Typography
             variant="h6"

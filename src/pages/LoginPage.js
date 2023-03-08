@@ -13,11 +13,11 @@ import LogoWhite from "../componets/LogoWhite";
 import "./Login.css";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import RegisterPage from "./componets/RegisterComponet";
-import ReserPasswordPage from "./componets/ReserPasswordComponet";
 import { capitalCase } from "change-case";
-import LoginComponet from "./componets/LoginComponet";
 import Logo from "../componets/Logo";
+import LoginComponetPage from "../componets/LoginComponetPage";
+import RegisterComponetPage from "../componets/RegisterComponetPage";
+import ReserPasswordComponetPage from "../componets/ReserPasswordComponetPage";
 
 function LoginPage() {
   const [currentTab, setCurrentTab] = useState("LOGIN");
@@ -30,17 +30,17 @@ function LoginPage() {
     {
       value: "LOGIN",
       icon: <AccountBoxIcon sx={{ fontSize: 24 }} />,
-      component: <LoginComponet setCurrentTab={setCurrentTab} />,
+      component: <LoginComponetPage setCurrentTab={setCurrentTab} />,
     },
     {
       value: "REGISTER",
       icon: <PeopleAltIcon sx={{ fontSize: 24 }} />,
-      component: <RegisterPage setCurrentTab={setCurrentTab} />,
+      component: <RegisterComponetPage setCurrentTab={setCurrentTab} />,
     },
     {
       value: "RESER PASSWORD",
       icon: <PeopleAltIcon sx={{ fontSize: 24 }} />,
-      component: <ReserPasswordPage setCurrentTab={setCurrentTab} />,
+      component: <ReserPasswordComponetPage setCurrentTab={setCurrentTab} />,
     },
   ];
 
@@ -71,7 +71,11 @@ function LoginPage() {
             allowScrollButtonsMobile
             onChange={(e, value) => handleChangeTab(value)}
             style={{ marginBottom: "15px" }}
-            sx={{"& .css-1aquho2-MuiTabs-indicator":{backgroundColor:"#001c44"}}}
+            sx={{
+              "& .css-1aquho2-MuiTabs-indicator": {
+                backgroundColor: "#001c44",
+              },
+            }}
           >
             {PROFILE_TABS.map((tab) => (
               <Tab

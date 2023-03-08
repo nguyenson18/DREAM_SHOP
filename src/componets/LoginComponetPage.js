@@ -1,91 +1,85 @@
 import {
   Alert,
+  Box,
+  Button,
   Container,
+  Divider,
   IconButton,
   InputAdornment,
   Link,
   Stack,
 } from "@mui/material";
-import React, { useState } from "react";
+import { FCheckbox, FormProvider, FTextField } from "./form";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { FCheckbox, FormProvider, FTextField } from "../../componets/form";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { LoadingButton } from "@mui/lab";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import useAuth from "../../hooks/useAuth";
+import { LoadingButton } from "@mui/lab";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import GoogleIcon from "@mui/icons-material/Google";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { toast, ToastContainer } from "react-toastify";
-import apiService from "../../app/apiService";
+import useAuth from "../hooks/useAuth";
 import { useSnackbar } from "notistack";
 
-const schemaRegister = Yup.object().shape({
-  name: Yup.string().required("Name is required"),
+const schemaLogin = Yup.object().shape({
   email: Yup.string().email("Invalid Email").required("Email is required"),
   password: Yup.string().required("Password is required"),
-  passwordConfirmation: Yup.string()
-    .required()
-    .oneOf([Yup.ref("password")], "Password must match"),
 });
 
 const defaultValues = {
   email: "",
   password: "",
-  name: "",
-  passwordConfirmation: "",
   remember: true,
 };
 
-function RegisterComponet({ setCurrentTab }) {
+function LoginComponetPage({ setCurrentTab }) {
   const [showPassword, setShowPassword] = useState(false);
-  const [passwordConfirmation, setPasswordConfirmation] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
   const auth = useAuth();
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const methods = useForm({
     defaultValues,
-    resolver: yupResolver(schemaRegister),
+    resolver: yupResolver(schemaLogin),
   });
 
   const {
     handleSubmit,
-    reset,
     setError,
+    reset,
     formState: { errors, isSubmitting },
   } = methods;
 
   const onSubmit = async (data) => {
-    const { name, email, password } = data;
+    const { email, password } = data;
     try {
-      await auth.register(
-        { name, email, password },
-        enqueueSnackbar,
-        setCurrentTab
-      );
+      await auth.login({ email, password }, () => {
+        navigate("/");
+      });
     } catch (error) {
       reset();
       setError("responseError", error);
       enqueueSnackbar(error.message, { variant: "error" });
     }
   };
-
   return (
     <Container
       maxWidth="xs"
       style={{ marginBottom: "20px", marginTop: "10px" }}
     >
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing={3} sx={{ my: 2 }}>
+        <Stack spacing={3}>
           {!!errors.responseError && (
             <Alert severity="error">{errors.responseError.message}</Alert>
           )}
           <Alert severity="info">
-            Already have an account?{" "}
-            <Link variant="subtitle2" onClick={() => setCurrentTab("LOGIN")}>
-              Sing in
+            Don’t have an account?{" "}
+            <Link variant="subtitle2" onClick={() => setCurrentTab("REGISTER")}>
+              Get started
             </Link>
           </Alert>
-          <FTextField variant="standard" name="name" label="Full Name" />
+
           <FTextField variant="standard" name="email" label="Email address" />
 
           <FTextField
@@ -106,30 +100,18 @@ function RegisterComponet({ setCurrentTab }) {
               ),
             }}
           />
-          <FTextField
-            name="passwordConfirmation"
-            label="passwordConfirmation"
-            variant="standard"
-            type={passwordConfirmation ? "text" : "password"}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() =>
-                      setPasswordConfirmation(!passwordConfirmation)
-                    }
-                    edge="end"
-                  >
-                    {passwordConfirmation ? (
-                      <VisibilityIcon />
-                    ) : (
-                      <VisibilityOffIcon />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+        </Stack>
+
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          sx={{ my: 2 }}
+        >
+          <FCheckbox name="remember" label="Remember me" />
+          <Link component={RouterLink} variant="subtitle2" to="/">
+            Forgot password?
+          </Link>
         </Stack>
 
         <LoadingButton
@@ -140,11 +122,20 @@ function RegisterComponet({ setCurrentTab }) {
           style={{ marginBottom: "10px", backgroundColor: "tomato" }}
           loading={isSubmitting}
         >
-          REGISTER
+          LOGIN
         </LoadingButton>
+        <Divider>Or</Divider>
+        <Box sx={{ my: 2, display: "flex", justifyContent: "space-between" }}>
+          <Button sx={{ width: "40%",backgroundColor: "#001c44" }} variant="contained">
+            <FacebookIcon />
+          </Button>
+          <Button sx={{ width: "40%",backgroundColor: "#001c44" }} variant="contained">
+            <GoogleIcon />
+          </Button>
+        </Box>
       </FormProvider>
     </Container>
   );
 }
 
-export default RegisterComponet;
+export default LoginComponetPage;
