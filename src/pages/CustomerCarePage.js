@@ -76,7 +76,7 @@ function CustomerCarePage() {
 
       <Typography
         variant="h5"
-        sx={{ my: "20px", color: "#001c44", fontWeight: 500 }}
+        sx={{ my: "20px", color: "#001c44", fontWeight: 600 }}
       >
         Chủ đề
       </Typography>
