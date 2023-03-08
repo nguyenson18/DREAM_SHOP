@@ -1,16 +1,16 @@
-import { Grid } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import React from 'react'
 import ProductCard from "./ProductCard"
 
 function ProductList({products}) {
   return (
-    <Grid container spacing={2} mt={1}>
+    <Box container sx={{display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", my:2}}>
       {products.map((product) => (
-        <Grid item key={product.id} xs={6} md={4} lg={3}>
+        <Box item key={product.id}sx={{my:2}} >
           <ProductCard product={product} />
-        </Grid>
+        </Box>
       ))}
-    </Grid>
+    </Box>
   )
 }
 

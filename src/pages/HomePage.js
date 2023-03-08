@@ -14,6 +14,7 @@ import {
   ListItemIcon,
   ListItemText,
   MenuItem,
+  Pagination,
   Rating,
   Select,
   Slider,
@@ -54,9 +55,7 @@ function HomePage() {
     console.log(event, newValue);
     setPrice(newValue);
   };
-  const handleChangeClear = () => {
-
-  }
+  const handleChangeClear = () => {};
   return (
     <Container sx={{ display: "flex", minHeight: "100vh", mt: 3 }}>
       <Stack sx={{ paddingRight: "24px", width: 270 }}>
@@ -102,10 +101,10 @@ function HomePage() {
               marginTop: "15px",
               width: "100%",
               border: " 1px solid tomato ",
-              color:"tomato"
+              color: "tomato",
             }}
             variant="outlined"
-            startIcon={<ClearAllIcon sx={{color:"tomato"}} />}
+            startIcon={<ClearAllIcon sx={{ color: "tomato" }} />}
             onChange={handleChangeClear}
           >
             Clear All
@@ -160,6 +159,13 @@ function HomePage() {
           </Stack>
         </FormProvider>
         <ProductList products={products} />
+        <Pagination
+          sx={{
+            my: 2,
+            "& .css-wjh20t-MuiPagination-ul": { justifyContent: "end" },
+          }}
+          count={10}
+        />
       </Stack>
     </Container>
   );
