@@ -145,7 +145,6 @@ function ProductCard({ product }) {
               color: "white",
               opacity: 0.8,
             },
-            marginTop: 1,
           }}
           variant="contained"
           onClick={handleAddToCard}
