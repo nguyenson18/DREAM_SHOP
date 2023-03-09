@@ -1,5 +1,6 @@
 import React from "react";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
+import { capitalCase } from "change-case";
 
 function DiscountNew({ product }) {
   return (
@@ -11,7 +12,7 @@ function DiscountNew({ product }) {
         marginTop: "5px",
       }}
     >
-      {product?.new && (
+      {product?.newProduct == "new" && (
         <span
           style={{
             height: "22px",
@@ -29,7 +30,7 @@ function DiscountNew({ product }) {
             justifyContent: "center",
           }}
         >
-          NEW
+          {capitalCase(product?.newProduct)}
         </span>
       )}
       {product?.discount && (
