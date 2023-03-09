@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useSnackbar } from "notistack";
-import { toast } from "react-toastify";
 import apiService from "../app/apiService";
 import { cloudinaryUpload } from "../utils/cloudinary";
 

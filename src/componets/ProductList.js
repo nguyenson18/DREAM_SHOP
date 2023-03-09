@@ -1,17 +1,25 @@
-import { Box } from '@mui/material'
-import React from 'react'
-import ProductCard from "./ProductCard"
+import { Box } from "@mui/material";
+import React from "react";
+import ProductCard from "./ProductCard";
 
-function ProductList({products}) {
+function ProductList({ products }) {
   return (
-    <Box container sx={{display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", my:2}}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "center",
+        flexWrap: "wrap",
+        my: 2,
+      }}
+    >
       {products.map((product) => (
-        <Box item key={product.id}sx={{my:2}} >
+        <Box key={product?._id} sx={{ my: 2 }}>
           <ProductCard product={product} />
         </Box>
       ))}
     </Box>
-  )
+  );
 }
 
-export default ProductList
+export default ProductList;

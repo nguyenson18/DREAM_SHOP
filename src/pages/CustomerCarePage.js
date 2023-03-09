@@ -27,7 +27,7 @@ function CustomerCarePage() {
   } = methods;
   const onSubmit = () => {};
   return (
-    <Box sx={{ textAlign: "center" }}>
+    <Box sx={{ textAlign: "center", paddingBottom: "318px" }}>
       <Box sx={{ backgroundColor: "tomato", height: "150px" }}>
         <Typography variant="h4" sx={{ color: "white", paddingTop: "10px" }}>
           Hello, DREAM shop can I help you ?
@@ -116,7 +116,7 @@ function CustomerCarePage() {
 
       <Box
         sx={{
-          my: 3,
+          marginTop:3,
           backgroundColor: "tomato",
           color: "white",
           height: "150px",

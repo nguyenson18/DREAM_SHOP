@@ -15,7 +15,6 @@ function AccountPages() {
   const [isSubmit, setIsSubmit] = useState(false);
   const { user } = useAuth();
   const { isLoading } = useSelector((state) => state.user);
-  console.log(isLoading);
   const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     setValue("name", user?.name);

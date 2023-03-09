@@ -20,9 +20,12 @@ const StyledDiv = styled("div")({
 function MainFooter() {
   return (
     <Box
-      style={{
+      sx={{
         backgroundColor: "#001c44",
         color: "white",
+        position:"absolute",
+        bottom:"0px",
+        width:"100%"
       }}
     >
       <Container

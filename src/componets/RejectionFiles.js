@@ -24,7 +24,7 @@ function RejectionFiles({ fileRejections }) {
             </Typography>
 
             {errors.map((error) => (
-              <Typography key={error.code} variant="caption" component="p">
+              <Typography key={error?.code} variant="caption" component="p">
                 - {error.message}
               </Typography>
             ))}

@@ -15,24 +15,34 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import { FormProvider, FTextField } from "../componets/form";
-import FSelect from "../componets/form/FSelect";
 import SearchIcon from "@mui/icons-material/Search";
 import { useForm } from "react-hook-form";
 import SortIcon from "@mui/icons-material/Sort";
-import { useSnackbar } from "notistack";
 import ProductList from "../componets/ProductList";
-import { products } from "../jsonTest/productJson";
 
 import { RATING_OPTIONS, SORT_OPTIONS } from "../options/option";
 import CollapseFilter from "../componets/CollapseFilter";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts } from "../features/productSlice";
+import LoadingScreen from "../componets/LoadingScreen";
 
 function HomePage() {
   const [sort, setSort] = useState("");
   const [price, setPrice] = useState([0, 100]);
   const [rating, useRating] = useState(0);
+  const [page, setPage] = useState(1);
+  const { isLoading, products, totalPages } = useSelector(
+    (state) => state.product
+  );
+  console.log(products, totalPages, isLoading);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllProducts({ page }));
+  }, [page]);
 
   const methods = useForm({});
   const {
@@ -49,8 +59,18 @@ function HomePage() {
     setPrice(newValue);
   };
   const handleChangeClear = () => {};
+
   return (
-    <Container sx={{ display: "flex", minHeight: "100vh", mt: 3 }}>
+    <Container
+      sx={{
+        display: "flex",
+        minHeight: "100vh",
+        mt: 3,
+        position: "relative",
+        paddingBottom: "400px",
+        maxWidth: "1500px !important",
+      }}
+    >
       <Stack sx={{ paddingRight: "24px", width: 300 }}>
         <Card sx={{ width: "100%", textAlign: "center", padding: "10px" }}>
           <CollapseFilter />
@@ -60,7 +80,7 @@ function HomePage() {
               Price
             </Typography>
             <Slider
-              aria-label="Volume"
+              getAriaLabel={() => "Money range"}
               sx={{
                 width: "100%",
                 marginTop: "10px",
@@ -79,6 +99,7 @@ function HomePage() {
 
           {RATING_OPTIONS.map((rating) => (
             <Button
+              key={rating?.value}
               sx={{
                 width: "100%",
                 display: "flex",
@@ -105,7 +126,7 @@ function HomePage() {
         </Card>
       </Stack>
 
-      <Stack sx={{ flexGrow: 1 }}>
+      <Stack sx={{ flexGrow: 1, position: "relative" }}>
         <FormProvider methods={methods}>
           <Stack
             spacing={2}
@@ -151,14 +172,22 @@ function HomePage() {
             </Box>
           </Stack>
         </FormProvider>
-        <ProductList products={products} />
-        <Pagination
-          sx={{
-            my: 2,
-            "& .css-wjh20t-MuiPagination-ul": { justifyContent: "center" },
-          }}
-          count={10}
-        />
+        {isLoading ? (
+          <LoadingScreen />
+        ) : (
+          <>
+            <ProductList products={products} />
+            <Pagination
+              sx={{
+                my: 2,
+                "& .css-wjh20t-MuiPagination-ul": { justifyContent: "center" },
+              }}
+              count={totalPages}
+              // page={totalPages}
+              onChange={(e, page) => setPage(page)}
+            />
+          </>
+        )}
       </Stack>
     </Container>
   );
