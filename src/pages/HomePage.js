@@ -183,7 +183,7 @@ function HomePage() {
                 "& .css-wjh20t-MuiPagination-ul": { justifyContent: "center" },
               }}
               count={totalPages}
-              // page={totalPages}
+              page={page}
               onChange={(e, page) => setPage(page)}
             />
           </>
