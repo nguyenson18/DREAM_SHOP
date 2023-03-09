@@ -29,7 +29,7 @@ function DetailPages() {
       setProduct(res);
     }
   }, [params]);
-  console.log(product);
+
   
   return (
     <Container sx={{ my: 5, position: "relative",paddingBottom: "400px", }}>
@@ -137,7 +137,7 @@ function DetailPages() {
                 color="text.secondary"
                 sx={{
                   textDecoration: "line-through",
-                  color: "rgb(145, 158, 171)",
+                  color: "rgb(110, 109, 109)",
                 }}
               >
                 {fCurrency(product?.priceSale)}

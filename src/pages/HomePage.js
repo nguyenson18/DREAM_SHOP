@@ -34,10 +34,11 @@ function HomePage() {
   const [price, setPrice] = useState([0, 100]);
   const [rating, useRating] = useState(0);
   const [page, setPage] = useState(1);
+  
   const { isLoading, products, totalPages } = useSelector(
     (state) => state.product
   );
-  console.log(products, totalPages, isLoading);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
