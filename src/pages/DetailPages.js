@@ -11,7 +11,6 @@ import {
 import { Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { products } from "../jsonTest/productJson";
 import { fCurrency } from "../utils/numberFormat";
 import NewReleasesIcon from "@mui/icons-material/NewReleases";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -19,16 +18,16 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 function DetailPages() {
   const [product, setProduct] = useState();
   const params = useParams();
-  useEffect(() => {
-    if (params?.id) {
-      const res = products.find((e) => {
-        if (params?.id == e?.id) {
-          return { ...e };
-        }
-      });
-      setProduct(res);
-    }
-  }, [params]);
+  // useEffect(() => {
+  //   if (params?.id) {
+  //     const res = products.find((e) => {
+  //       if (params?.id == e?.id) {
+  //         return { ...e };
+  //       }
+  //     });
+  //     setProduct(res);
+  //   }
+  // }, [params]);
 
   
   return (
