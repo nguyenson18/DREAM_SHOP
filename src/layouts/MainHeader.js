@@ -231,7 +231,7 @@ function MainHeader() {
       <AppBar
         position="fixed"
         color="transparent"
-        sx={{ backgroundColor: "#001c44" }}
+        sx={{ backgroundColor: "#001c44", padding:"0 10px" }}
       >
         <Toolbar>
           <LogoWhite
@@ -298,7 +298,7 @@ function MainHeader() {
       <div
         style={{
           display: "flex",
-          height: "70px",
+          height: "55px",
           width: "100%",
           boxShadow: "rgb(43 52 69 / 10%) 0px 4px 16px",
           justifyContent: "space-around",
