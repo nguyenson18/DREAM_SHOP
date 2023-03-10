@@ -84,12 +84,13 @@ function ProductCard({ product }) {
 
       <CardActions sx={{ justifyContent: "flex-end" }}>
         <Button
+        disabled={product?.stock != "stocking"}
           sx={{
             background: "#001c44",
             "&:hover": {
-              backgroundColor: "tomato",
+              backgroundColor: "#001c44",
               color: "white",
-              opacity: 0.8,
+              opacity: 0.9,
             },
           }}
           variant="contained"

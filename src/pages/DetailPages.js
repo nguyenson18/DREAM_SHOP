@@ -29,18 +29,18 @@ function DetailPages() {
   useEffect(() => {
     const productId = params?.id;
     if (params?.id) {
-      dispatch(getDetailProduct({ productId },enqueueSnackbar));
+      dispatch(getDetailProduct({ productId }, enqueueSnackbar));
     }
   }, [params]);
 
   return (
     <Container sx={{ my: 5, position: "relative", paddingBottom: "400px" }}>
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-        <Box sx={{ maxWidth: "33.3333%" }}>
+        <Box sx={{ width: "33.3333%" }}>
           <Box
             sx={{
               width: "100%",
-              height: "100%",
+              height: "385px",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -52,8 +52,9 @@ function DetailPages() {
               src={productDetail?.imageUrl}
               alt="productDetail"
               style={{
+                borderRadius: "10px",
                 maxWidth: "100%",
-                height:"100%",
+                height: "100%",
                 transition:
                   "transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, hover 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
               }}
@@ -98,60 +99,78 @@ function DetailPages() {
           </Box>
         </Box>
 
-        <Box sx={{ paddingLeft: "16px" }}>
-          <DiscountNew product={productDetail}/>
+        <Box
+          sx={{
+            marginLeft: "70px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            alignItems:"end"
+          }}
+        >
+          <Box>
+            <DiscountNew product={productDetail} />
 
-          <Typography variant="h5" paragraph>
-          {`${productDetail?.authorCatego?.name} ${productDetail?.authorBrand?.brand} ${productDetail?.processor_name} `}
-          </Typography>
-
-          <ProductInformation product={productDetail}/>
-
-          <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2, my:2 }}>
-            <Rating
-              value={Number(productDetail?.ratings)}
-              precision={0.5}
-              readOnly
-            />
-            <Typography variant="body2" sx={{ color: "text.secondary" }}>
-              ({product?.totalReview} reviews)
+            <Typography variant="h4" paragraph>
+              {` ${productDetail?.authorBrand?.brand} ${productDetail?.processor_name} `}
             </Typography>
-          </Stack>
 
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            {productDetail?.old_price != "0" && (
+            <ProductInformation
+              sx={{ fontSize: "18px" }}
+              product={productDetail}
+            />
+
+            <Stack
+              direction="row"
+              alignItems="center"
+              spacing={1}
+              sx={{ mb: 2, my: 2 }}
+            >
+              <Rating
+                value={Number(productDetail?.ratings)}
+                precision={0.5}
+                readOnly
+              />
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                ({product?.totalReview} reviews)
+              </Typography>
+            </Stack>
+
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              {productDetail?.old_price != "0" && (
+                <Typography
+                  variant="h5"
+                  color="text.secondary"
+                  sx={{
+                    textDecoration: "line-through",
+                    color: "rgb(110, 109, 109)",
+                  }}
+                >
+                  {fCurrency(productDetail?.old_price)}
+                </Typography>
+              )}
               <Typography
                 variant="h5"
-                color="text.secondary"
-                sx={{
-                  textDecoration: "line-through",
-                  color: "rgb(110, 109, 109)",
-                }}
+                color="#001c44"
+                style={{ marginLeft: "5px", fontWeight: 550 }}
               >
-                {fCurrency(productDetail?.old_price)}
+                {fCurrency(productDetail?.latest_price)}
               </Typography>
-            )}
-            <Typography
-              variant="h5"
-              color="#001c44"
-              style={{ marginLeft: "5px", fontWeight: 550 }}
-            >
-              {fCurrency(productDetail?.latest_price)}
-            </Typography>
+            </Box>
+
+            <Divider sx={{ borderStyle: "dashed" }} />
+
+            <Divider sx={{ borderStyle: "dashed" }} />
           </Box>
 
-          <Divider sx={{ borderStyle: "dashed" }} />
-
-          <Divider sx={{ borderStyle: "dashed" }} />
-
-          <Box sx={{ my: 3 }}>
+          <Box>
             <Button
               sx={{
                 background: "#001c44",
                 "&:hover": {
-                  backgroundColor: "tomato",
+                  backgroundColor: "#001c44",
                   color: "white",
-                  opacity: 0.8,
+                  opacity: 0.9,
                 },
               }}
               variant="contained"

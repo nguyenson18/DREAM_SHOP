@@ -46,7 +46,7 @@ function LoginPage() {
 
   return (
     <div className="img">
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: "center", width:"100%" }}>
         <IconButton
           size="large"
           edge="start"
