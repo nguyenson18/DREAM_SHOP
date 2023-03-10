@@ -28,13 +28,13 @@ function ProductCard({ product }) {
     }
   };
   return (
-    <Card sx={{ width: 280, height: 420, borderRadius:"10px" }}>
+    <Card sx={{ width: 280, height: 420, borderRadius: "10px" }}>
       <CardActionArea onClick={() => navigate(`/products/${product._id}`)}>
         <Box sx={{ padding: "10px" }}>
-          <DiscountNew product={product}/>
+          <DiscountNew product={product} />
 
           <CardMedia
-            sx={{ borderRadius: "5px", margin:"auto", width:"75%" }}
+            sx={{ borderRadius: "5px", margin: "auto", width: "75%" }}
             component="img"
             height="190"
             image={product?.imageUrl}
@@ -44,10 +44,17 @@ function ProductCard({ product }) {
       </CardActionArea>
 
       <CardContent sx={{ padding: "10px !important" }}>
-        <Typography sx={{fontWeight:500}} gutterBottom variant="body" component="div" noWrap>
+        <Typography
+          onClick={() => navigate(`/products/${product._id}`)}
+          sx={{ fontWeight: 500, cursor: "pointer" }}
+          gutterBottom
+          variant="body"
+          component="div"
+          noWrap
+        >
           {`${product?.authorCatego?.name} ${product?.authorBrand?.brand} ${product?.processor_name} `}
         </Typography>
-        <ProductInformation product={product}/>
+        <ProductInformation product={product} />
         <Stack
           direction="row"
           spacing={0.5}
@@ -82,11 +89,12 @@ function ProductCard({ product }) {
         </Stack>
       </CardContent>
 
-      <CardActions sx={{ justifyContent: "flex-end" }}>
+      <CardActions sx={{ justifyContent: "flex-end", padding:"10px" }}>
         <Button
-        disabled={product?.stock != "stocking"}
+          disabled={product?.stock != "stocking"}
           sx={{
             background: "#001c44",
+            width:"20%",
             "&:hover": {
               backgroundColor: "#001c44",
               color: "white",
@@ -96,7 +104,7 @@ function ProductCard({ product }) {
           variant="contained"
           onClick={handleAddToCard}
         >
-          <AddShoppingCartIcon />
+          <AddShoppingCartIcon sx={{fontSize:"22px"}}/>
         </Button>
       </CardActions>
     </Card>

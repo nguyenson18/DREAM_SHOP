@@ -65,7 +65,6 @@ function DetailPages() {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              // flexWrap:"wrap"
             }}
           >
             {/* {productDetail?.images?.map((img) => (
