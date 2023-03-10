@@ -74,7 +74,7 @@ function HomePage() {
         maxWidth: "1500px !important",
       }}
     >
-      <Stack sx={{ paddingRight: "24px", width: 300 }}>
+      <Stack sx={{ marginRight: "24px", width: 300 }}>
         <Card sx={{ width: "100%", textAlign: "center", padding: "10px" }}>
           <CollapseFilter />
           <Divider />

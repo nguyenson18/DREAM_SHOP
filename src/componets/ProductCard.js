@@ -17,6 +17,7 @@ import { fCurrency } from "../utils/numberFormat";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import DiscountNew from "./DiscountNew";
 import ProductInformation from "./ProductInformation";
+import { capitalCase } from "change-case";
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
@@ -52,7 +53,7 @@ function ProductCard({ product }) {
           component="div"
           noWrap
         >
-          {`${product?.authorCatego?.name} ${product?.authorBrand?.brand} ${product?.processor_name} `}
+          {`${capitalCase(product?.authorBrand?.brand)} ${product?.processor_name} `}
         </Typography>
         <ProductInformation product={product} />
         <Stack
