@@ -28,13 +28,15 @@ import CollapseFilter from "../componets/CollapseFilter";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../features/productSlice";
 import LoadingScreen from "../componets/LoadingScreen";
+import { useSnackbar } from "notistack";
 
 function HomePage() {
   const [sort, setSort] = useState("");
   const [price, setPrice] = useState([0, 100]);
   const [rating, useRating] = useState(0);
   const [page, setPage] = useState(1);
-  
+  const { enqueueSnackbar } = useSnackbar();
+
   const { isLoading, products, totalPages } = useSelector(
     (state) => state.product
   );
@@ -42,7 +44,7 @@ function HomePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllProducts({ page }));
+    dispatch(getAllProducts({ page },enqueueSnackbar));
   }, [page]);
 
   const methods = useForm({});

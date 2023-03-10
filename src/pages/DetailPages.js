@@ -12,32 +12,35 @@ import { Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fCurrency } from "../utils/numberFormat";
-import NewReleasesIcon from "@mui/icons-material/NewReleases";
+
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { useDispatch, useSelector } from "react-redux";
+import { getDetailProduct } from "../features/productSlice";
+import ProductInformation from "../componets/ProductInformation";
+import { useSnackbar } from "notistack";
+import DiscountNew from "../componets/DiscountNew";
 
 function DetailPages() {
   const [product, setProduct] = useState();
+  const { productDetail } = useSelector((state) => state.product);
   const params = useParams();
-  // useEffect(() => {
-  //   if (params?.id) {
-  //     const res = products.find((e) => {
-  //       if (params?.id == e?.id) {
-  //         return { ...e };
-  //       }
-  //     });
-  //     setProduct(res);
-  //   }
-  // }, [params]);
+  const { enqueueSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const productId = params?.id;
+    if (params?.id) {
+      dispatch(getDetailProduct({ productId },enqueueSnackbar));
+    }
+  }, [params]);
 
-  
   return (
-    <Container sx={{ my: 5, position: "relative",paddingBottom: "400px", }}>
+    <Container sx={{ my: 5, position: "relative", paddingBottom: "400px" }}>
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
         <Box sx={{ maxWidth: "33.3333%" }}>
           <Box
             sx={{
               width: "100%",
-              height: "70%",
+              height: "100%",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -46,10 +49,11 @@ function DetailPages() {
             }}
           >
             <img
-              src={product?.cover}
-              alt="product"
+              src={productDetail?.imageUrl}
+              alt="productDetail"
               style={{
                 maxWidth: "90%",
+                height:"100%",
                 transition:
                   "transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, hover 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
               }}
@@ -63,7 +67,7 @@ function DetailPages() {
               // flexWrap:"wrap"
             }}
           >
-            {/* {product?.images?.map((img) => (
+            {/* {productDetail?.images?.map((img) => (
               <Card
                 sx={{
                   display: "flex",
@@ -95,32 +99,17 @@ function DetailPages() {
         </Box>
 
         <Box sx={{ paddingLeft: "16px" }}>
-          <Box
-            sx={{
-              maxWidth: "100%",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              height: "32px",
-              color: "rgb(255, 255,255)",
-              borderRadius: "16px",
-              cursor: "pointer",
-              background:
-                "linear-gradient(to right, rgb(241, 39, 17), rgb(245, 175, 25))",
-            }}
-          >
-            <NewReleasesIcon sx={{ marginLeft: "5px" }} />
-            <span style={{ paddingLeft: "10px", paddingRight: "10px" }}>
-              {product?.status}
-            </span>
-          </Box>
+          <DiscountNew product={productDetail}/>
 
           <Typography variant="h5" paragraph>
-            {product?.name}
+          {`${productDetail?.authorCatego?.name} ${productDetail?.authorBrand?.brand} ${productDetail?.processor_name} `}
           </Typography>
-          <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
+
+          <ProductInformation product={productDetail}/>
+
+          <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2, my:2 }}>
             <Rating
-              value={Number(product?.totalRating)}
+              value={Number(productDetail?.ratings)}
               precision={0.5}
               readOnly
             />
@@ -130,7 +119,7 @@ function DetailPages() {
           </Stack>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            {product?.priceSale && (
+            {productDetail?.old_price != "0" && (
               <Typography
                 variant="h5"
                 color="text.secondary"
@@ -139,7 +128,7 @@ function DetailPages() {
                   color: "rgb(110, 109, 109)",
                 }}
               >
-                {fCurrency(product?.priceSale)}
+                {fCurrency(productDetail?.old_price)}
               </Typography>
             )}
             <Typography
@@ -147,7 +136,7 @@ function DetailPages() {
               color="#001c44"
               style={{ marginLeft: "5px", fontWeight: 550 }}
             >
-              {fCurrency(product?.price)}
+              {fCurrency(productDetail?.latest_price)}
             </Typography>
           </Box>
 

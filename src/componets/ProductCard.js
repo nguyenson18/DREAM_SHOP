@@ -62,7 +62,7 @@ function ProductCard({ product }) {
             sx={{ my: 0.5 }}
           />
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            {product?.old_price && (
+            {product?.old_price !== "0" && (
               <Typography
                 variant="body2"
                 color="text.secondary"

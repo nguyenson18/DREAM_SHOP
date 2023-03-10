@@ -7,6 +7,7 @@ const initialState = {
     error: null,
     products: [],
     totalPages: 1,
+    productDetail: null
   };
 
   const slice = createSlice({
@@ -25,19 +26,35 @@ const initialState = {
         state.isLoading = false;
         state.products = action.payload?.data
         state.totalPages = action.payload?.totalPage
+      },
+      getDetailProductSuccess(state, action){
+        state.isLoading = false;
+        state.error = null;
+        state.productDetail = action.payload
       }
     },
   });
 
   export default slice.reducer
 
-  export const getAllProducts = ({ page, limit = 20}) => async(dispatch) =>{
+  export const getAllProducts = ({ page, limit = 20},enqueueSnackbar) => async(dispatch) =>{
     dispatch(slice.actions.startLoading());
     try {
-      const res = await apiService.get(`/product/allproduct/?page=${page}&limit=${limit}`);
+      const res = await apiService.get(`category/allproduct/?page=${page}&limit=${limit}`);
       dispatch(slice.actions.getProductSuccess(res?.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
+      enqueueSnackbar(error.message, { variant: "error" });
     }
-    
+  }
+
+  export const getDetailProduct = ({productId},enqueueSnackbar) => async(dispatch) =>{
+    dispatch(slice.actions.startLoading())
+    try {
+      const res = await apiService.get(`/category/single/${productId}`)
+      dispatch(slice.actions.getDetailProductSuccess(res?.data))
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
   }

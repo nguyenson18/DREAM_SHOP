@@ -1,6 +1,8 @@
 import React from "react";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import { capitalCase } from "change-case";
+import { Box } from "@mui/material";
+import NewReleasesIcon from "@mui/icons-material/NewReleases";
 
 function DiscountNew({ product }) {
   return (
@@ -28,10 +30,31 @@ function DiscountNew({ product }) {
             fontWeight: 600,
             display: "inline-flex",
             justifyContent: "center",
+            alignItems:"center"
           }}
         >
+        <NewReleasesIcon sx={{ fontSize:"19px", marginRight:"2px" }} />
           {capitalCase(product?.newProduct)}
         </span>
+        // <Box
+        //     sx={{
+        //       maxWidth: "100%",
+        //       display: "inline-flex",
+        //       alignItems: "center",
+        //       justifyContent: "center",
+        //       height: "32px",
+        //       color: "rgb(255, 255,255)",
+        //       borderRadius: "16px",
+        //       cursor: "pointer",
+        //       background:
+        //         "linear-gradient(to right, rgb(241, 39, 17), rgb(245, 175, 25))",
+        //     }}
+        //   >
+        //     <NewReleasesIcon sx={{ marginLeft: "5px" }} />
+        //     <span style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+        //     {capitalCase(product?.newProduct)}
+        //     </span>
+        //   </Box>
       )}
       {product?.discount && (
         <>
@@ -46,7 +69,7 @@ function DiscountNew({ product }) {
               background:
                 "linear-gradient(45deg, rgb(18, 194, 233), rgb(196, 113, 237), rgb(246, 79, 89))",
               color: "white",
-              padding: "0 8px",
+              padding: "0 6px",
               fontWeight: 600,
               display: "inline-flex",
               justifyContent: "center",
@@ -76,6 +99,7 @@ function DiscountNew({ product }) {
           </span>
         </>
       )}
+      
     </div>
   );
 }
