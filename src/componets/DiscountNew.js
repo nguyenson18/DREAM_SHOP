@@ -12,12 +12,13 @@ function DiscountNew({ product }) {
         justifyContent: "space-between",
         marginBottom: "12px",
         marginTop: "5px",
+        height:"22px"
       }}
     >
       {product?.newProduct == "new" && (
-        <span
+        <div
           style={{
-            height: "22px",
+            height: "100%",
             minWidth: "22px",
             lineHeight: "0",
             borderRadius: "8px",
@@ -28,14 +29,14 @@ function DiscountNew({ product }) {
             color: "white",
             padding: "0 8px",
             fontWeight: 600,
-            display: "inline-flex",
+            display: "flex",
             justifyContent: "center",
             alignItems:"center"
           }}
         >
-        <NewReleasesIcon sx={{ fontSize:"19px", marginRight:"2px" }} />
-          {capitalCase(product?.newProduct)}
-        </span>
+          <NewReleasesIcon sx={{ fontSize:"19px", marginRight:"2px" }} />
+          <span>{capitalCase(product?.newProduct)}</span>
+        </div>
         // <Box
         //     sx={{
         //       maxWidth: "100%",
@@ -56,9 +57,9 @@ function DiscountNew({ product }) {
         //     </span>
         //   </Box>
       )}
-      {product?.discount && (
+      {product?.discount && product?.discount != "0" && (
         <>
-          <span
+          {/* <span
             style={{
               height: "22px",
               minWidth: "22px",
@@ -77,10 +78,10 @@ function DiscountNew({ product }) {
           >
             {product?.discount}%
             <KeyboardDoubleArrowDownIcon />
-          </span>
+          </span> */}
           <span
             style={{
-              height: "22px",
+              height: "100%",
               minWidth: "22px",
               lineHeight: "0",
               borderRadius: "8px",
@@ -95,7 +96,8 @@ function DiscountNew({ product }) {
               justifyContent: "center",
             }}
           >
-            SALE
+            {product?.discount}%
+            <KeyboardDoubleArrowDownIcon />
           </span>
         </>
       )}

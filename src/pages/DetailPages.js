@@ -52,7 +52,7 @@ function DetailPages() {
               src={productDetail?.imageUrl}
               alt="productDetail"
               style={{
-                maxWidth: "90%",
+                maxWidth: "100%",
                 height:"100%",
                 transition:
                   "transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, hover 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
