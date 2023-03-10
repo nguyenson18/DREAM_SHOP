@@ -16,6 +16,7 @@ import useAuth from "../hooks/useAuth";
 import { fCurrency } from "../utils/numberFormat";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import DiscountNew from "./DiscountNew";
+import ProductInformation from "./ProductInformation";
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function ProductCard({ product }) {
     }
   };
   return (
-    <Card sx={{ width: 280, height: 400 }}>
+    <Card sx={{ width: 280, height: 420, borderRadius:"10px" }}>
       <CardActionArea onClick={() => navigate(`/products/${product._id}`)}>
         <Box sx={{ padding: "10px" }}>
           <DiscountNew product={product}/>
@@ -44,8 +45,9 @@ function ProductCard({ product }) {
 
       <CardContent sx={{ padding: "10px !important" }}>
         <Typography sx={{fontWeight:500}} gutterBottom variant="body" component="div" noWrap>
-          {`${product?.authorCatego?.name} ${product?.authorBrand?.brand} ${product?.processor_name} ${product?.model}`}
+          {`${product?.authorCatego?.name} ${product?.authorBrand?.brand} ${product?.processor_name} `}
         </Typography>
+        <ProductInformation product={product}/>
         <Stack
           direction="row"
           spacing={0.5}
