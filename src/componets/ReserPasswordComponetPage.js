@@ -42,7 +42,7 @@ function ReserPasswordComponetPage({ setCurrentTab }) {
           )}
           <Alert severity="info">
             Don't have an account?{" "}
-            <Link variant="subtitle2" onClick={() => setCurrentTab("REGISTER")}>
+            <Link sx={{color:"tomato",textDecorationColor:"tomato"}} variant="subtitle2" onClick={() => setCurrentTab("REGISTER")}>
               Get Started
             </Link>
           </Alert>

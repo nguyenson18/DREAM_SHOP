@@ -75,7 +75,7 @@ function LoginComponetPage({ setCurrentTab }) {
           )}
           <Alert severity="info">
             Don’t have an account?{" "}
-            <Link variant="subtitle2" onClick={() => setCurrentTab("REGISTER")}>
+            <Link sx={{color:"tomato",textDecorationColor:"tomato"}} variant="subtitle2" onClick={() => setCurrentTab("REGISTER")}>
               Get started
             </Link>
           </Alert>
@@ -109,7 +109,7 @@ function LoginComponetPage({ setCurrentTab }) {
           sx={{ my: 2 }}
         >
           <FCheckbox name="remember" label="Remember me" />
-          <Link component={RouterLink} variant="subtitle2" to="/">
+          <Link sx={{color:"tomato",textDecorationColor:"tomato"}} component={RouterLink} variant="subtitle2" to="/">
             Forgot password?
           </Link>
         </Stack>

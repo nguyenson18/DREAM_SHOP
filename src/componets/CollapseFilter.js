@@ -31,7 +31,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { filterBrandProduct } from "../features/productSlice";
 import { useSnackbar } from "notistack";
 
-function CollapseFilter({ search, page, setBrand, brand }) {
+function CollapseFilter({ search, page, setBrand,type }) {
   const [open, setOpen] = useState(true);
 
   const [listCategory, setListCategory] = useState();
@@ -158,7 +158,7 @@ function CollapseFilter({ search, page, setBrand, brand }) {
   const handleFilterBrand = async (event) => {
      setBrand(event);
     dispatch(
-      filterBrandProduct({ search, brand: event, page }, enqueueSnackbar)
+      filterBrandProduct({ search, brand: event,type, page }, enqueueSnackbar)
     );
   };
 

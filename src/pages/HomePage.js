@@ -58,7 +58,7 @@ function HomePage() {
 
   useEffect(() => {
     if (brand) {
-      setPage(1)
+      setPage(1);
       dispatch(
         filterBrandProduct({ search, brand: brand, page }, enqueueSnackbar)
       );
@@ -69,16 +69,17 @@ function HomePage() {
 
   useEffect(() => {
     setPage(1);
-    if (search && !brand) {
+    if ((search && !brand) || (type && !brand)) {
       dispatch(getAllProducts({ search, type, page }, enqueueSnackbar));
     } else {
       dispatch(
-        filterBrandProduct({ search, brand: brand, page }, enqueueSnackbar)
+        filterBrandProduct({ search, brand: brand, type, page }, enqueueSnackbar)
       );
     }
   }, [search, type]);
 
   const handleChangeSelect = (e) => {
+    console.log(e);
     setType(e.target.value);
   };
   const handleChangePrice = (event, newValue) => {
@@ -101,12 +102,12 @@ function HomePage() {
       }}
     >
       <Stack sx={{ marginRight: "24px", width: 300 }}>
-        <Card sx={{ width: "100%", textAlign: "center", padding: "10px" }}>
+        <Card sx={{ width: 250, textAlign: "center", padding: "10px" }}>
           <CollapseFilter
             search={search}
             page={page}
             setBrand={setBrand}
-            brand={brand}
+            type={type}
           />
           <Divider />
           <Box>
@@ -174,11 +175,11 @@ function HomePage() {
             value={search}
             onChange={(e) => setSearch(e?.target?.value)}
             InputProps={{
-              startAdornment: (
+              endAdornment: (
                 <InputAdornment position="start">
-                  <IconButton type="submit">
-                    <SearchIcon />
-                  </IconButton>
+                  {/* <IconButton type="submit"> */}
+                  <SearchIcon />
+                  {/* </IconButton> */}
                 </InputAdornment>
               ),
             }}

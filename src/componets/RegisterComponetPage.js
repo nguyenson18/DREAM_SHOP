@@ -81,7 +81,7 @@ function RegisterComponetPage({ setCurrentTab }) {
           )}
           <Alert severity="info">
             Already have an account?{" "}
-            <Link variant="subtitle2" onClick={() => setCurrentTab("LOGIN")}>
+            <Link sx={{color:"tomato",textDecorationColor:"tomato"}} variant="subtitle2" onClick={() => setCurrentTab("LOGIN")}>
               Sing in
             </Link>
           </Alert>
