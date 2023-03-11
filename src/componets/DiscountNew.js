@@ -96,7 +96,7 @@ function DiscountNew({ product }) {
               justifyContent: "center",
             }}
           >
-            {product?.discount}%
+            {Number(product?.discount)/10 }%
             <KeyboardDoubleArrowDownIcon />
           </span>
         </>

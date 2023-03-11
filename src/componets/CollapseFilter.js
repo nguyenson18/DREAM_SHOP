@@ -27,15 +27,22 @@ import Samsung from "../img/samsung.png";
 import Xiaomi from "../img/xiaomi.png";
 import Huawei from "../img/huawei.png";
 import Sony from "../img/sony.png";
+import { useDispatch, useSelector } from "react-redux";
+import { filterBrandProduct } from "../features/productSlice";
+import { useSnackbar } from "notistack";
 
-function CollapseFilter() {
+function CollapseFilter({ search, page, setBrand, brand }) {
   const [open, setOpen] = useState(true);
+
   const [listCategory, setListCategory] = useState();
 
+  const { products } = useSelector((state) => state.product);
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     setListCategory(LISTCATERGORY_OPTIONS);
   }, []);
-  
+
   const LISTCATERGORY_OPTIONS = [
     {
       id: "0de0daa6-1fe0-4ef0-9644-39e89a5b0618",
@@ -45,27 +52,27 @@ function CollapseFilter() {
       brands: [
         {
           id: "aff09f21-acce-402f-a57e-30ef40a70ce8",
-          value: "Lenovo",
+          value: "lenovo",
           icon: <img style={{ width: "50px" }} src={Lenovo} alt="lenovo" />,
         },
         {
           id: "e7ef2b42-c64e-47fd-a2fb-998c974f8fb7",
-          value: "Dell",
+          value: "dell",
           icon: <img style={{ width: "40px" }} src={Dell} alt="dell" />,
         },
         {
           id: "0a549aed-c221-4616-b1a9-bfbb3d43b4b6",
-          value: "Asus",
+          value: "asus",
           icon: <img style={{ width: "40px" }} src={Asus} alt="asus" />,
         },
         {
           id: "9f04e882-28f0-471a-bd69-0c56f6f0d17c",
-          value: "Acer",
+          value: "acer",
           icon: <img style={{ width: "40px" }} src={Acer} alt="acer" />,
         },
         {
           id: "9f8d210c-5374-42eb-95cf-58d584e37a52",
-          value: "Apple",
+          value: "apple",
           icon: <img style={{ width: "40px" }} src={Apple} alt="Apple" />,
         },
       ],
@@ -78,27 +85,27 @@ function CollapseFilter() {
       brands: [
         {
           id: "bdeebce0-d953-4ad4-a9f8-c059368d6e76",
-          value: "Samsung",
+          value: "samsung",
           icon: <img style={{ width: "50px" }} src={Samsung} alt="Samsung" />,
         },
         {
           id: "98fe6d6c-5a97-44fe-8d7f-8b4d17993964",
-          value: "Dell",
-          icon: <img style={{ width: "40px" }} src={Dell} alt="dell" />,
+          value: "apple",
+          icon: <img style={{ width: "40px" }} src={Apple} alt="apple" />,
         },
         {
           id: "08b2f402-6b9d-4101-be33-8c809394607d",
-          value: "Xiaomi",
+          value: "xiaomi",
           icon: <img style={{ width: "40px" }} src={Xiaomi} alt="Xiaomi" />,
         },
         {
           id: "f3c79846-faff-4d7b-ad81-98d4880683b0",
-          value: "Huawei",
+          value: "huawei",
           icon: <img style={{ width: "40px" }} src={Huawei} alt="Huawei" />,
         },
         {
           id: "9e93384a-73d3-4a21-a4c9-28bc6f60da40",
-          value: "Sony",
+          value: "sony",
           icon: <img style={{ width: "40px" }} src={Sony} alt="Sony" />,
         },
       ],
@@ -138,6 +145,7 @@ function CollapseFilter() {
   const handleClick = () => {
     setOpen(!open);
   };
+
   const handleOpenExpand = (event) => {
     const res = listCategory.map((e) => {
       if (e && event == e?.value) {
@@ -146,6 +154,14 @@ function CollapseFilter() {
     });
     setListCategory(res);
   };
+
+  const handleFilterBrand = async (event) => {
+     setBrand(event);
+    dispatch(
+      filterBrandProduct({ search, brand: event, page }, enqueueSnackbar)
+    );
+  };
+
   return (
     <List
       sx={{
@@ -190,7 +206,7 @@ function CollapseFilter() {
                   <ListItemButton
                     key={brand?.id}
                     sx={{ pl: 4, display: "flex", justifyContent: "center" }}
-                    onClick={() => handleOpenExpand(brand?.value)}
+                    onClick={() => handleFilterBrand(brand?.value)}
                   >
                     <ListItemIcon>{brand?.icon}</ListItemIcon>
                   </ListItemButton>

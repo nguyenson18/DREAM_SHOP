@@ -28,15 +28,15 @@ import ProductList from "../componets/ProductList";
 import { RATING_OPTIONS, SORT_OPTIONS } from "../options/option";
 import CollapseFilter from "../componets/CollapseFilter";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../features/productSlice";
+import { filterBrandProduct, getAllProducts } from "../features/productSlice";
 import LoadingScreen from "../componets/LoadingScreen";
 import { useSnackbar } from "notistack";
 
 function HomePage() {
-  const [sort, setSort] = useState("");
   const [price, setPrice] = useState([0, 100]);
   const [search, setSearch] = useState("");
   const [type, setType] = useState("");
+  const [brand, setBrand] = useState("");
   const [rating, useRating] = useState(0);
   const [page, setPage] = useState(1);
   const { enqueueSnackbar } = useSnackbar();
@@ -55,18 +55,40 @@ function HomePage() {
     getValues,
     formState: { isSubmitting, errors },
   } = methods;
+
   useEffect(() => {
-    dispatch(getAllProducts({ search, type, page }, enqueueSnackbar));
-  }, [page, search]);
+    if (brand) {
+      setPage(1)
+      dispatch(
+        filterBrandProduct({ search, brand: brand, page }, enqueueSnackbar)
+      );
+    } else {
+      dispatch(getAllProducts({ search, type, page }, enqueueSnackbar));
+    }
+  }, [page]);
+
+  useEffect(() => {
+    setPage(1);
+    if (search && !brand) {
+      dispatch(getAllProducts({ search, type, page }, enqueueSnackbar));
+    } else {
+      dispatch(
+        filterBrandProduct({ search, brand: brand, page }, enqueueSnackbar)
+      );
+    }
+  }, [search, type]);
+
   const handleChangeSelect = (e) => {
-    setSort(e.target.value);
+    setType(e.target.value);
   };
   const handleChangePrice = (event, newValue) => {
     setPrice(newValue);
   };
   const handleChangeClear = () => {};
 
-  const onSubmit = async () => {};
+  // const onSubmit = async () => {
+  //   dispatch(getAllProducts({ search, type, page }, enqueueSnackbar));
+  // };
   return (
     <Container
       sx={{
@@ -80,7 +102,12 @@ function HomePage() {
     >
       <Stack sx={{ marginRight: "24px", width: 300 }}>
         <Card sx={{ width: "100%", textAlign: "center", padding: "10px" }}>
-          <CollapseFilter />
+          <CollapseFilter
+            search={search}
+            page={page}
+            setBrand={setBrand}
+            brand={brand}
+          />
           <Divider />
           <Box>
             <Typography sx={{ marginTop: "10px", fontWeight: 600 }}>
@@ -134,53 +161,54 @@ function HomePage() {
       </Stack>
 
       <Stack sx={{ flexGrow: 1, position: "relative" }}>
-        {/* <FormProvider methods={methods}> */}
-          <Stack
-            spacing={2}
-            direction={{ xs: "column", sm: "row" }}
-            justifyContent="flex-end"
-          >
-            <TextField
-              name="searchQuery"
-              sx={{ width: 180 }}
-              size="small"
-              onChange={(e) => setSearch(e?.target?.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <IconButton type="submit">
-                      <SearchIcon />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <Box>
-              <FormControl size="small">
-                <InputLabel
-                  id="demo-select-small"
-                  sx={{ display: "flex", color: "black" }}
-                >
-                  <SortIcon />
-                  Sort
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={sort}
-                  label="Sort"
-                  onChange={handleChangeSelect}
-                  sx={{ width: 150, height: 40 }}
-                >
-                  {SORT_OPTIONS.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Box>
-          </Stack>
+        {/* <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}> */}
+        <Stack
+          spacing={2}
+          direction={{ xs: "column", sm: "row" }}
+          justifyContent="flex-end"
+        >
+          <TextField
+            name="searchQuery"
+            sx={{ width: 180 }}
+            size="small"
+            value={search}
+            onChange={(e) => setSearch(e?.target?.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <IconButton type="submit">
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Box>
+            <FormControl size="small">
+              <InputLabel
+                id="demo-select-small"
+                sx={{ display: "flex", color: "black" }}
+              >
+                <SortIcon />
+                Sort
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={type}
+                label="Sort"
+                onChange={handleChangeSelect}
+                sx={{ width: 150, height: 40 }}
+              >
+                {SORT_OPTIONS.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        </Stack>
         {/* </FormProvider> */}
         {isLoading ? (
           <LoadingScreen />

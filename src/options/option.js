@@ -1,8 +1,8 @@
 export const SORT_OPTIONS = [
-  { value: "featured", label: "Featured" },
-  { value: "newest", label: "Newest" },
-  { value: "priceDesc", label: "Price: High-Low" },
-  { value: "priceAsc", label: "Price: Low-High" },
+  // { value: "featured", label: "Featured" },
+  { value: "new", label: "Newest" },
+  { value: "high-low", label: "Price: High-Low" },
+  { value: "low-high", label: "Price: Low-High" },
 ];
 export const RATING_OPTIONS = [
   { value: 1, title: "Useless" },
