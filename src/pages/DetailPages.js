@@ -19,6 +19,7 @@ import { getDetailProduct } from "../features/productSlice";
 import ProductInformation from "../componets/ProductInformation";
 import { useSnackbar } from "notistack";
 import DiscountNew from "../componets/DiscountNew";
+import FButton from "../componets/form/FButton";
 
 function DetailPages() {
   const [product, setProduct] = useState();
@@ -100,18 +101,19 @@ function DetailPages() {
 
         <Box
           sx={{
+            maxWidth: "60%",
             marginLeft: "70px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
-            alignItems:"end"
+            alignItems: "end",
           }}
         >
           <Box>
             <DiscountNew product={productDetail} />
 
             <Typography variant="h4" paragraph>
-              {` ${productDetail?.authorBrand?.brand} ${productDetail?.processor_name} `}
+              {` ${productDetail?.authorBrand?.brand || ""} ${productDetail?.model || ""} ${productDetail?.processor_name || ""} `}
             </Typography>
 
             <ProductInformation
@@ -163,19 +165,11 @@ function DetailPages() {
           </Box>
 
           <Box>
-            <Button
-              sx={{
-                background: "#001c44",
-                "&:hover": {
-                  backgroundColor: "#001c44",
-                  color: "white",
-                  opacity: 0.9,
-                },
-              }}
-              variant="contained"
+            <FButton
+              product={productDetail}
             >
               <AddShoppingCartIcon />
-            </Button>
+            </FButton>
           </Box>
         </Box>
       </Box>

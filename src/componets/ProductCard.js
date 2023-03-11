@@ -18,6 +18,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import DiscountNew from "./DiscountNew";
 import ProductInformation from "./ProductInformation";
 import { capitalCase } from "change-case";
+import FButton from "./form/FButton";
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
@@ -53,7 +54,9 @@ function ProductCard({ product }) {
           component="div"
           noWrap
         >
-          {`${capitalCase(product?.authorBrand?.brand)} ${product?.processor_name} `}
+          {`${capitalCase(product?.authorBrand?.brand || "")} ${
+            product?.model || ""
+          } ${product?.processor_name || ""} `}
         </Typography>
         <ProductInformation product={product} />
         <Stack
@@ -90,23 +93,10 @@ function ProductCard({ product }) {
         </Stack>
       </CardContent>
 
-      <CardActions sx={{ justifyContent: "flex-end", padding:"10px" }}>
-        <Button
-          disabled={product?.stock != "stocking"}
-          sx={{
-            background: "#001c44",
-            width:"20%",
-            "&:hover": {
-              backgroundColor: "#001c44",
-              color: "white",
-              opacity: 0.9,
-            },
-          }}
-          variant="contained"
-          onClick={handleAddToCard}
-        >
-          <AddShoppingCartIcon sx={{fontSize:"22px"}}/>
-        </Button>
+      <CardActions sx={{ justifyContent: "flex-end", padding: "10px" }}>
+        <FButton product={product} handleAddToCard={handleAddToCard}>
+          <AddShoppingCartIcon sx={{ fontSize: "22px" }} />
+        </FButton>
       </CardActions>
     </Card>
   );

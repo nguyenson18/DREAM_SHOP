@@ -62,7 +62,7 @@ function AccountPages() {
   );
   return (
     <Container sx={{ marginTop: 5 }}>
-      <Typography variant="h5" sx={{ marginBottom: "10px" }}>
+      <Typography variant="h5" sx={{ marginBottom: "10px",color:"tomato", fontWeight: 600 }}>
         Account Settings
       </Typography>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -123,9 +123,8 @@ function AccountPages() {
                   sx={{
                     backgroundColor: "#001c44",
                     "&:hover": {
-                      backgroundColor: "tomato",
+                      backgroundColor: "#001c44",
                       color: "white",
-                      fontWeight: 600,
                       opacity: 0.8,
                     },
                   }}

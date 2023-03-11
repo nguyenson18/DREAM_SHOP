@@ -35,7 +35,7 @@ function CollapseFilter() {
   useEffect(() => {
     setListCategory(LISTCATERGORY_OPTIONS);
   }, []);
-
+  
   const LISTCATERGORY_OPTIONS = [
     {
       id: "0de0daa6-1fe0-4ef0-9644-39e89a5b0618",
