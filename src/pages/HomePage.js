@@ -5,6 +5,7 @@ import {
   Container,
   Divider,
   FormControl,
+  IconButton,
   InputAdornment,
   InputLabel,
   MenuItem,
@@ -13,6 +14,7 @@ import {
   Select,
   Slider,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -33,6 +35,8 @@ import { useSnackbar } from "notistack";
 function HomePage() {
   const [sort, setSort] = useState("");
   const [price, setPrice] = useState([0, 100]);
+  const [search, setSearch] = useState("");
+  const [type, setType] = useState("");
   const [rating, useRating] = useState(0);
   const [page, setPage] = useState(1);
   const { enqueueSnackbar } = useSnackbar();
@@ -43,18 +47,17 @@ function HomePage() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAllProducts({ page },enqueueSnackbar));
-  }, [page]);
-
   const methods = useForm({});
   const {
     handleSubmit,
     reset,
     setError,
+    getValues,
     formState: { isSubmitting, errors },
   } = methods;
-
+  useEffect(() => {
+    dispatch(getAllProducts({ search, type, page }, enqueueSnackbar));
+  }, [page, search]);
   const handleChangeSelect = (e) => {
     setSort(e.target.value);
   };
@@ -63,6 +66,7 @@ function HomePage() {
   };
   const handleChangeClear = () => {};
 
+  const onSubmit = async () => {};
   return (
     <Container
       sx={{
@@ -130,20 +134,23 @@ function HomePage() {
       </Stack>
 
       <Stack sx={{ flexGrow: 1, position: "relative" }}>
-        <FormProvider methods={methods}>
+        {/* <FormProvider methods={methods}> */}
           <Stack
             spacing={2}
             direction={{ xs: "column", sm: "row" }}
             justifyContent="flex-end"
           >
-            <FTextField
+            <TextField
               name="searchQuery"
               sx={{ width: 180 }}
               size="small"
+              onChange={(e) => setSearch(e?.target?.value)}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon />
+                    <IconButton type="submit">
+                      <SearchIcon />
+                    </IconButton>
                   </InputAdornment>
                 ),
               }}
@@ -174,7 +181,7 @@ function HomePage() {
               </FormControl>
             </Box>
           </Stack>
-        </FormProvider>
+        {/* </FormProvider> */}
         {isLoading ? (
           <LoadingScreen />
         ) : (

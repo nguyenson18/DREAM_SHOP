@@ -38,13 +38,14 @@ const slice = createSlice({
 export default slice.reducer;
 
 export const getAllProducts =
-  ({ page, limit = 20 }, enqueueSnackbar) =>
+  ({search,type, page, limit = 20 }, enqueueSnackbar) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const res = await apiService.get(
-        `category/allproduct/?page=${page}&limit=${limit}`
+        `category/allproduct/?page=${page}&limit=${limit}&search=${search}&type=${type}`
       );
+      console.log(res)
       dispatch(slice.actions.getProductSuccess(res?.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
@@ -64,3 +65,14 @@ export const getDetailProduct =
       enqueueSnackbar(error.message, { variant: "error" });
     }
   };
+
+  export const filterProduct = ({search,type},enqueueSnackbar) => async(dispatch) =>{
+    dispatch(slice.actions.startLoading())
+    try {
+      const res = await apiService.get(`/category/allproduct?search=${search}&type=${type}`)
+      console.log(res)
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
+  }
