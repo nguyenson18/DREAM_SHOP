@@ -27,6 +27,9 @@ import Samsung from "../img/samsung.png";
 import Xiaomi from "../img/xiaomi.png";
 import Huawei from "../img/huawei.png";
 import Sony from "../img/sony.png";
+import Canon from "../img/canon.png";
+import Nikon from "../img/nikon.png";
+import Fujifilm from "../img/fujifilm.png";
 import { useDispatch, useSelector } from "react-redux";
 import { filterBrandProduct } from "../features/productSlice";
 import { useSnackbar } from "notistack";
@@ -87,6 +90,29 @@ function CollapseFilter({ search, page, setBrand, type, setCategory }) {
       id: "17d4afa7-a8f5-481c-9c70-ed11f8ff4401",
       value: "camera",
       icon: <CameraIcon />,
+      open: false,
+      brands: [
+        {
+          id: "aff09f21-acce-402f-a57e-30ef40a70ce8",
+          value: "canon",
+          icon: <img style={{ width: "50px" }} src={Canon} alt="Canon" />,
+        },
+        {
+          id: "e7ef2b42-c64e-47fd-a2fb-998c974f8fb7",
+          value: "nikon",
+          icon: <img style={{ width: "40px" }} src={Nikon} alt="Nikon" />,
+        },
+        {
+          id: "0a549aed-c221-4616-b1a9-bfbb3d43b4b6",
+          value: "fujifilm",
+          icon: <img style={{ width: "40px" }} src={Fujifilm} alt="Fujifilm" />,
+        },
+        {
+          id: "9f04e882-28f0-471a-bd69-0c56f6f0d17c",
+          value: "sony",
+          icon: <img style={{ width: "40px" }} src={Sony} alt="Sony" />,
+        },
+      ],
     },
     {
       id: "26b9ef55-b980-4da5-afa3-57647f9dc586",
@@ -154,20 +180,14 @@ function CollapseFilter({ search, page, setBrand, type, setCategory }) {
       } else return e;
     });
     setListCategory(res);
-    dispatch(
-      filterBrandProduct(
-        {category:event, search, brand: "", type, page },
-        enqueueSnackbar
-      )
-    );
   };
 
-  const handleFilterBrand = async ( category, brand) => {
+  const handleFilterBrand = async (category, brand) => {
     setBrand(brand?.value);
-    setCategory(category)
+    setCategory(category);
     dispatch(
       filterBrandProduct(
-        {category, search, brand: brand?.value, type, page },
+        { category, search, brand: brand?.value, type, page },
         enqueueSnackbar
       )
     );
@@ -217,7 +237,12 @@ function CollapseFilter({ search, page, setBrand, type, setCategory }) {
                   <ListItemButton
                     key={brand?.id}
                     sx={{ pl: 4, display: "flex", justifyContent: "center" }}
-                    onClick={() => handleFilterBrand(option.value, brand)}
+                    onClick={() =>
+                      handleFilterBrand(
+                        option?.value == "computer" ? "laptop" : option?.value,
+                        brand
+                      )
+                    }
                   >
                     <ListItemIcon>{brand?.icon}</ListItemIcon>
                   </ListItemButton>
