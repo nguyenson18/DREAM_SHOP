@@ -30,8 +30,9 @@ import Sony from "../img/sony.png";
 import { useDispatch, useSelector } from "react-redux";
 import { filterBrandProduct } from "../features/productSlice";
 import { useSnackbar } from "notistack";
+import { capitalCase } from "change-case";
 
-function CollapseFilter({ search, page, setBrand,type }) {
+function CollapseFilter({ search, page, setBrand, type }) {
   const [open, setOpen] = useState(true);
 
   const [listCategory, setListCategory] = useState();
@@ -46,7 +47,7 @@ function CollapseFilter({ search, page, setBrand,type }) {
   const LISTCATERGORY_OPTIONS = [
     {
       id: "0de0daa6-1fe0-4ef0-9644-39e89a5b0618",
-      value: "Computer",
+      value: "computer",
       icon: <ComputerIcon />,
       open: false,
       brands: [
@@ -79,22 +80,22 @@ function CollapseFilter({ search, page, setBrand,type }) {
     },
     {
       id: "f83f94d1-781c-4bb0-8c03-2f9a5ba973c6",
-      value: "Headphone",
-      icon: <HeadphonesIcon />
+      value: "headphone",
+      icon: <HeadphonesIcon />,
     },
     {
       id: "17d4afa7-a8f5-481c-9c70-ed11f8ff4401",
-      value: "Camera",
+      value: "camera",
       icon: <CameraIcon />,
     },
     {
       id: "26b9ef55-b980-4da5-afa3-57647f9dc586",
-      value: "Watch",
+      value: "watch",
       icon: <WatchIcon />,
     },
     {
       id: "e2df4188-47a1-4281-a45c-c516b1aa257c",
-      value: "Phone",
+      value: "phone",
       icon: <PhoneIphoneIcon />,
       open: false,
       brands: [
@@ -127,17 +128,17 @@ function CollapseFilter({ search, page, setBrand,type }) {
     },
     {
       id: "7b4c1ce8-8b41-4f72-bfae-df81a8f5e81f",
-      value: "Chair",
+      value: "chair",
       icon: <ChairIcon />,
     },
     {
       id: "608502b2-6c99-43d0-ba89-0a3bd50a4948",
-      value: "Speaker",
+      value: "speaker",
       icon: <SpeakerIcon />,
     },
     {
       id: "489decc6-a0e6-4ea1-8b2d-ce035461b29f",
-      value: "Otherhouses",
+      value: "otherhouses",
       icon: <OtherHousesIcon />,
     },
   ];
@@ -155,10 +156,13 @@ function CollapseFilter({ search, page, setBrand,type }) {
     setListCategory(res);
   };
 
-  const handleFilterBrand = async (event) => {
-     setBrand(event);
+  const handleFilterBrand = async ( category, brand) => {
+    setBrand(brand?.value);
     dispatch(
-      filterBrandProduct({ search, brand: event,type, page }, enqueueSnackbar)
+      filterBrandProduct(
+        {category, search, brand: brand?.value, type, page },
+        enqueueSnackbar
+      )
     );
   };
 
@@ -195,7 +199,7 @@ function CollapseFilter({ search, page, setBrand,type }) {
                   sx={{
                     "& .css-10hburv-MuiTypography-root": { fontWeight: 600 },
                   }}
-                  primary={option?.value}
+                  primary={capitalCase(option?.value)}
                 />
                 {option?.brands &&
                   (option?.open ? <ExpandLess /> : <ExpandMore />)}
@@ -206,7 +210,7 @@ function CollapseFilter({ search, page, setBrand,type }) {
                   <ListItemButton
                     key={brand?.id}
                     sx={{ pl: 4, display: "flex", justifyContent: "center" }}
-                    onClick={() => handleFilterBrand(brand?.value)}
+                    onClick={() => handleFilterBrand(option.value, brand)}
                   >
                     <ListItemIcon>{brand?.icon}</ListItemIcon>
                   </ListItemButton>

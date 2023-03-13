@@ -66,12 +66,12 @@ export const getDetailProduct =
   };
 
 export const filterBrandProduct =
-  ({ search, brand,type, page, limit = 20 }, enqueueSnackbar) =>
+  ({category, search, brand,type, page, limit = 20 }, enqueueSnackbar) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const res = await apiService.get(
-        `/category/brand?page=${page}&limit=${limit}&brand=${brand}&search=${search}&type=${type}`
+        `/category/brand?category=${category}&page=${page}&limit=${limit}&brand=${brand}&search=${search}&type=${type}`
       );
       dispatch(slice.actions.getProductSuccess(res?.data));
     } catch (error) {
