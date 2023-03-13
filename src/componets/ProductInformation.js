@@ -5,14 +5,39 @@ function ProductInformation({ product, sx }) {
   return (
     <>
       {product?.authorCatego?.name == "laptop" && (
-        <Typography sx={{ fontSize: "14px", ...sx }} noWrap>{`${
+        <Typography {...sx} noWrap>{`${
           product?.processor_brand || ""
         } ${product?.processor_name || ""}, ${product?.ram_type || ""} ${
           product?.ram_gb || ""
         }, ssd ${product?.ssd || ""}`}</Typography>
       )}
       {product?.authorCatego?.name == "phone" && (
-        <Typography sx={{ fontSize: "14px", ...sx }} noWrap>{`${
+        <Typography {...sx} noWrap>{`${
+          product?.model || ""
+        }`}</Typography>
+      )}
+      {product?.authorCatego?.name == "camera" && (
+        <Typography {...sx} noWrap>{`${
+          product?.model || ""
+        }`}</Typography>
+      )}
+       {product?.authorCatego?.name == "watch" && (
+        <Typography {...sx} noWrap>{`${
+          product?.model || ""
+        }`}</Typography>
+      )}
+      {product?.authorCatego?.name == "headphone" && (
+        <Typography {...sx} noWrap>{`${
+          product?.model || ""
+        }`}</Typography>
+      )}
+      {product?.authorCatego?.name == "chair" && (
+        <Typography {...sx} noWrap>{`${
+          product?.model || ""
+        }`}</Typography>
+      )}
+       {product?.authorCatego?.name == "speaker" && (
+        <Typography {...sx} noWrap>{`${
           product?.model || ""
         }`}</Typography>
       )}

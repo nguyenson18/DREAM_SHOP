@@ -58,7 +58,7 @@ function ProductCard({ product }) {
             product?.model || ""
           } ${product?.processor_name || ""} `}
         </Typography>
-        <ProductInformation product={product} />
+        <ProductInformation sx={{height:"21px", fontSize: "14px"}} product={product} />
         <Stack
           direction="row"
           spacing={0.5}

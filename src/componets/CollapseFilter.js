@@ -80,7 +80,22 @@ function CollapseFilter({ search, page, setBrand,type }) {
     {
       id: "f83f94d1-781c-4bb0-8c03-2f9a5ba973c6",
       value: "Headphone",
-      icon: <HeadphonesIcon />,
+      icon: <HeadphonesIcon />
+    },
+    {
+      id: "17d4afa7-a8f5-481c-9c70-ed11f8ff4401",
+      value: "Camera",
+      icon: <CameraIcon />,
+    },
+    {
+      id: "26b9ef55-b980-4da5-afa3-57647f9dc586",
+      value: "Watch",
+      icon: <WatchIcon />,
+    },
+    {
+      id: "e2df4188-47a1-4281-a45c-c516b1aa257c",
+      value: "Phone",
+      icon: <PhoneIphoneIcon />,
       open: false,
       brands: [
         {
@@ -109,21 +124,6 @@ function CollapseFilter({ search, page, setBrand,type }) {
           icon: <img style={{ width: "40px" }} src={Sony} alt="Sony" />,
         },
       ],
-    },
-    {
-      id: "17d4afa7-a8f5-481c-9c70-ed11f8ff4401",
-      value: "Camera",
-      icon: <CameraIcon />,
-    },
-    {
-      id: "26b9ef55-b980-4da5-afa3-57647f9dc586",
-      value: "Watch",
-      icon: <WatchIcon />,
-    },
-    {
-      id: "e2df4188-47a1-4281-a45c-c516b1aa257c",
-      value: "Phone",
-      icon: <PhoneIphoneIcon />,
     },
     {
       id: "7b4c1ce8-8b41-4f72-bfae-df81a8f5e81f",

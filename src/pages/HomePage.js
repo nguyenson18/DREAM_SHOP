@@ -60,7 +60,7 @@ function HomePage() {
     if (brand) {
       setPage(1);
       dispatch(
-        filterBrandProduct({ search, brand: brand, page }, enqueueSnackbar)
+        filterBrandProduct({ search, brand: brand,type, page }, enqueueSnackbar)
       );
     } else {
       dispatch(getAllProducts({ search, type, page }, enqueueSnackbar));

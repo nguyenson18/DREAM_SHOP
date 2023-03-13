@@ -1,6 +1,8 @@
 import {
   Box,
+  Button,
   Card,
+  CardActions,
   Checkbox,
   Container,
   Table,
@@ -68,8 +70,18 @@ function CheckoutPage() {
             width: "350px",
             height: "400px",
             borderRadius: "10px",
+            textAlign: "center",
           }}
-        ></Card>
+        >
+          <CardActions>
+            <Button
+              size="small"
+              sx={{ backgroundColor: "tomato", color: "white" }}
+            >
+              Purchase
+            </Button>
+          </CardActions>
+        </Card>
       </Box>
     </Container>
   );
