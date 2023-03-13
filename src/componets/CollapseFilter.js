@@ -32,7 +32,7 @@ import { filterBrandProduct } from "../features/productSlice";
 import { useSnackbar } from "notistack";
 import { capitalCase } from "change-case";
 
-function CollapseFilter({ search, page, setBrand, type }) {
+function CollapseFilter({ search, page, setBrand, type, setCategory }) {
   const [open, setOpen] = useState(true);
 
   const [listCategory, setListCategory] = useState();
@@ -154,10 +154,17 @@ function CollapseFilter({ search, page, setBrand, type }) {
       } else return e;
     });
     setListCategory(res);
+    dispatch(
+      filterBrandProduct(
+        {category:event, search, brand: "", type, page },
+        enqueueSnackbar
+      )
+    );
   };
 
   const handleFilterBrand = async ( category, brand) => {
     setBrand(brand?.value);
+    setCategory(category)
     dispatch(
       filterBrandProduct(
         {category, search, brand: brand?.value, type, page },

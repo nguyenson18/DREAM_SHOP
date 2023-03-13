@@ -37,6 +37,7 @@ function HomePage() {
   const [search, setSearch] = useState("");
   const [type, setType] = useState("");
   const [brand, setBrand] = useState("");
+  const [category, setCategory] = useState("")
   const [rating, useRating] = useState(0);
   const [page, setPage] = useState(1);
   const { enqueueSnackbar } = useSnackbar();
@@ -60,7 +61,7 @@ function HomePage() {
     if (brand) {
       setPage(1);
       dispatch(
-        filterBrandProduct({ search, brand: brand,type, page }, enqueueSnackbar)
+        filterBrandProduct({category, search, brand: brand,type, page }, enqueueSnackbar)
       );
     } else {
       dispatch(getAllProducts({ search, type, page }, enqueueSnackbar));
@@ -73,7 +74,7 @@ function HomePage() {
       dispatch(getAllProducts({ search, type, page }, enqueueSnackbar));
     } else {
       dispatch(
-        filterBrandProduct({ search, brand: brand, type, page }, enqueueSnackbar)
+        filterBrandProduct({category, search, brand: brand, type, page }, enqueueSnackbar)
       );
     }
   }, [search, type]);
@@ -107,6 +108,7 @@ function HomePage() {
             search={search}
             page={page}
             setBrand={setBrand}
+            setCategory={setCategory}
             type={type}
           />
           <Divider />
