@@ -20,6 +20,13 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    resetApp(state, action){
+      state.error = null;
+      state.isLoading = false;
+      state.products = action.payload?.data;
+      state.totalPages = action.payload?.totalPage;
+      state.productDetail = null;
+    },
     getProductSuccess(state, action) {
       state.error = null;
       state.isLoading = false;

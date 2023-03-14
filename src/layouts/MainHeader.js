@@ -18,7 +18,12 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { Link as RouterLink, Navigate, useNavigate } from "react-router-dom";
+import {
+  Link as RouterLink,
+  Navigate,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import AvatarImg from "../img/avatar.jpg";
 import Logo from "../componets/Logo";
@@ -36,6 +41,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useSnackbar } from "notistack";
 import { LoadingButton } from "@mui/lab";
 import { LIST_OPTIONS_NAV } from "../options/option";
+import { useDispatch } from "react-redux";
+import { getAllProducts } from "../features/productSlice";
 
 const schemaChangePassword = Yup.object()
   .shape({
@@ -64,6 +71,7 @@ function MainHeader() {
   const { enqueueSnackbar } = useSnackbar();
   const auth = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const isMenuOpen = Boolean(anchorElAvatar);
   const isMobileOpen = Boolean(anchorElMobile);
   const methods = useForm({
@@ -136,6 +144,13 @@ function MainHeader() {
       reset();
       setError("responseError", error.message);
       enqueueSnackbar(error.message, { variant: "error" });
+    }
+  };
+  const handleCheckout = () => {
+    if (!auth?.isAuthenticated) {
+      navigate("/login");
+    } else {
+      navigate("/checkout");
     }
   };
   const menuId = "primary-search-account-menu";
@@ -255,7 +270,7 @@ function MainHeader() {
                 size="large"
                 aria-label="show 17 new notifications"
                 color="inherit"
-                onClick={() => navigate("/checkout")}
+                onClick={handleCheckout}
               >
                 <Badge badgeContent={0} color="error">
                   <ShoppingCartIcon sx={{ color: "white", fontSize: "30px" }} />
@@ -322,6 +337,7 @@ function MainHeader() {
           >
             {LIST_OPTIONS_NAV.map((e) => {
               const checkRole = e?.role?.includes(auth?.user?.role);
+              const path = location?.pathname;
               return (
                 <div
                   style={{ display: "flex", alignItems: "center" }}
@@ -330,7 +346,10 @@ function MainHeader() {
                   {checkRole && (
                     <>
                       <a
-                        style={{ color: "#001c44" }}
+                        style={{
+                          color:
+                            path == e?.navigateValue ? "tomato" : "#001c44",
+                        }}
                         onClick={() => navigate(e?.navigateValue)}
                         data-hover={e?.value}
                       >
@@ -342,13 +361,6 @@ function MainHeader() {
                 </div>
               );
             })}
-            <a
-              style={{ color: "#001c44" }}
-              onClick={() => navigate("/customrcare")}
-              data-hover="CustomerCare"
-            >
-              CustomerCare
-            </a>
           </div>
         </Container>
       </div>
