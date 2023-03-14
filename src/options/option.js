@@ -84,10 +84,5 @@ export  const LIST_OPTIONS_NAV = [
         style={{ height: "30px", margin: "0 10px" }}
       />
     ),
-  },
-  {
-    value: "CustomerCare",
-    role:["normal"],
-    navigateValue: "/customrcare",
-  },
+  }
 ];

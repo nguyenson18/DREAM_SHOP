@@ -342,6 +342,13 @@ function MainHeader() {
                 </div>
               );
             })}
+            <a
+              style={{ color: "#001c44" }}
+              onClick={() => navigate("/customrcare")}
+              data-hover="CustomerCare"
+            >
+              CustomerCare
+            </a>
           </div>
         </Container>
       </div>
