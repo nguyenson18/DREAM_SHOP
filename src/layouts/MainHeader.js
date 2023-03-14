@@ -123,7 +123,7 @@ function MainHeader() {
         {
           password,
           changePassword,
-          userId: auth.user._id,
+          userId: auth?.user?._id,
         },
         enqueueSnackbar
       );
@@ -321,7 +321,7 @@ function MainHeader() {
             style={{ display: "flex", alignItems: "center" }}
           >
             {LIST_OPTIONS_NAV.map((e) => {
-              const checkRole = e.role.includes(auth?.user?.role);
+              const checkRole = e?.role?.includes(auth?.user?.role);
               return (
                 <div
                   style={{ display: "flex", alignItems: "center" }}

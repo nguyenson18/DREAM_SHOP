@@ -8,7 +8,7 @@ import { isValidToken } from "../utils/jwt";
 const initialState = {
   isInitialized: false,
   isAuthenticated: false,
-  user: [],
+  user: null,
 };
 
 const LOGIN_SUCCESS = "AUTH.REGISTER_SUCCESS";
@@ -30,9 +30,9 @@ const reducer = (state, action) => {
         user,
       };
     case LOGIN_SUCCESS:
-      return { ...state, isAuthenticated: true, user: action.payload.user };
+      return { ...state, isAuthenticated: true, user: action?.payload?.user };
     case REGISTER_SUCCESS:
-      return { ...state };
+      return { ...state, user: null,isAuthenticated: false };
     case RESETPASSWORD:
       return { ...state };
     case CHANGEPASSWORD:
@@ -40,7 +40,7 @@ const reducer = (state, action) => {
     case LOGOUT:
       return { ...state, isAuthenticated: false, user: null };
     case UPDATEDPROFILE:
-      return { ...state, user: action.payload.user };
+      return { ...state, user: action?.payload?.user };
     default:
       return state;
   }
@@ -176,6 +176,5 @@ function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
-
 
 export { AuthContext, AuthProvider };

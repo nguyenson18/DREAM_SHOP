@@ -42,7 +42,7 @@ function AccountPages() {
 
   const onSubmit = async (data) => {
     setIsSubmit(!isSubmit);
-    dispatch(updateUserProfile({ userId: user._id, ...data }, enqueueSnackbar));
+    dispatch(updateUserProfile({ userId: user?._id, ...data }, enqueueSnackbar));
   };
 
   const handleDrop = useCallback(
