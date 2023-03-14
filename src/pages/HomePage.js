@@ -35,9 +35,9 @@ import { useSnackbar } from "notistack";
 function HomePage() {
   const [price, setPrice] = useState([0, 100]);
   const [search, setSearch] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState("default");
   const [brand, setBrand] = useState("");
-  const [category, setCategory] = useState("")
+  const [category, setCategory] = useState("");
   const [rating, useRating] = useState(0);
   const [page, setPage] = useState(1);
   const { enqueueSnackbar } = useSnackbar();
@@ -59,28 +59,54 @@ function HomePage() {
 
   useEffect(() => {
     if (brand) {
-      setPage(1);
       dispatch(
-        filterBrandProduct({category, search, brand: brand,type, page }, enqueueSnackbar)
+        filterBrandProduct(
+          {
+            category,
+            search,
+            brand: brand,
+            type: type == "default" ? "" : type,
+            page,
+          },
+          enqueueSnackbar
+        )
       );
     } else {
-      dispatch(getAllProducts({ search, type, page }, enqueueSnackbar));
+      dispatch(
+        getAllProducts(
+          { search, type: type == "default" ? "" : type, page },
+          enqueueSnackbar
+        )
+      );
     }
   }, [page]);
 
   useEffect(() => {
     setPage(1);
     if ((search && !brand) || (type && !brand)) {
-      dispatch(getAllProducts({ search, type, page }, enqueueSnackbar));
+      dispatch(
+        getAllProducts(
+          { search, type: type == "default" ? "" : type, page },
+          enqueueSnackbar
+        )
+      );
     } else {
       dispatch(
-        filterBrandProduct({category, search, brand: brand, type, page }, enqueueSnackbar)
+        filterBrandProduct(
+          {
+            category,
+            search,
+            brand: brand,
+            type: type == "default" ? "" : type,
+            page,
+          },
+          enqueueSnackbar
+        )
       );
     }
-  }, [search, type]);
+  }, [search, type, brand]);
 
   const handleChangeSelect = (e) => {
-    console.log(e);
     setType(e.target.value);
   };
   const handleChangePrice = (event, newValue) => {
@@ -106,7 +132,6 @@ function HomePage() {
         <Card sx={{ width: 250, textAlign: "center", padding: "10px" }}>
           <CollapseFilter
             search={search}
-            page={page}
             setBrand={setBrand}
             setCategory={setCategory}
             type={type}

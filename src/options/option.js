@@ -1,5 +1,5 @@
 export const SORT_OPTIONS = [
-  // { value: "featured", label: "Featured" },
+  { value: "default", label: "Default" },
   { value: "new", label: "Newest" },
   { value: "high-low", label: "Price: High-Low" },
   { value: "low-high", label: "Price: Low-High" },
