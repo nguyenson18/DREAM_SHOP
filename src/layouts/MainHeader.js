@@ -35,6 +35,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSnackbar } from "notistack";
 import { LoadingButton } from "@mui/lab";
+import { LIST_OPTIONS_NAV } from "../options/option";
 
 const schemaChangePassword = Yup.object()
   .shape({
@@ -231,7 +232,7 @@ function MainHeader() {
       <AppBar
         position="fixed"
         color="transparent"
-        sx={{ backgroundColor: "#001c44", padding:"0 10px" }}
+        sx={{ backgroundColor: "#001c44", padding: "0 10px" }}
       >
         <Toolbar>
           <LogoWhite
@@ -249,16 +250,18 @@ function MainHeader() {
           <Box
             sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}
           >
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-              onClick={() => navigate("/checkout")}
-            >
-              <Badge badgeContent={0} color="error">
-                <ShoppingCartIcon sx={{ color: "white", fontSize: "30px" }} />
-              </Badge>
-            </IconButton>
+            {auth?.user?.role != "master" && (
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+                onClick={() => navigate("/checkout")}
+              >
+                <Badge badgeContent={0} color="error">
+                  <ShoppingCartIcon sx={{ color: "white", fontSize: "30px" }} />
+                </Badge>
+              </IconButton>
+            )}
             {auth?.isAuthenticated ? (
               <IconButton onClick={handleProfileMenuOpen}>
                 <Avatar
@@ -309,59 +312,36 @@ function MainHeader() {
         <Container
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
             alignItems: "center",
           }}
         >
-          <div></div>
           <div
             className="link-effect-3"
             style={{ display: "flex", alignItems: "center" }}
           >
-            <a
-              style={{ color: "#001c44" }}
-              onClick={() => navigate("/")}
-              // href="/"
-              data-hover="Home"
-            >
-              Home
-            </a>
-            <Divider
-              orientation="vertical"
-              style={{ height: "30px", margin: "0 10px" }}
-            />
-            <a
-              style={{ color: "#001c44" }}
-              onClick={() => navigate("/checkout")}
-              // href="/checkout"
-              data-hover="Checkout"
-            >
-              Checkout
-            </a>
-            <Divider
-              orientation="vertical"
-              style={{ height: "30px", margin: "0 10px" }}
-            />
-            <a
-              style={{ color: "#001c44" }}
-              onClick={() => navigate("/order")}
-              // href="/order"
-              data-hover="Order"
-            >
-              Order
-            </a>
-            <Divider
-              orientation="vertical"
-              style={{ height: "30px", margin: "0 10px" }}
-            />
-            <a
-              style={{ color: "#001c44" }}
-              // href="/customrcare"
-              onClick={() => navigate("/customrcare")}
-              data-hover="CustomerCare"
-            >
-              CustomerCare
-            </a>
+            {LIST_OPTIONS_NAV.map((e) => {
+              const checkRole = e.role.includes(auth?.user?.role);
+              return (
+                <div
+                  style={{ display: "flex", alignItems: "center" }}
+                  key={e?.value}
+                >
+                  {checkRole && (
+                    <>
+                      <a
+                        style={{ color: "#001c44" }}
+                        onClick={() => navigate(e?.navigateValue)}
+                        data-hover={e?.value}
+                      >
+                        {e?.value}
+                      </a>
+                      {e?.line}
+                    </>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </Container>
       </div>

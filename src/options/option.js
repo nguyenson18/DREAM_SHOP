@@ -1,3 +1,5 @@
+import { Divider } from "@mui/material";
+
 export const SORT_OPTIONS = [
   { value: "default", label: "Default" },
   { value: "new", label: "Newest" },
@@ -47,5 +49,45 @@ export const TOPIC_OPTIONS = [
   {
     img: "https://img.alicdn.com/imgextra/i4/O1CN01coooYw28x8YNiZ573_!!6000000007998-55-tps-64-64.svg",
     title: "Other Topics",
+  },
+];
+export  const LIST_OPTIONS_NAV = [
+  {
+    value: "Home",
+    role:["master","normal"],
+    navigateValue: "/",
+    line: (
+      <Divider
+        orientation="vertical"
+        style={{ height: "30px", margin: "0 10px" }}
+      />
+    ),
+  },
+  {
+    value: "Checkout",
+    role:["normal"],
+    navigateValue: "/checkout",
+    line: (
+      <Divider
+        orientation="vertical"
+        style={{ height: "30px", margin: "0 10px" }}
+      />
+    ),
+  },
+  {
+    value: "Order",
+    role:["normal"],
+    navigateValue: "/order",
+    line: (
+      <Divider
+        orientation="vertical"
+        style={{ height: "30px", margin: "0 10px" }}
+      />
+    ),
+  },
+  {
+    value: "CustomerCare",
+    role:["normal"],
+    navigateValue: "/customrcare",
   },
 ];
