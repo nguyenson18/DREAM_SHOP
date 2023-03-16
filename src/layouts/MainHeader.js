@@ -69,14 +69,11 @@ function MainHeader() {
   const [password, setPassword] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const { isLoading, totalCart } = useSelector(
-    (state) => ({
-      isLoading: state.addcart.isLoading,
-      totalCart: state.addcart.totalCart,
-    }),
+  const { isLoading, totalCart, listOrther } = useSelector(
+    (state) => state.addcart,
     shallowEqual
   );
-  console.log(totalCart);
+  
   const { enqueueSnackbar } = useSnackbar();
   const auth = useAuth();
   const navigate = useNavigate();
@@ -287,7 +284,7 @@ function MainHeader() {
                 color="inherit"
                 onClick={handleCheckout}
               >
-                <Badge badgeContent={totalCart} color="error">
+                <Badge badgeContent={listOrther?.length} color="error">
                   <ShoppingCartIcon sx={{ color: "white", fontSize: "30px" }} />
                 </Badge>
               </IconButton>

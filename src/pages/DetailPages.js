@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fCurrency } from "../utils/numberFormat";
 
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -21,11 +21,15 @@ import { useSnackbar } from "notistack";
 import DiscountNew from "../componets/DiscountNew";
 import FButton from "../componets/form/FButton";
 import LoadingScreen from "../componets/LoadingScreen";
+import useAuth from "../hooks/useAuth";
+import { addToCart } from "../features/addCartSlice";
 
 function DetailPages() {
   const [product, setProduct] = useState();
   const { isLoading, productDetail } = useSelector((state) => state.product);
   const params = useParams();
+  const auth = useAuth()
+  const navigate = useNavigate()
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -34,7 +38,13 @@ function DetailPages() {
       dispatch(getDetailProduct({ productId }, enqueueSnackbar));
     }
   }, [params]);
-
+  const handleAddToCard = () => {
+    if (!auth?.isAuthenticated) {
+      navigate("/login");
+    } else {
+      dispatch(addToCart({productId: product._id}, enqueueSnackbar))
+    }
+  };
   return (
     <>
       {isLoading ? (
@@ -174,7 +184,7 @@ function DetailPages() {
               </Box>
 
               <Box>
-                <FButton product={productDetail}>
+                <FButton product={productDetail} handleAddToCard={handleAddToCard}>
                   <AddShoppingCartIcon />
                 </FButton>
               </Box>

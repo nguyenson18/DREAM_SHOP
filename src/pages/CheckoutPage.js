@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { useDispatch, useSelector } from "react-redux";
 import { checkBoxOrther, getOther } from "../features/addCartSlice";
@@ -25,30 +25,31 @@ import { fCurrency } from "../utils/numberFormat";
 const StyledTableCell = styled(TableCell)({
   textAlign: "center",
   fontWeight: 550,
-  fontSize:"16px"
+  fontSize: "16px",
 });
 
+
 function CheckoutPage() {
+  const [checkAll, setCheckAll] = useState(false)
+
   const { isLoading, listOrther } = useSelector((state) => ({
     listOrther: state?.addcart?.listOrther,
     isLoading: state?.addcart?.isLoading,
   }));
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  useEffect(() => {
-    dispatch(getOther(enqueueSnackbar));
-  }, []);
+
 
   const handleChangeCheckBox = (e, id) => {
-    let value = e.target.checked
+    let value = e.target.checked;
     const data = listOrther.map((e) => {
-      if(e?._id == id){
-        return {...e, check: value}
-      }else return {...e}
-    })
-    dispatch(checkBoxOrther(data))
-  }
-  console.log(listOrther)
+      if (e?._id == id) {
+        return { ...e, check: value };
+      } else return { ...e };
+    });
+    dispatch(checkBoxOrther(data));
+  };
+  
   return (
     <Container sx={{ paddingBottom: "400px" }}>
       <Box
@@ -77,12 +78,16 @@ function CheckoutPage() {
                   sx={{
                     "&.Mui-checked": { color: "tomato" },
                   }}
-                 
                 />
               </TableCell>
-              <TableCell sx={{ fontWeight: 550 , fontSize:"16px", width:"35%"}}>Product</TableCell>
+              <TableCell
+                sx={{ fontWeight: 550, fontSize: "16px", width: "35%" }}
+              >
+                Product
+              </TableCell>
               <StyledTableCell>Price</StyledTableCell>
               <StyledTableCell>Price Sale</StyledTableCell>
+              <StyledTableCell>Discount</StyledTableCell>
               <StyledTableCell>Quantity</StyledTableCell>
               <StyledTableCell>Total</StyledTableCell>
             </TableRow>
@@ -96,17 +101,32 @@ function CheckoutPage() {
                       "&.Mui-checked": { color: "tomato" },
                     }}
                     checked={row?.check}
-                    onChange={(e)=>handleChangeCheckBox(e, row?._id)}
+                    onChange={(e) => handleChangeCheckBox(e, row?._id)}
                   />
                 </TableCell>
-                <StyledTableCell sx={{display:"flex", alignItems:"center", justifyContent:"flex-start"}}>
-                  <img src={row?.imageUrl} alt="" style={{ width: "50px" }} />
-                  <Typography sx={{fontSize:"16px", fontWeight:500, paddingLeft:"50px"}}>{row?.name}</Typography>
+                <StyledTableCell
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <img src={row?.imageUrl} alt="" style={{ width: "70px" }} />
+                  <Typography
+                    sx={{
+                      fontSize: "16px",
+                      fontWeight: 500,
+                      paddingLeft: "50px",
+                    }}
+                  >
+                    {row?.name}
+                  </Typography>
                 </StyledTableCell>
-                <StyledTableCell>{fCurrency(row?.price)}</StyledTableCell>
-                <StyledTableCell>{}</StyledTableCell>
+                <StyledTableCell>{fCurrency(row?.latestPrice)}</StyledTableCell>
+                <StyledTableCell>{fCurrency(row?.oldPrice)}</StyledTableCell>
+                <StyledTableCell>{row?.discount}%</StyledTableCell>
                 <StyledTableCell>{row?.quanlity}</StyledTableCell>
-                <StyledTableCell>{}</StyledTableCell>
+                <StyledTableCell>{fCurrency(row?.totalAmount)}</StyledTableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -21,7 +21,6 @@ const slice = createSlice({
       state.error = action.payload;
     },
     checkBoxOrtherSuccess(state, action) {
-      console.log(action);
       state.isLoading = false;
       state.error = null;
       state.listOrther= action.payload
@@ -30,7 +29,7 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
     },
-    getOtherSuccess(state, action) {
+    getOtherSuccess (state, action) {
       let total = action.payload.total;
       let data = action?.payload?.data.map((e) => {
         if (!e?.check) {
@@ -52,7 +51,8 @@ export const addToCart =
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const res = await apiService.post(`/orther/${productId}`);
+      await apiService.post(`/orther/${productId}`);
+      dispatch(getOther(enqueueSnackbar))
       enqueueSnackbar("add to cart success", { variant: "success" });
     } catch (error) {
       dispatch(slice.actions.hasError(error));
