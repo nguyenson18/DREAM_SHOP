@@ -8,6 +8,7 @@ import {
 import MainHearder from "./MainHeader";
 import MainFooter from "./MainFooter";
 import { Stack } from "@mui/material";
+import { useSelector } from "react-redux";
 
 function MainLayout() {
   const location = useLocation()

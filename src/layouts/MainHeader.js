@@ -17,7 +17,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Link as RouterLink,
   Navigate,
@@ -41,8 +41,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useSnackbar } from "notistack";
 import { LoadingButton } from "@mui/lab";
 import { LIST_OPTIONS_NAV } from "../options/option";
-import { useDispatch } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../features/productSlice";
+import { getOther } from "../features/addCartSlice";
 
 const schemaChangePassword = Yup.object()
   .shape({
@@ -66,12 +67,21 @@ function MainHeader() {
   const [newPassword, setNewPassword] = useState(false);
   const [passwordConfirmation, setPasswordConfirmation] = useState(false);
   const [password, setPassword] = useState(false);
-
   const [open, setOpen] = useState(false);
+
+  const { isLoading, totalCart } = useSelector(
+    (state) => ({
+      isLoading: state.addcart.isLoading,
+      totalCart: state.addcart.totalCart,
+    }),
+    shallowEqual
+  );
+  console.log(totalCart);
   const { enqueueSnackbar } = useSnackbar();
   const auth = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   const isMenuOpen = Boolean(anchorElAvatar);
   const isMobileOpen = Boolean(anchorElMobile);
   const methods = useForm({
@@ -153,6 +163,11 @@ function MainHeader() {
       navigate("/checkout");
     }
   };
+
+  useEffect(() => {
+    dispatch(getOther(enqueueSnackbar));
+  }, []);
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -272,7 +287,7 @@ function MainHeader() {
                 color="inherit"
                 onClick={handleCheckout}
               >
-                <Badge badgeContent={0} color="error">
+                <Badge badgeContent={totalCart} color="error">
                   <ShoppingCartIcon sx={{ color: "white", fontSize: "30px" }} />
                 </Badge>
               </IconButton>

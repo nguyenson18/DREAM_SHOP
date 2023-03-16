@@ -19,14 +19,21 @@ import DiscountNew from "./DiscountNew";
 import ProductInformation from "./ProductInformation";
 import { capitalCase } from "change-case";
 import FButton from "./form/FButton";
+import { useDispatch, useSelector } from "react-redux";
+import { useSnackbar } from "notistack";
+import { addToCart } from "../features/addCartSlice";
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
   const auth = useAuth();
-
+  // const {} = useSelector((state) => state.addcart)
+  const dispatch = useDispatch()
+  const { enqueueSnackbar } = useSnackbar();
   const handleAddToCard = () => {
     if (!auth?.isAuthenticated) {
       navigate("/login");
+    } else {
+      dispatch(addToCart({productId: product._id}, enqueueSnackbar))
     }
   };
   return (
