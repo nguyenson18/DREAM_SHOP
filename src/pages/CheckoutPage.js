@@ -6,6 +6,7 @@ import {
   CardContent,
   Checkbox,
   Container,
+  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -17,10 +18,17 @@ import { styled } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { useDispatch, useSelector } from "react-redux";
-import { checkBoxOrther, getOther } from "../features/addCartSlice";
+import {
+  checkBoxOrther,
+  getOther,
+  setQuanlityOrther,
+} from "../features/addCartSlice";
 import { useSnackbar } from "notistack";
 import { FCheckbox } from "../componets/form";
 import { fCurrency } from "../utils/numberFormat";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const StyledTableCell = styled(TableCell)({
   textAlign: "center",
@@ -28,28 +36,53 @@ const StyledTableCell = styled(TableCell)({
   fontSize: "16px",
 });
 
-
 function CheckoutPage() {
-  const [checkAll, setCheckAll] = useState(false)
+  const [checkAll, setCheckAll] = useState(false);
 
-  const { isLoading, listOrther } = useSelector((state) => ({
-    listOrther: state?.addcart?.listOrther,
-    isLoading: state?.addcart?.isLoading,
-  }));
+  const { isLoading, listOrther } = useSelector((state) => state?.addcart);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
-
   const handleChangeCheckBox = (e, id) => {
     let value = e.target.checked;
-    const data = listOrther.map((e) => {
+    const data = listOrther?.map((e) => {
       if (e?._id == id) {
         return { ...e, check: value };
       } else return { ...e };
     });
     dispatch(checkBoxOrther(data));
   };
-  
+
+  const handleQuanlity = ({ name, productId, quantity }) => {
+    let newQuantity = +quantity;
+    if (name == "increase") {
+      const quanlityCover = newQuantity + 1;
+      newQuantity = quanlityCover;
+    } else if (name == "decrease") {
+      const quanlityCover = newQuantity - 1;
+      newQuantity = quanlityCover;
+    }
+    dispatch(
+      setQuanlityOrther({ productId, quantity: newQuantity }, enqueueSnackbar)
+    );
+  };
+  // CheckAll
+  useEffect(() => {
+    if (checkAll == true) {
+      const data = listOrther?.map((e) => {
+        return { ...e, check: checkAll };
+      });
+      dispatch(checkBoxOrther(data));
+    } else {
+      const data = listOrther?.map((e) => {
+        return { ...e, check: checkAll };
+      });
+      dispatch(checkBoxOrther(data));
+    }
+  }, [checkAll]);
+
+  //CheckAll
+
   return (
     <Container sx={{ paddingBottom: "400px" }}>
       <Box
@@ -78,6 +111,8 @@ function CheckoutPage() {
                   sx={{
                     "&.Mui-checked": { color: "tomato" },
                   }}
+                  checked={checkAll}
+                  onChange={(e) => setCheckAll(e.target.checked)}
                 />
               </TableCell>
               <TableCell
@@ -90,6 +125,7 @@ function CheckoutPage() {
               <StyledTableCell>Discount</StyledTableCell>
               <StyledTableCell>Quantity</StyledTableCell>
               <StyledTableCell>Total</StyledTableCell>
+              <StyledTableCell>Edit</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -122,11 +158,44 @@ function CheckoutPage() {
                     {row?.name}
                   </Typography>
                 </StyledTableCell>
-                <StyledTableCell>{fCurrency(row?.latestPrice)}</StyledTableCell>
-                <StyledTableCell>{fCurrency(row?.oldPrice)}</StyledTableCell>
+                <StyledTableCell>
+                  {fCurrency(row?.latestPrice)} $
+                </StyledTableCell>
+                <StyledTableCell>{fCurrency(row?.oldPrice)} $</StyledTableCell>
                 <StyledTableCell>{row?.discount}%</StyledTableCell>
-                <StyledTableCell>{row?.quanlity}</StyledTableCell>
-                <StyledTableCell>{fCurrency(row?.totalAmount)}</StyledTableCell>
+                <StyledTableCell>
+                  <Button
+                    onClick={() =>
+                      handleQuanlity({
+                        name: "decrease",
+                        productId: row?.productId,
+                        quantity: row?.quantity,
+                      })
+                    }
+                  >
+                    <RemoveIcon sx={{ color: "red" }} />
+                  </Button>
+                  {row?.quantity}
+                  <Button
+                    onClick={() =>
+                      handleQuanlity({
+                        name: "increase",
+                        productId: row?.productId,
+                        quantity: row?.quantity,
+                      })
+                    }
+                  >
+                    <AddIcon sx={{ color: "red" }} />
+                  </Button>
+                </StyledTableCell>
+                <StyledTableCell sx={{ color: "" }}>
+                  {fCurrency(row?.totalAmount)} $
+                </StyledTableCell>
+                <StyledTableCell>
+                  <IconButton>
+                    <DeleteIcon sx={{ color: "red" }} />
+                  </IconButton>
+                </StyledTableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -162,7 +162,9 @@ function MainHeader() {
   };
 
   useEffect(() => {
-    dispatch(getOther(enqueueSnackbar));
+    if(auth.isAuthenticated){
+      dispatch(getOther(enqueueSnackbar));
+    }
   }, []);
 
   const menuId = "primary-search-account-menu";

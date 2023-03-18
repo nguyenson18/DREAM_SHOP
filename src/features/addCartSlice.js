@@ -74,3 +74,16 @@ export const getOther = (enqueueSnackbar) => async (dispatch) => {
 export const checkBoxOrther = (orther) => async (dispatch) => {
   dispatch(slice.actions.checkBoxOrtherSuccess(orther));
 };
+
+export const setQuanlityOrther = ({productId, quantity}, enqueueSnackbar) => async(dispatch) => {
+  dispatch(slice.actions.startLoading())
+  try {
+    console.log(productId,quantity)
+    const res = await apiService.put(`/orther/single/${productId}`,{quantity: quantity})
+    dispatch(getOther(enqueueSnackbar))
+    console.log(res)
+  } catch (error) {
+    dispatch(slice.actions.hasError(error));
+    enqueueSnackbar(error.message, { variant: "error" });
+  }
+}

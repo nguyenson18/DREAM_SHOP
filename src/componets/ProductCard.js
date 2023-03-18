@@ -86,7 +86,7 @@ function ProductCard({ product }) {
                 color="text.secondary"
                 sx={{ textDecoration: "line-through", color: "text.disabled" }}
               >
-                {fCurrency(product?.old_price)}
+                {fCurrency(product?.old_price)} $
               </Typography>
             )}
             <Typography
@@ -94,7 +94,7 @@ function ProductCard({ product }) {
               color="#001c44"
               style={{ marginLeft: "5px", fontWeight: 600, fontSize: "16px" }}
             >
-              {fCurrency(product?.latest_price)}
+              {fCurrency(product?.latest_price)} $
             </Typography>
           </Box>
         </Stack>
