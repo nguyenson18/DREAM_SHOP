@@ -20,6 +20,7 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { useDispatch, useSelector } from "react-redux";
 import {
   checkBoxOrther,
+  deleteOrther,
   getOther,
   setQuanlityOrther,
 } from "../features/addCartSlice";
@@ -53,7 +54,7 @@ function CheckoutPage() {
     dispatch(checkBoxOrther(data));
   };
 
-  const handleQuanlity = ({ name, productId, quantity }) => {
+  const handleQuanlity = ({ name, ortherId, quantity }) => {
     let newQuantity = +quantity;
     if (name == "increase") {
       const quanlityCover = newQuantity + 1;
@@ -63,8 +64,11 @@ function CheckoutPage() {
       newQuantity = quanlityCover;
     }
     dispatch(
-      setQuanlityOrther({ productId, quantity: newQuantity }, enqueueSnackbar)
+      setQuanlityOrther({ ortherId, quantity: newQuantity }, enqueueSnackbar)
     );
+  };
+  const handleDelete = (ortherId) => {
+    dispatch(deleteOrther({ ortherId }, enqueueSnackbar));
   };
   // CheckAll
   useEffect(() => {
@@ -168,7 +172,7 @@ function CheckoutPage() {
                     onClick={() =>
                       handleQuanlity({
                         name: "decrease",
-                        productId: row?.productId,
+                        ortherId: row?._id,
                         quantity: row?.quantity,
                       })
                     }
@@ -180,7 +184,7 @@ function CheckoutPage() {
                     onClick={() =>
                       handleQuanlity({
                         name: "increase",
-                        productId: row?.productId,
+                        ortherId: row?._id,
                         quantity: row?.quantity,
                       })
                     }
@@ -192,9 +196,9 @@ function CheckoutPage() {
                   {fCurrency(row?.totalAmount)} $
                 </StyledTableCell>
                 <StyledTableCell>
-                  <IconButton>
+                  <Button onClick={() => handleDelete(row?._id)}>
                     <DeleteIcon sx={{ color: "red" }} />
-                  </IconButton>
+                  </Button>
                 </StyledTableCell>
               </TableRow>
             ))}

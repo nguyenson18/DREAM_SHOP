@@ -23,13 +23,13 @@ const slice = createSlice({
     checkBoxOrtherSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
-      state.listOrther= action.payload
+      state.listOrther = action.payload;
     },
     addToCartSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
     },
-    getOtherSuccess (state, action) {
+    getOtherSuccess(state, action) {
       let total = action.payload.total;
       let data = action?.payload?.data.map((e) => {
         if (!e?.check) {
@@ -52,7 +52,7 @@ export const addToCart =
     dispatch(slice.actions.startLoading());
     try {
       await apiService.post(`/orther/${productId}`);
-      dispatch(getOther(enqueueSnackbar))
+      dispatch(getOther(enqueueSnackbar));
       enqueueSnackbar("add to cart success", { variant: "success" });
     } catch (error) {
       dispatch(slice.actions.hasError(error));
@@ -75,15 +75,33 @@ export const checkBoxOrther = (orther) => async (dispatch) => {
   dispatch(slice.actions.checkBoxOrtherSuccess(orther));
 };
 
-export const setQuanlityOrther = ({productId, quantity}, enqueueSnackbar) => async(dispatch) => {
-  dispatch(slice.actions.startLoading())
-  try {
-    console.log(productId,quantity)
-    const res = await apiService.put(`/orther/single/${productId}`,{quantity: quantity})
-    dispatch(getOther(enqueueSnackbar))
-    console.log(res)
-  } catch (error) {
-    dispatch(slice.actions.hasError(error));
-    enqueueSnackbar(error.message, { variant: "error" });
-  }
-}
+export const setQuanlityOrther =
+  ({ ortherId, quantity }, enqueueSnackbar) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      console.log(ortherId, quantity);
+      const res = await apiService.put(`/orther/single/${ortherId}`, {
+        quantity: quantity,
+      });
+      dispatch(getOther(enqueueSnackbar));
+      console.log(res);
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
+  };
+  
+export const deleteOrther =
+  ({ ortherId }, enqueueSnackbar) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const res = await apiService.delete(`/orther/single/${ortherId}`);
+      enqueueSnackbar("delete Success", { variant: "success" });
+      dispatch(getOther(enqueueSnackbar));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
+  };
