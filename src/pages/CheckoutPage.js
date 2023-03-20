@@ -30,6 +30,8 @@ import { fCurrency } from "../utils/numberFormat";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
+import ArepareInvoice from "../componets/ArepareInvoice";
 
 const StyledTableCell = styled(TableCell)({
   textAlign: "center",
@@ -110,7 +112,7 @@ function CheckoutPage() {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell sx={{ width: "2px", padding: "10px" }}>
+              <TableCell sx={{ width: "60px", padding: "10px" }}>
                 <Checkbox
                   sx={{
                     "&.Mui-checked": { color: "tomato" },
@@ -144,6 +146,7 @@ function CheckoutPage() {
                     onChange={(e) => handleChangeCheckBox(e, row?._id)}
                   />
                 </TableCell>
+
                 <StyledTableCell
                   sx={{
                     display: "flex",
@@ -177,7 +180,7 @@ function CheckoutPage() {
                       })
                     }
                   >
-                    <RemoveIcon sx={{ color: "red" }} />
+                    <RemoveIcon sx={{ color: "tomato" }} />
                   </Button>
                   {row?.quantity}
                   <Button
@@ -189,15 +192,15 @@ function CheckoutPage() {
                       })
                     }
                   >
-                    <AddIcon sx={{ color: "red" }} />
+                    <AddIcon sx={{ color: "tomato" }} />
                   </Button>
                 </StyledTableCell>
-                <StyledTableCell sx={{ color: "" }}>
+                <StyledTableCell>
                   {fCurrency(row?.totalAmount)} $
                 </StyledTableCell>
                 <StyledTableCell>
                   <Button onClick={() => handleDelete(row?._id)}>
-                    <DeleteIcon sx={{ color: "red" }} />
+                    <DeleteIcon sx={{ color: "tomato" }} />
                   </Button>
                 </StyledTableCell>
               </TableRow>
@@ -205,30 +208,17 @@ function CheckoutPage() {
           </TableBody>
         </Table>
       </Card>
-
-      <Box
-        sx={{ marginTop: "20px", display: "flex", justifyContent: "flex-end" }}
+      <Button
+        sx={{
+          backgroundColor: "tomato",
+          color: "white",
+          my: 2,
+          "&:hover": { opacity: 0.9, backgroundColor: "#001c44" },
+        }}
       >
-        <Card
-          sx={{
-            backgroundColor: "rgb(255, 255, 255)",
-            width: "350px",
-            height: "400px",
-            borderRadius: "10px",
-            textAlign: "center",
-          }}
-        >
-          <CardContent></CardContent>
-          <CardActions>
-            <Button
-              size="small"
-              sx={{ backgroundColor: "tomato", color: "white" }}
-            >
-              Purchase
-            </Button>
-          </CardActions>
-        </Card>
-      </Box>
+        <DeleteSweepIcon />
+      </Button>
+      <ArepareInvoice />
     </Container>
   );
 }
