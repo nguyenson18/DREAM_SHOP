@@ -78,7 +78,7 @@ function CustomerCarePage() {
         variant="h5"
         sx={{ my: "20px", color: "#001c44", fontWeight: 600 }}
       >
-        Chủ đề
+        Topic
       </Typography>
 
       <Container

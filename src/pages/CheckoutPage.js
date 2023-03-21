@@ -33,6 +33,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import ArepareInvoice from "../componets/ArepareInvoice";
 import Dailogconfim from "../componets/form/Dailogconfim";
+import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)({
   textAlign: "center",
@@ -44,11 +45,11 @@ function CheckoutPage() {
   const [checkAll, setCheckAll] = useState(false);
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState("");
-  const [ortherId, setOrtherId] = useState()
+  const [ortherId, setOrtherId] = useState();
   const { isLoading, listOrther } = useSelector((state) => state?.addcart);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-
+  const navigate = useNavigate()
   const handleChangeCheckBox = (e, id) => {
     let value = e.target.checked;
     const data = listOrther?.map((e) => {
@@ -153,25 +154,33 @@ function CheckoutPage() {
                     onChange={(e) => handleChangeCheckBox(e, row?._id)}
                   />
                 </TableCell>
-
-                <StyledTableCell
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "flex-start",
-                    height: "100%",
-                  }}
-                >
-                  <img src={row?.imageUrl} alt="" style={{ height: "70px" }} />
-                  <Typography
+                <StyledTableCell>
+                  <Box
                     sx={{
-                      fontSize: "16px",
-                      fontWeight: 500,
-                      paddingLeft: "50px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      height: "100%",
                     }}
                   >
-                    {row?.name}
-                  </Typography>
+                    <Button onClick={() => navigate(`/products/${row?.productId}`)}>
+                      <img
+                        src={row?.imageUrl}
+                        alt=""
+                        style={{ height: "70px" }}
+                      />
+                    </Button>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        fontWeight: 500,
+                        paddingLeft: "50px",
+                        width: "100%",
+                      }}
+                    >
+                      {row?.name}
+                    </Typography>
+                  </Box>
                 </StyledTableCell>
                 <StyledTableCell>
                   {fCurrency(row?.latestPrice)} $
@@ -211,7 +220,7 @@ function CheckoutPage() {
                     onClick={() => {
                       setOpen(true);
                       setContent(row?.name);
-                      setOrtherId(row?._id)
+                      setOrtherId(row?._id);
                     }}
                   >
                     <DeleteIcon sx={{ color: "tomato" }} />

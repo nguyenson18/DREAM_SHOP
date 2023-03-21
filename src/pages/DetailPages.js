@@ -42,7 +42,7 @@ function DetailPages() {
     if (!auth?.isAuthenticated) {
       navigate("/login");
     } else {
-      dispatch(addToCart({productId: product._id}, enqueueSnackbar))
+      dispatch(addToCart({productId: params?.id}, enqueueSnackbar))
     }
   };
   return (

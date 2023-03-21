@@ -41,19 +41,19 @@ function MainFooter() {
           <Typography
             sx={{ width: "400px", fontSize: "14px", marginTop: "5px" }}
           >
-            Thành lập từ năm 2021, Dream là nền tảng thương mại điện tử hàng đầu
-            Đông Nam Á, tiên phong thúc đẩy sự phát triển tại khu vực thông qua
-            Thương mại & Công nghệ. Hiện nay, với nền tảng logistics và hệ thống
-            thanh toán lớn nhất khu vực, Dream trở thành một phần trong đời sống
-            của người tiêu dùng và hướng đến mục tiêu phục vụ cho 300 triệu
-            khách hàng trên toàn khu vực Đông Nam Á vào năm 2030.
+            Established in 2021, Dream is the leading e-commerce platform
+            Southeast Asia, pioneering development in the region through
+            Trade & Technology. Currently, with platform and system logistics
+            Largest payment in the region, Dream to be a part of life
+            of users and aims to serve 300 million VND
+            customers across Southeast Asia by 2030.
           </Typography>
           <br />
           <Typography style={{ width: "400px", fontSize: "14px" }}>
-            Tại Việt Nam, Dream là nền tảng Thương mại điện tử quen thuộc của
-            hàng triệu người tiêu dùng bởi sự đa dạng hàng đầu về chủng loại sản
-            phẩm, ứng dụng công nghệ mua sắm và giải trí thông minh cùng khả
-            năng logistics
+            In Vietnam, Dream is a familiar e-commerce platform of
+            millions of consumers by the leading variety of products
+            products, smart shopping and entertainment technology applications and
+            logistics skills
           </Typography>
         </div>
 

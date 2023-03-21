@@ -13,6 +13,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { fCurrency } from "../utils/numberFormat";
 import DialogInformation from "./DialogInformation";
+import PaymentIcon from '@mui/icons-material/Payment';
 
 const StyledBox = styled(Box)({
   display: "flex",
@@ -88,6 +89,7 @@ function ArepareInvoice() {
             size="small"
             sx={{
               backgroundColor: "tomato",
+              width:"120px",
               color: "white",
               margin: "10px auto",
               "&:hover":{opacity:0.9, backgroundColor:"#001c44"},
@@ -98,7 +100,7 @@ function ArepareInvoice() {
               }else {setOpen(true)}
               }}
           >
-            Purchase
+            <PaymentIcon sx={{marginRight:"5px"}}/> PAYMENT
           </Button>
         </CardActions>
       </Card>
