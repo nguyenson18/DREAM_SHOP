@@ -41,7 +41,7 @@ function ArepareInvoice() {
       startQuanlity = startQuanlity + +element?.quantity;
     }
     setTotalPrice(startPrice);
-    setTotalPriceSale(startPrice);
+    setTotalPriceSale(startPriceSale);
     setTotalQuanlity(startQuanlity);
   }, [listOrther]);
 
