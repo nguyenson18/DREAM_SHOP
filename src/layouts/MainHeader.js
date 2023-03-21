@@ -43,7 +43,7 @@ import { LoadingButton } from "@mui/lab";
 import { LIST_OPTIONS_NAV } from "../options/option";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../features/productSlice";
-import { getOther } from "../features/addCartSlice";
+import { getOther, resfreshData } from "../features/addCartSlice";
 
 const schemaChangePassword = Yup.object()
   .shape({
@@ -164,6 +164,8 @@ function MainHeader() {
   useEffect(() => {
     if(auth.isAuthenticated){
       dispatch(getOther(enqueueSnackbar));
+    }else {
+      dispatch(resfreshData())
     }
   }, []);
 

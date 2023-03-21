@@ -112,11 +112,14 @@ function HomePage() {
   const handleChangePrice = (event, newValue) => {
     setPrice(newValue);
   };
-  const handleChangeClear = () => {};
+  const handleClickClear = () => {
+    setPage(1);
+    setCategory("");
+    setBrand("");
+    setType("default");
+    setSearch("");
+  };
 
-  // const onSubmit = async () => {
-  //   dispatch(getAllProducts({ search, type, page }, enqueueSnackbar));
-  // };
   return (
     <Container
       sx={{
@@ -181,7 +184,7 @@ function HomePage() {
             }}
             variant="outlined"
             startIcon={<ClearAllIcon sx={{ color: "tomato" }} />}
-            onChange={handleChangeClear}
+            onClick={handleClickClear}
           >
             Clear All
           </Button>
@@ -189,7 +192,6 @@ function HomePage() {
       </Stack>
 
       <Stack sx={{ flexGrow: 1, position: "relative" }}>
-        {/* <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}> */}
         <Stack
           spacing={2}
           direction={{ xs: "column", sm: "row" }}
@@ -204,9 +206,7 @@ function HomePage() {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
-                  {/* <IconButton type="submit"> */}
                   <SearchIcon />
-                  {/* </IconButton> */}
                 </InputAdornment>
               ),
             }}
@@ -237,7 +237,6 @@ function HomePage() {
             </FormControl>
           </Box>
         </Stack>
-        {/* </FormProvider> */}
         {isLoading ? (
           <LoadingScreen />
         ) : (

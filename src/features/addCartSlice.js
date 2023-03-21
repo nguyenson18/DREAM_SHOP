@@ -41,6 +41,13 @@ const slice = createSlice({
       state.totalCart = total;
       state.listOrther = data;
     },
+    refreshDataSuccess(state, action){
+      state.isLoading = null
+      state.error = null
+      state.carts = null
+      state.listOrther = null
+      state.totalCart = null
+    },
   },
 });
 
@@ -105,3 +112,12 @@ export const deleteOrther =
       enqueueSnackbar(error.message, { variant: "error" });
     }
   };
+
+  export const resfreshData = () => async(dispatch) => {
+    dispatch(slice.actions.startLoading())
+    try {
+      dispatch(slice.actions.refreshDataSuccess())
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  }

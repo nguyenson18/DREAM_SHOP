@@ -32,6 +32,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import ArepareInvoice from "../componets/ArepareInvoice";
+import Dailogconfim from "../componets/Dailogconfim";
 
 const StyledTableCell = styled(TableCell)({
   textAlign: "center",
@@ -41,7 +42,7 @@ const StyledTableCell = styled(TableCell)({
 
 function CheckoutPage() {
   const [checkAll, setCheckAll] = useState(false);
-
+  const [open, setOpen] = useState(false);
   const { isLoading, listOrther } = useSelector((state) => state?.addcart);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -71,6 +72,10 @@ function CheckoutPage() {
   };
   const handleDelete = (ortherId) => {
     dispatch(deleteOrther({ ortherId }, enqueueSnackbar));
+    setOpen(false);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
   // CheckAll
   useEffect(() => {
@@ -136,7 +141,7 @@ function CheckoutPage() {
           </TableHead>
           <TableBody>
             {listOrther?.map((row) => (
-              <TableRow key={row._id}>
+              <TableRow key={row._id} sx={{ height: "100px" }}>
                 <TableCell sx={{ width: "2px", padding: "10px" }}>
                   <Checkbox
                     sx={{
@@ -152,9 +157,10 @@ function CheckoutPage() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "flex-start",
+                    height: "100%",
                   }}
                 >
-                  <img src={row?.imageUrl} alt="" style={{ width: "70px" }} />
+                  <img src={row?.imageUrl} alt="" style={{ height: "70px" }} />
                   <Typography
                     sx={{
                       fontSize: "16px",
@@ -199,7 +205,7 @@ function CheckoutPage() {
                   {fCurrency(row?.totalAmount)} $
                 </StyledTableCell>
                 <StyledTableCell>
-                  <Button onClick={() => handleDelete(row?._id)}>
+                  <Button onClick={() => setOpen(true)}>
                     <DeleteIcon sx={{ color: "tomato" }} />
                   </Button>
                 </StyledTableCell>
@@ -219,6 +225,12 @@ function CheckoutPage() {
         <DeleteSweepIcon />
       </Button>
       <ArepareInvoice />
+      <Dailogconfim
+        open={open}
+        title={"Do you want to delete this product?"}
+        handleDelete={handleDelete}
+        handleClose={handleClose}
+      />
     </Container>
   );
 }
