@@ -32,7 +32,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import ArepareInvoice from "../componets/ArepareInvoice";
-import Dailogconfim from "../componets/Dailogconfim";
+import Dailogconfim from "../componets/form/Dailogconfim";
 
 const StyledTableCell = styled(TableCell)({
   textAlign: "center",
@@ -43,6 +43,8 @@ const StyledTableCell = styled(TableCell)({
 function CheckoutPage() {
   const [checkAll, setCheckAll] = useState(false);
   const [open, setOpen] = useState(false);
+  const [content, setContent] = useState("");
+  const [ortherId, setOrtherId] = useState()
   const { isLoading, listOrther } = useSelector((state) => state?.addcart);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -70,7 +72,7 @@ function CheckoutPage() {
       setQuanlityOrther({ ortherId, quantity: newQuantity }, enqueueSnackbar)
     );
   };
-  const handleDelete = (ortherId) => {
+  const handleDelete = () => {
     dispatch(deleteOrther({ ortherId }, enqueueSnackbar));
     setOpen(false);
   };
@@ -205,7 +207,13 @@ function CheckoutPage() {
                   {fCurrency(row?.totalAmount)} $
                 </StyledTableCell>
                 <StyledTableCell>
-                  <Button onClick={() => setOpen(true)}>
+                  <Button
+                    onClick={() => {
+                      setOpen(true);
+                      setContent(row?.name);
+                      setOrtherId(row?._id)
+                    }}
+                  >
                     <DeleteIcon sx={{ color: "tomato" }} />
                   </Button>
                 </StyledTableCell>
@@ -228,6 +236,7 @@ function CheckoutPage() {
       <Dailogconfim
         open={open}
         title={"Do you want to delete this product?"}
+        content={content}
         handleDelete={handleDelete}
         handleClose={handleClose}
       />
