@@ -83,14 +83,14 @@ function HomePage() {
 
   useEffect(() => {
     setPage(1);
-    if ((search && !brand) || (type && !brand)) {
-      dispatch(
-        getAllProducts(
-          { search, type: type == "default" ? "" : type, page },
-          enqueueSnackbar
-        )
-      );
-    } else {
+    // if ((search && !brand) || (type && !brand)) {
+    //   dispatch(
+    //     getAllProducts(
+    //       { search, type: type == "default" ? "" : type, page },
+    //       enqueueSnackbar
+    //     )
+    //   );
+    // } else {
       dispatch(
         filterBrandProduct(
           {
@@ -103,7 +103,7 @@ function HomePage() {
           enqueueSnackbar
         )
       );
-    }
+    // }
   }, [search, type, brand]);
 
   const handleChangeSelect = (e) => {
