@@ -100,7 +100,7 @@ function CheckoutPage() {
     <Container sx={{ paddingBottom: "400px" }}>
       <Box
         sx={{
-          display: "center",
+          display: "flex",
           alignItems: "center",
           justifyContent: "",
           width: "100px",

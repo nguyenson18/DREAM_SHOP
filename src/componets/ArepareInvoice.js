@@ -8,8 +8,11 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { fCurrency } from "../utils/numberFormat";
+import DialogInformation from "./DialogInformation";
 
 const StyledBox = styled(Box)({
   display: "flex",
@@ -27,23 +30,27 @@ function ArepareInvoice() {
   const [totalPrice, setTotalPrice] = useState("");
   const [totalQuanlity, setTotalQuanlity] = useState("");
   const [totalPriceSale, setTotalPriceSale] = useState("");
+  const [open, setOpen] = useState(false);
   const { isLoading, listOrther } = useSelector((state) => state?.addcart);
-
+  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     let startPrice = 0;
     let startQuanlity = 0;
     let startPriceSale = 0;
     for (let i = 0; i < listOrther?.length; i++) {
       const element = listOrther[i];
-      startPrice = startPrice + +element?.latestPrice;
-      startPriceSale =
-        startPriceSale + (+element?.oldPrice - +element?.latestPrice);
+      startPrice = startPrice + +element?.totalAmount;
+      startPriceSale = startPriceSale + ((+element?.oldPrice - +element?.latestPrice) * (+element?.quantity) );
       startQuanlity = startQuanlity + +element?.quantity;
     }
     setTotalPrice(startPrice);
     setTotalPriceSale(startPriceSale);
     setTotalQuanlity(startQuanlity);
   }, [listOrther]);
+
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   return (
     <Box
@@ -68,11 +75,11 @@ function ArepareInvoice() {
           </StyledBox>
           <StyledBox>
             <Typography>Total Sale:</Typography>
-            {totalPriceSale} $
+            {fCurrency(totalPriceSale)} $
           </StyledBox>
           <StyledBox>
             <Typography>Total Price:</Typography>
-            {totalPrice} $
+            {fCurrency(totalPrice)} $
           </StyledBox>
         </CardContent>
         <Divider sx={{ width: "80%", margin: "0 auto" }} />
@@ -85,11 +92,17 @@ function ArepareInvoice() {
               margin: "10px auto",
               "&:hover":{opacity:0.9, backgroundColor:"#001c44"},
             }}
+            onClick={() => {
+              if(!listOrther?.length){
+                enqueueSnackbar("No products", {variant:"warning"})
+              }else {setOpen(true)}
+              }}
           >
             Purchase
           </Button>
         </CardActions>
       </Card>
+      <DialogInformation open={open} handleClose={handleClose} title={"Information"}/>
     </Box>
   );
 }
