@@ -49,7 +49,7 @@ function CheckoutPage() {
   const { isLoading, listOrther } = useSelector((state) => state?.addcart);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleChangeCheckBox = (e, id) => {
     let value = e.target.checked;
     const data = listOrther?.map((e) => {
@@ -96,6 +96,9 @@ function CheckoutPage() {
   }, [checkAll]);
 
   //CheckAll
+  useEffect(() => {
+    
+  }, [listOrther]);
 
   return (
     <Container sx={{ paddingBottom: "400px" }}>
@@ -163,11 +166,13 @@ function CheckoutPage() {
                       height: "100%",
                     }}
                   >
-                    <Button onClick={() => navigate(`/products/${row?.productId}`)}>
+                    <Button
+                      onClick={() => navigate(`/products/${row?.productId}`)}
+                    >
                       <img
                         src={row?.imageUrl}
                         alt=""
-                        style={{ height: "70px" }}
+                        style={{ height: "80px" }}
                       />
                     </Button>
                     <Typography
