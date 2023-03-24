@@ -50,6 +50,7 @@ function CheckoutPage() {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+
   const handleChangeCheckBox = (e, id) => {
     let value = e.target.checked;
     const data = listOrther?.map((e) => {
@@ -58,8 +59,25 @@ function CheckoutPage() {
       } else return { ...e };
     });
     dispatch(checkBoxOrther(data));
+    const checkAll = data.every((item) => item.check);
+    setCheckAll(checkAll);
   };
 
+  const handleChangeCheckAll =(e) => {
+    const checkAll = e?.target?.checked
+    setCheckAll(e.target.checked)
+    if (checkAll == true) {
+      const data = listOrther?.map((e) => {
+        return { ...e, check: checkAll };
+      });
+      dispatch(checkBoxOrther(data));
+    } else {
+      const data = listOrther?.map((e) => {
+        return { ...e, check: checkAll };
+      });
+      dispatch(checkBoxOrther(data));
+    }
+  }
   const handleQuanlity = ({ name, ortherId, quantity }) => {
     let newQuantity = +quantity;
     if (name == "increase") {
@@ -80,25 +98,7 @@ function CheckoutPage() {
   const handleClose = () => {
     setOpen(false);
   };
-  // CheckAll
-  useEffect(() => {
-    if (checkAll == true) {
-      const data = listOrther?.map((e) => {
-        return { ...e, check: checkAll };
-      });
-      dispatch(checkBoxOrther(data));
-    } else {
-      const data = listOrther?.map((e) => {
-        return { ...e, check: checkAll };
-      });
-      dispatch(checkBoxOrther(data));
-    }
-  }, [checkAll]);
 
-  //CheckAll
-  useEffect(() => {
-    
-  }, [listOrther]);
 
   return (
     <Container sx={{ paddingBottom: "400px" }}>
@@ -129,7 +129,7 @@ function CheckoutPage() {
                     "&.Mui-checked": { color: "tomato" },
                   }}
                   checked={checkAll}
-                  onChange={(e) => setCheckAll(e.target.checked)}
+                  onChange={(e) => handleChangeCheckAll(e)}
                 />
               </TableCell>
               <TableCell
