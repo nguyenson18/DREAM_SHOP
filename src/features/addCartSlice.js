@@ -41,12 +41,12 @@ const slice = createSlice({
       state.totalCart = total;
       state.listOrther = data;
     },
-    refreshDataSuccess(state, action){
-      state.isLoading = null
-      state.error = null
-      state.carts = null
-      state.listOrther = null
-      state.totalCart = null
+    refreshDataSuccess(state, action) {
+      state.isLoading = null;
+      state.error = null;
+      state.carts = null;
+      state.listOrther = null;
+      state.totalCart = null;
     },
   },
 });
@@ -98,7 +98,7 @@ export const setQuanlityOrther =
       enqueueSnackbar(error.message, { variant: "error" });
     }
   };
-  
+
 export const deleteOrther =
   ({ ortherId }, enqueueSnackbar) =>
   async (dispatch) => {
@@ -113,11 +113,26 @@ export const deleteOrther =
     }
   };
 
-  export const resfreshData = () => async(dispatch) => {
-    dispatch(slice.actions.startLoading())
+export const resfreshData = () => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    dispatch(slice.actions.refreshDataSuccess());
+  } catch (error) {
+    dispatch(slice.actions.hasError(error));
+  }
+};
+export const ortherConfim =
+  ({ data, dataOrthers }, enqueueSnackbar) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
     try {
-      dispatch(slice.actions.refreshDataSuccess())
+      const res = await apiService.put(`/orther/confirm`, {
+        dataOrthers: dataOrthers,
+        infoUserBooking: data,
+      });
+      console.log(res);
     } catch (error) {
       dispatch(slice.actions.hasError(error));
+      enqueueSnackbar(error.message, { variant: "error" });
     }
-  }
+  };

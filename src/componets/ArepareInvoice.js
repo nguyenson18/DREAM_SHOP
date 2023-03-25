@@ -32,7 +32,7 @@ function ArepareInvoice() {
   const [totalQuanlity, setTotalQuanlity] = useState("");
   const [totalPriceSale, setTotalPriceSale] = useState("");
   const [open, setOpen] = useState(false);
-  const { isLoading, listOrther } = useSelector((state) => state?.addcart);
+  const { listOrther } = useSelector((state) => state?.addcart);
   const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     let startPrice = 0;

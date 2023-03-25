@@ -9,10 +9,14 @@ import {
 import { Box } from "@mui/system";
 import React from "react";
 import { useForm } from "react-hook-form";
-import FormProvider from "./form/FormProvider";
-import FTextField from "./form/FTextField";
+import { FormProvider, FTextField } from "./form";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import styled from "@emotion/styled";
+import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { getOther, ortherConfim } from "../features/addCartSlice";
+import { useSnackbar } from "notistack";
 
 const StyledBox = styled(Box)({
   display: "flex",
@@ -20,24 +24,35 @@ const StyledBox = styled(Box)({
   justifyContent: "space-between",
 });
 
+const schemaInfoUser = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  email: Yup.string().email("Invalid Email").required("Email is required"),
+  phone: Yup.number().required("Phone is reqiured"),
+  address: Yup.string().required("Address is required"),
+  streetsName: Yup.string().required("StreetsName is required"),
+  district: Yup.string().required("District is required"),
+  city: Yup.string().required("City is required"),
+});
+
 const defaultValue = {
   name: "",
   phone: "",
   email: "",
   address: "",
-  ward: "",
+  streetsName: "",
   district: "",
   city: "",
 };
 
-function DialogInformation({
-  open,
-  handleClose,
-  title,
-  content,
-  handleDelete,
-}) {
-  const methods = useForm({ defaultValue });
+function DialogInformation({ open, handleClose, title, content }) {
+  const { listOrther } = useSelector((state) => state?.addcart);
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const methods = useForm({
+    defaultValue,
+    resolver: yupResolver(schemaInfoUser),
+  });
   const {
     handleSubmit,
     reset,
@@ -47,6 +62,18 @@ function DialogInformation({
     formState: { errors, isSubmitting },
   } = methods;
 
+  const onSubmit = async (data) => {
+    let dataOrthers = [];
+    for (let i = 0; i < listOrther?.length; i++) {
+      const element = listOrther[i];
+      if (element.check == true) {
+        dataOrthers.push({ id: element?._id });
+      }
+    }
+    dispatch(ortherConfim({ data, dataOrthers }, enqueueSnackbar));
+    dispatch(getOther(enqueueSnackbar))
+    handleClose()
+  };
   return (
     <Dialog
       open={open}
@@ -56,26 +83,26 @@ function DialogInformation({
         textAlign: "center",
       }}
     >
-      <DialogTitle>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            height: "40px",
-            padding: "12px 16px",
-            color: "tomato",
-            backgroundColor: "#001c44",
-            my: 2,
-            borderRadius: "5px",
-          }}
-        >
-          <LocalShippingIcon sx={{ fontSize: "40px", marginRight: "5px" }} />
-          <Typography variant="h6">{title}</Typography>
-        </Box>
-      </DialogTitle>
-      <FormProvider methods={methods} onSubmit={handleSubmit}>
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <DialogTitle>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              height: "40px",
+              padding: "12px 16px",
+              color: "tomato",
+              backgroundColor: "#001c44",
+              my: 2,
+              borderRadius: "5px",
+            }}
+          >
+            <LocalShippingIcon sx={{ fontSize: "40px", marginRight: "5px" }} />
+            <Typography variant="h6">{title}</Typography>
+          </Box>
+        </DialogTitle>
         <DialogContent>
           <StyledBox>
             <FTextField
@@ -95,7 +122,7 @@ function DialogInformation({
             <FTextField
               variant="standard"
               name="email"
-              label="Contact Email"
+              label="Email address"
               sx={{ width: "35%" }}
             />
             <FTextField
@@ -106,7 +133,7 @@ function DialogInformation({
             />
             <FTextField
               variant="standard"
-              name="ward"
+              name="streetsName"
               label="Street names"
               sx={{ width: "28%" }}
             />
@@ -141,7 +168,8 @@ function DialogInformation({
             No
           </Button>
           <Button
-            onClick={handleDelete}
+            type="submit"
+            // onClick={handleSubmit(onSubmit)}
             autoFocus
             sx={{
               color: "white",
