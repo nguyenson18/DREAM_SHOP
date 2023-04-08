@@ -76,7 +76,7 @@ export const LIST_OPTIONS_NAV = [
   },
   {
     value: "Order",
-    role: ["master","normal"],
+    role: ["normal"],
     navigateValue: "/order",
     line: (
       <Divider
