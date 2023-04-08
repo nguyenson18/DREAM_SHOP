@@ -247,7 +247,7 @@ function CheckoutPage() {
         <DeleteSweepIcon />
       </Button>
       <ArepareInvoice />
-      <Dailogconfim
+      <Dailogconfim 
         open={open}
         title={"Do you want to delete this product?"}
         content={content}

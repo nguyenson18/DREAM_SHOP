@@ -51,10 +51,10 @@ export const TOPIC_OPTIONS = [
     title: "Other Topics",
   },
 ];
-export  const LIST_OPTIONS_NAV = [
+export const LIST_OPTIONS_NAV = [
   {
     value: "Home",
-    role:["master","normal"],
+    role: ["master", "normal"],
     navigateValue: "/",
     line: (
       <Divider
@@ -65,7 +65,7 @@ export  const LIST_OPTIONS_NAV = [
   },
   {
     value: "Checkout",
-    role:["normal"],
+    role: ["normal"],
     navigateValue: "/checkout",
     line: (
       <Divider
@@ -76,7 +76,7 @@ export  const LIST_OPTIONS_NAV = [
   },
   {
     value: "Order",
-    role:["normal"],
+    role: ["master","normal"],
     navigateValue: "/order",
     line: (
       <Divider
@@ -86,8 +86,19 @@ export  const LIST_OPTIONS_NAV = [
     ),
   },
   {
-    value:"CustomerCare",
-    role:["normal"],
-    navigateValue:"/customrcare"
-  }
+    value: "CustomerCare",
+    role: ["normal"],
+    navigateValue: "/customrcare",
+    line: (
+      <Divider
+        orientation="vertical"
+        style={{ height: "30px", margin: "0 10px" }}
+      />
+    ),
+  },
+  {
+    value: "CreateProduct",
+    role: ["master"],
+    navigateValue: "/createproduct"
+  },
 ];

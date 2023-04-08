@@ -53,7 +53,7 @@ function LoginPage() {
           color="inherit"
           aria-label="open drawer"
         >
-          <Logo sx={{ width: "100px" }} />
+          <LogoWhite sx={{ width: "100px" }} />
         </IconButton>
         <Card
           sx={{

@@ -352,7 +352,7 @@ function MainHeader() {
             style={{ display: "flex", alignItems: "center" }}
           >
             {LIST_OPTIONS_NAV.map((e) => {
-              const checkRole = e?.role?.includes(auth?.user?.role);
+              const checkRole = e?.role?.includes(auth?.role);
               const path = location?.pathname;
               return (
                 <div

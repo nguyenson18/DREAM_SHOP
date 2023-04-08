@@ -9,6 +9,7 @@ const initialState = {
   isInitialized: false,
   isAuthenticated: false,
   user: null,
+  role: null,
 };
 
 const LOGIN_SUCCESS = "AUTH.REGISTER_SUCCESS";
@@ -28,19 +29,25 @@ const reducer = (state, action) => {
         isInitialized: true,
         isAuthenticated,
         user,
+        role: user?.role,
       };
     case LOGIN_SUCCESS:
-      return { ...state, isAuthenticated: true, user: action?.payload?.user };
+      return {
+        ...state,
+        isAuthenticated: true,
+        user: action?.payload?.user,
+        role: action?.payload?.user?.role,
+      };
     case REGISTER_SUCCESS:
-      return { ...state, user: null,isAuthenticated: false };
+      return { ...state, user: null, isAuthenticated: false, role: null };
     case RESETPASSWORD:
       return { ...state };
     case CHANGEPASSWORD:
       return { ...state };
     case LOGOUT:
-      return { ...state, isAuthenticated: false, user: null };
+      return { ...state, isAuthenticated: false, user: null, role:null };
     case UPDATEDPROFILE:
-      return { ...state, user: action?.payload?.user };
+      return { ...state, user: action?.payload?.user, role: action?.payload?.user?.role };
     default:
       return state;
   }
