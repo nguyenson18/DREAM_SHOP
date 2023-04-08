@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
 
+
 const initialState = {
   isInitialized: false,
   isAuthenticated: false,
@@ -150,7 +151,7 @@ function AuthProvider({ children }) {
     enqueueSnackbar("Register Successlly", { variant: "success" });
     setCurrentTab("LOGIN");
   };
-  const reserPassword = async ({ email }, setCurrentTab, enqueueSnackbar) => {
+  const resetPassword = async ({ email }, setCurrentTab, enqueueSnackbar) => {
     await apiService.post("/users/resetpassword", { email });
     dispatch({ type: RESETPASSWORD });
     enqueueSnackbar("Reset Password successfully", { variant: "success" });
@@ -175,7 +176,7 @@ function AuthProvider({ children }) {
         login,
         logout,
         register,
-        reserPassword,
+        resetPassword,
         handleChangePassword,
       }}
     >

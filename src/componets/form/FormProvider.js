@@ -1,9 +1,9 @@
 import { FormProvider as RHFormProvider } from "react-hook-form";
 
-function FormProvider({ children, onSubmit, methods }) {
+function FormProvider({form, children, onSubmit, methods }) {
   return (
     <RHFormProvider {...methods}>
-      <form onSubmit={onSubmit}>{children}</form>
+      <form ref={form} onSubmit={onSubmit}>{children}</form>
     </RHFormProvider>
   );
 }

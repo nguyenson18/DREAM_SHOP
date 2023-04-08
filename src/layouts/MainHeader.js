@@ -470,7 +470,7 @@ function MainHeader() {
               variant="outlined"
               onClick={handleCloseDailog}
             >
-              huy bo
+              No
             </Button>
             <LoadingButton
               sx={{

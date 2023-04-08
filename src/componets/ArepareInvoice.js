@@ -13,7 +13,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { fCurrency } from "../utils/numberFormat";
 import DialogInformation from "./DialogInformation";
-import PaymentIcon from '@mui/icons-material/Payment';
+import PaymentIcon from "@mui/icons-material/Payment";
 
 const StyledBox = styled(Box)({
   display: "flex",
@@ -31,27 +31,36 @@ function ArepareInvoice() {
   const [totalPrice, setTotalPrice] = useState("");
   const [totalQuanlity, setTotalQuanlity] = useState("");
   const [totalPriceSale, setTotalPriceSale] = useState("");
+  const [totalProduct, setTotalProduct] = useState([]);
   const [open, setOpen] = useState(false);
   const { listOrther } = useSelector((state) => state?.addcart);
   const { enqueueSnackbar } = useSnackbar();
+  console.log(totalProduct)
   useEffect(() => {
     let startPrice = 0;
     let startQuanlity = 0;
     let startPriceSale = 0;
+    let totalProducts = []
     for (let i = 0; i < listOrther?.length; i++) {
       const element = listOrther[i];
-      startPrice = startPrice + +element?.totalAmount;
-      startPriceSale = startPriceSale + ((+element?.oldPrice - +element?.latestPrice) * (+element?.quantity) );
-      startQuanlity = startQuanlity + +element?.quantity;
+      if (element.check === true) {
+        totalProducts.push(element)
+        startPrice = startPrice + +element?.totalAmount;
+        startPriceSale =
+          startPriceSale +
+          (+element?.oldPrice - +element?.latestPrice) * +element?.quantity;
+        startQuanlity = startQuanlity + +element?.quantity;
+      }
     }
     setTotalPrice(startPrice);
     setTotalPriceSale(startPriceSale);
     setTotalQuanlity(startQuanlity);
+    setTotalProduct(totalProducts)
   }, [listOrther]);
 
   const handleClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   return (
     <Box
@@ -68,7 +77,7 @@ function ArepareInvoice() {
         <CardContent>
           <StyledBox>
             <Typography>Total Product:</Typography>
-            {listOrther?.length}
+            {totalProduct?.length}
           </StyledBox>
           <StyledBox>
             <Typography>Total Quantity:</Typography>
@@ -89,22 +98,28 @@ function ArepareInvoice() {
             size="small"
             sx={{
               backgroundColor: "tomato",
-              width:"120px",
+              width: "120px",
               color: "white",
               margin: "10px auto",
-              "&:hover":{opacity:0.9, backgroundColor:"#001c44"},
+              "&:hover": { opacity: 0.9, backgroundColor: "#001c44" },
             }}
             onClick={() => {
-              if(!listOrther?.length){
-                enqueueSnackbar("No products", {variant:"warning"})
-              }else {setOpen(true)}
-              }}
+              if (!listOrther?.length) {
+                enqueueSnackbar("No products", { variant: "warning" });
+              } else {
+                setOpen(true);
+              }
+            }}
           >
-            <PaymentIcon sx={{marginRight:"5px"}}/> PAYMENT
+            <PaymentIcon sx={{ marginRight: "5px" }} /> PAYMENT
           </Button>
         </CardActions>
       </Card>
-      <DialogInformation open={open} handleClose={handleClose} title={"Information"}/>
+      <DialogInformation
+        open={open}
+        handleClose={handleClose}
+        title={"Information"}
+      />
     </Box>
   );
 }

@@ -15,8 +15,7 @@ import useAuth from "../hooks/useAuth";
 import CreateProduct from "../pages/CreateProduct";
 
 function Router() {
-  const auth = useAuth()
-  console.log(auth)
+  const auth = useAuth();
   return (
     <Routes>
       <Route
@@ -32,7 +31,7 @@ function Router() {
         <Route path="order" element={<OrderPage />} />
         <Route path="customrcare" element={<CustomerCarePage />} />
         <Route path="account" element={<AccountPages />} />
-        <Route path="createproduct" element={<CreateProduct/>} />
+        <Route path="createproduct" element={<CreateProduct />} />
         <Route path="products/:id" element={<DetailPages />} />
       </Route>
 

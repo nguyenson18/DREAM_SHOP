@@ -109,7 +109,7 @@ function LoginComponetPage({ setCurrentTab }) {
           sx={{ my: 2 }}
         >
           <FCheckbox name="remember" label="Remember me" />
-          <Link sx={{color:"tomato",textDecorationColor:"tomato"}} component={RouterLink} variant="subtitle2" to="/">
+          <Link sx={{color:"tomato",textDecorationColor:"tomato"}} component={RouterLink} variant="subtitle2" onClick={() => setCurrentTab("RESER PASSWORD")}>
             Forgot password?
           </Link>
         </Stack>
