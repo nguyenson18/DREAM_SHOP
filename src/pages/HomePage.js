@@ -31,6 +31,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { filterBrandProduct, getAllProducts } from "../features/productSlice";
 import LoadingScreen from "../componets/LoadingScreen";
 import { useSnackbar } from "notistack";
+import styled from "@emotion/styled";
+
+const StyledSlider = styled(Slider)({
+  width: "100%",
+  marginTop: "10px",
+  marginBottom: "10px",
+  color: "#001c44",
+  '& .MuiSlider-valueLabel': {
+    backgroundColor: '#001c44',
+    borderRadius:"7px"
+  },
+});
 
 function valueLabelFormat(value) {
   const units = '$';
@@ -39,7 +51,7 @@ function valueLabelFormat(value) {
 }
 
 function HomePage() {
-  const [price, setPrice] = useState([0, 100]);
+  const [price, setPrice] = useState([0, 340000]);
   const [search, setSearch] = useState("");
   const [type, setType] = useState("default");
   const [brand, setBrand] = useState("");
@@ -116,7 +128,6 @@ function HomePage() {
     setType(e.target.value);
   };
   const handleChangePrice = (event, newValue) => {
-    console.log(newValue, event)
     setPrice(newValue);
   };
   const handleClickClear = () => {
@@ -151,19 +162,17 @@ function HomePage() {
             <Typography sx={{ marginTop: "10px", fontWeight: 600 }}>
               Price
             </Typography>
-            <Slider
+            <Box sx={{display:'flex', justifyContent:'space-between', marginTop:'5px'}}>
+              <Typography >Start: <span style={{fontWeight: 500}}>{price[0]}$</span></Typography>
+              <Typography >End: <span style={{fontWeight: 500}}>{price[1]}$</span></Typography>
+            </Box>
+            <StyledSlider
               getAriaLabel={() => "Money range"}
-              sx={{
-                width: "100%",
-                marginTop: "10px",
-                marginBottom: "10px",
-                color: "#001c44",
-              }}
               value={price}
               getAriaValueText={valueLabelFormat}
               valueLabelFormat={valueLabelFormat}
               valueLabelDisplay="auto"
-              max={3000000}
+              max={340000}
               onChange={handleChangePrice}
             />
           </Box>
