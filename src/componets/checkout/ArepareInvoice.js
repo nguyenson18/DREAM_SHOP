@@ -11,8 +11,8 @@ import { Box } from "@mui/system";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { fCurrency } from "../utils/numberFormat";
-import DialogInformation from "./DialogInformation";
+import { fCurrency } from "../../utils/numberFormat";
+import DialogInformation from "../DialogInformation";
 import PaymentIcon from "@mui/icons-material/Payment";
 
 const StyledBox = styled(Box)({

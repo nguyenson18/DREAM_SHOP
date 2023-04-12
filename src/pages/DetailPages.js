@@ -16,13 +16,13 @@ import { fCurrency } from "../utils/numberFormat";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetailProduct } from "../features/productSlice";
-import ProductInformation from "../componets/ProductInformation";
 import { useSnackbar } from "notistack";
 import DiscountNew from "../componets/DiscountNew";
 import FButton from "../componets/form/FButton";
 import LoadingScreen from "../componets/LoadingScreen";
 import useAuth from "../hooks/useAuth";
 import { addToCart } from "../features/addCartSlice";
+import { ProductInformation } from "../componets/products";
 
 function DetailPages() {
   const [product, setProduct] = useState();

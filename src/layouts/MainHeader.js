@@ -26,8 +26,6 @@ import {
 } from "react-router-dom";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import AvatarImg from "../img/avatar.jpg";
-import Logo from "../componets/Logo";
-import LogoWhite from "../componets/LogoWhite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import "./mainHeader.scss";
 import useAuth from "../hooks/useAuth";
@@ -44,6 +42,7 @@ import { LIST_OPTIONS_NAV } from "../options/option";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../features/productSlice";
 import { getOther, resfreshData } from "../features/addCartSlice";
+import { LogoWhite } from "../componets/logo";
 
 const schemaChangePassword = Yup.object()
   .shape({
@@ -185,6 +184,32 @@ function MainHeader() {
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
+      PaperProps={{
+        elevation: 0,
+        sx: {
+          overflow: 'visible',
+          filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+          mt: 1.5,
+          '& .MuiAvatar-root': {
+            width: 32,
+            height: 32,
+            ml: -0.5,
+            mr: 1,
+          },
+          '&:before': {
+            content: '""',
+            display: 'block',
+            position: 'absolute',
+            top: 0,
+            right: 25,
+            width: 10,
+            height: 10,
+            bgcolor: 'background.paper',
+            transform: 'translateY(-50%) rotate(45deg)',
+            zIndex: 0,
+          },
+        },
+      }}
       sx={{ mt: "45px" }}
     >
       <Box sx={{ my: 1.5, px: 2.5 }}>
@@ -240,21 +265,33 @@ function MainHeader() {
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={1} color="error">
+          <Badge badgeContent={listOrther?.length} color="error">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
-        <p>Thêm vào giỏ</p>
+        <p>Add To Cart</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton onClick={handleProfileMenuOpen}>
-          <Avatar
-            alt="Trường sơn"
-            src={AvatarImg}
-            sx={{ width: 32, height: 32 }}
-          />
-        </IconButton>
-        <p>Trường sơn</p>
+      {auth?.isAuthenticated ? (
+              <IconButton onClick={handleProfileMenuOpen}>
+                <Avatar
+                  alt={auth?.user?.name}
+                  src={auth?.user?.avatarUrl}
+                  sx={{ width: 45, height: 45 }}
+                />
+              </IconButton>
+            ) : (
+              <IconButton
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                <LockOpenIcon
+                  sx={{ fontSize: "30px", color: "rgb(237, 50, 56)" }}
+                />
+              </IconButton>
+            )}
+        <p>{auth?.user?.name ? auth?.user?.name : 'Login'}</p>
       </MenuItem>
     </Menu>
   );

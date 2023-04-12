@@ -14,6 +14,7 @@ import {
   Select,
   Slider,
   Stack,
+  SwipeableDrawer,
   TextField,
   Typography,
 } from "@mui/material";
@@ -23,7 +24,7 @@ import { FormProvider, FTextField } from "../componets/form";
 import SearchIcon from "@mui/icons-material/Search";
 import { useForm } from "react-hook-form";
 import SortIcon from "@mui/icons-material/Sort";
-import ProductList from "../componets/ProductList";
+
 
 import { RATING_OPTIONS, SORT_OPTIONS } from "../options/option";
 import CollapseFilter from "../componets/CollapseFilter";
@@ -32,6 +33,7 @@ import { filterBrandProduct, getAllProducts } from "../features/productSlice";
 import LoadingScreen from "../componets/LoadingScreen";
 import { useSnackbar } from "notistack";
 import styled from "@emotion/styled";
+import { ProductList } from "../componets/products";
 
 const StyledSlider = styled(Slider)({
   width: "100%",
@@ -51,6 +53,7 @@ function valueLabelFormat(value) {
 }
 
 function HomePage() {
+  const [leftToggle, setLeftToggle] = useState(false)
   const [price, setPrice] = useState([0, 340000]);
   const [search, setSearch] = useState("");
   const [type, setType] = useState("default");
@@ -137,7 +140,81 @@ function HomePage() {
     setType("default");
     setSearch("");
   };
+  const toggleDrawer = (open) => (event) => {
+    setLeftToggle(open)
+  }
 
+  const renderMobile = (
+    <SwipeableDrawer
+            anchor='left'
+            open={leftToggle}
+            onClose={toggleDrawer(false)}
+            onOpen={toggleDrawer( true)}
+          >
+            
+        
+          <Box sx={{margin:"22px"}}>
+          <CollapseFilter
+            search={search}
+            setBrand={setBrand}
+            setCategory={setCategory}
+            type={type}
+          />
+          <Divider />
+          <Box>
+            <Typography sx={{ marginTop: "10px", fontWeight: 600 }}>
+              Price
+            </Typography>
+            <Box sx={{display:'flex', justifyContent:'space-between', marginTop:'5px'}}>
+              <Typography >Start: <span style={{fontWeight: 500}}>{price[0]}$</span></Typography>
+              <Typography >End: <span style={{fontWeight: 500}}>{price[1]}$</span></Typography>
+            </Box>
+            <StyledSlider
+              getAriaLabel={() => "Money range"}
+              value={price}
+              getAriaValueText={valueLabelFormat}
+              valueLabelFormat={valueLabelFormat}
+              valueLabelDisplay="auto"
+              max={340000}
+              onChange={handleChangePrice}
+            />
+          </Box>
+          <Divider />
+
+          <Typography sx={{ marginTop: "10px", fontWeight: 600 }}>
+            Rating
+          </Typography>
+
+          {RATING_OPTIONS.map((rating) => (
+            <Button
+              key={rating?.value}
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <Rating name="simple-controlled" value={rating?.value} readOnly />
+              <Typography sx={{ color: "#001c44" }}>{rating?.title}</Typography>
+            </Button>
+          ))}
+          <Button
+            sx={{
+              marginTop: "15px",
+              width: "100%",
+              border: " 1px solid tomato ",
+              color: "tomato",
+            }}
+            variant="outlined"
+            startIcon={<ClearAllIcon sx={{ color: "tomato" }} />}
+            onClick={handleClickClear}
+          >
+            Clear All
+          </Button>
+          </Box>
+      
+      </SwipeableDrawer>
+  )
   return (
     <Container
       sx={{
@@ -149,8 +226,8 @@ function HomePage() {
         maxWidth: "1500px !important",
       }}
     >
-      <Stack sx={{ marginRight: "24px", width: 300 }}>
-        <Card sx={{ width: 250, textAlign: "center", padding: "10px" }}>
+      <Stack sx={{ marginRight: "24px", width: 300}}>
+        <Card sx={{ width: 250, textAlign: "center", padding: "10px", display:{xs:'none', sm:'block'} }}>
           <CollapseFilter
             search={search}
             setBrand={setBrand}
@@ -214,9 +291,11 @@ function HomePage() {
       <Stack sx={{ flexGrow: 1, position: "relative" }}>
         <Stack
           spacing={2}
-          direction={{ xs: "column", sm: "row" }}
+          direction={{ xs: "row", sm: "row" }}
           justifyContent="flex-end"
+          alignItems='end'
         >
+          <Button sx={{display:{xs:"block", sm:"none"}}} onClick={toggleDrawer(!leftToggle)}>Filter</Button>
           <TextField
             name="searchQuery"
             sx={{ width: 180 }}
@@ -274,6 +353,7 @@ function HomePage() {
           </>
         )}
       </Stack>
+      {renderMobile}
     </Container>
   );
 }

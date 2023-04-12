@@ -1,7 +1,6 @@
 import { Container, createTheme, Typography } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import React from "react";
-import LogoWhite from "../componets/LogoWhite";
 import EmailIcon from "@mui/icons-material/Email";
 import CallIcon from "@mui/icons-material/Call";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -10,6 +9,7 @@ import MasterCard from "../img/mastercard.png";
 import Visa from "../img/visa.png";
 import Discover from "../img/discover.png";
 import American from "../img/american.png";
+import { LogoWhite } from "../componets/logo";
 
 const StyledDiv = styled("div")({
   display: "flex",

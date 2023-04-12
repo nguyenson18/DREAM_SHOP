@@ -12,16 +12,16 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-import { fCurrency } from "../utils/numberFormat";
+import useAuth from "../../hooks/useAuth";
+import { fCurrency } from "../../utils/numberFormat";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import DiscountNew from "./DiscountNew";
+import DiscountNew from "../DiscountNew";
 import ProductInformation from "./ProductInformation";
 import { capitalCase } from "change-case";
-import FButton from "./form/FButton";
+import FButton from "../form/FButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
-import { addToCart } from "../features/addCartSlice";
+import { addToCart } from "../../features/addCartSlice";
 
 function ProductCard({ product }) {
   const navigate = useNavigate();

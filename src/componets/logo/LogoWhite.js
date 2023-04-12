@@ -1,10 +1,10 @@
 import { Box, Button } from "@mui/material";
 import React from "react";
-import logoImg from "../img/logowhite.png";
+import logoImg from "../../img/logowhite.png";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
-import { getAllProducts } from "../features/productSlice";
+import { getAllProducts } from "../../features/productSlice";
 
 function Logo({ disabledLink = false, sx }) {
   const location = useLocation();

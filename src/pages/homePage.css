@@ -1,0 +1,8 @@
+@media screen and ( max-width:1024px) {
+    .css-184nk4n-MuiStack-root {
+        display: block;
+    }
+    .isDesktop {
+        display: none;
+    }
+  }

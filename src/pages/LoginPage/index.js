@@ -9,15 +9,14 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
-import LogoWhite from "../componets/LogoWhite";
 import "./Login.css";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { capitalCase } from "change-case";
-import Logo from "../componets/Logo";
-import LoginComponetPage from "../componets/LoginComponetPage";
-import RegisterComponetPage from "../componets/RegisterComponetPage";
-import ReserPasswordComponetPage from "../componets/ReserPasswordComponetPage";
+import LoginComponetPage from "../../componets/LoginComponetPage";
+import RegisterComponetPage from "../../componets/RegisterComponetPage";
+import ReserPasswordComponetPage from "../../componets/ReserPasswordComponetPage";
+import { LogoWhite } from "../../componets/logo";
 
 function LoginPage() {
   const [currentTab, setCurrentTab] = useState("LOGIN");
