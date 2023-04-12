@@ -25,9 +25,10 @@ REACT_APP_BACKEND_API = https://shop-app-backend-production-5c4e.up.railway.app/
 REACT_APP_BACKEND_API2 = https://shopapp-be-booking.onrender.com/api
 REACT_APP_CLOUDINARY_CLOUD_NAME = nguy-n-tr-ng-s-n
 REACT_APP_CLOUDINARY_UPLOAD_PRESET = dream_shop
+// REACT_PUBLIC_GOOGLE_CLIENT_ID = 466401349875-e6olg4cl8ph7aaiaofe61ov0vvk1lf4j.apps.googleusercontent.com
 ```
 
-REACT_PUBLIC_GOOGLE_CLIENT_ID = 466401349875-e6olg4cl8ph7aaiaofe61ov0vvk1lf4j.apps.googleusercontent.com
+
 
 ### demo
 The demo app is running on: https://dreamshopecomerc.netlify.app/
