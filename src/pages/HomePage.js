@@ -32,6 +32,12 @@ import { filterBrandProduct, getAllProducts } from "../features/productSlice";
 import LoadingScreen from "../componets/LoadingScreen";
 import { useSnackbar } from "notistack";
 
+function valueLabelFormat(value) {
+  const units = '$';
+
+  return `${value} ${units}`;
+}
+
 function HomePage() {
   const [price, setPrice] = useState([0, 100]);
   const [search, setSearch] = useState("");
@@ -110,6 +116,7 @@ function HomePage() {
     setType(e.target.value);
   };
   const handleChangePrice = (event, newValue) => {
+    console.log(newValue, event)
     setPrice(newValue);
   };
   const handleClickClear = () => {
@@ -153,6 +160,10 @@ function HomePage() {
                 color: "#001c44",
               }}
               value={price}
+              getAriaValueText={valueLabelFormat}
+              valueLabelFormat={valueLabelFormat}
+              valueLabelDisplay="auto"
+              max={3000000}
               onChange={handleChangePrice}
             />
           </Box>
