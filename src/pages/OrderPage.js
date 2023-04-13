@@ -20,6 +20,7 @@ import { fCurrency } from "../utils/numberFormat";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { statusComfim } from "../utils/statusOrder";
 
 const StyledTableCell = styled(TableCell)({
   textAlign: "center",
@@ -68,6 +69,7 @@ function OrderPage() {
               <TableCell sx={{ fontWeight: 550, color: "white" }}>
                 Product
               </TableCell>
+              <StyledTableCell>Status</StyledTableCell>
               <StyledTableCell>Price</StyledTableCell>
               <StyledTableCell>Price Sale</StyledTableCell>
               <StyledTableCell>Discount</StyledTableCell>
@@ -108,6 +110,9 @@ function OrderPage() {
                       {row?.name}
                     </Typography>
                   </Box>
+                </StyledTableCellBody>
+                <StyledTableCellBody>
+                  {statusComfim(row?.status)}
                 </StyledTableCellBody>
                 <StyledTableCellBody>
                   {fCurrency(row?.latestPrice)} $
