@@ -5,7 +5,6 @@ import { LoadingButton } from "@mui/lab";
 import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
 import { useSnackbar } from "notistack";
-import emailjs from "emailjs-com";
 
 const defaultValues = {
   email: "",

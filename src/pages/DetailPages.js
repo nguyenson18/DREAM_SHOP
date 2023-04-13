@@ -1,15 +1,12 @@
 import {
   Box,
-  Button,
-  Card,
   Divider,
-  Grid,
   Rating,
   Stack,
   Typography,
 } from "@mui/material";
 import { Container } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fCurrency } from "../utils/numberFormat";
 
@@ -25,7 +22,6 @@ import { addToCart } from "../features/addCartSlice";
 import { ProductInformation } from "../componets/products";
 
 function DetailPages() {
-  const [product, setProduct] = useState();
   const { isLoading, productDetail } = useSelector((state) => state.product);
   const params = useParams();
   const auth = useAuth()
@@ -152,7 +148,7 @@ function DetailPages() {
                     readOnly
                   />
                   <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    ({product?.totalReview} reviews)
+                    ({productDetail?.totalReview} reviews)
                   </Typography>
                 </Stack>
 

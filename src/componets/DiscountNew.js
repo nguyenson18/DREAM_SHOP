@@ -1,7 +1,6 @@
 import React from "react";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import { capitalCase } from "change-case";
-import { Box } from "@mui/material";
 import NewReleasesIcon from "@mui/icons-material/NewReleases";
 
 function DiscountNew({ product }) {

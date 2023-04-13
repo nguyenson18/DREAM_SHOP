@@ -35,8 +35,6 @@ function AccountPages() {
   const {
     handleSubmit,
     setValue,
-    reset,
-    setError,
     formState: { errors, isSubmitting },
   } = methods;
 

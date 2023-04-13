@@ -3,7 +3,7 @@ import LoadingScreen from "../componets/LoadingScreen";
 import useAuth from "../hooks/useAuth";
 
 function AuthRequire({ children }) {
-  const { isInitialized, isAuthenticated, role } = useAuth();
+  const { isInitialized, role } = useAuth();
   const routersCheckRoleMaster = [
      "/checkout",
      "/order" 

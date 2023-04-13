@@ -20,12 +20,10 @@ import {
 import React, { useEffect, useState } from "react";
 import {
   Link as RouterLink,
-  Navigate,
   useLocation,
   useNavigate,
 } from "react-router-dom";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import AvatarImg from "../img/avatar.jpg";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import "./mainHeader.scss";
 import useAuth from "../hooks/useAuth";
@@ -40,7 +38,6 @@ import { useSnackbar } from "notistack";
 import { LoadingButton } from "@mui/lab";
 import { LIST_OPTIONS_NAV } from "../options/option";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../features/productSlice";
 import { getOther, resfreshData } from "../features/addCartSlice";
 import { LogoWhite } from "../componets/logo";
 
@@ -68,7 +65,7 @@ function MainHeader() {
   const [password, setPassword] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const { isLoading, totalCart, listOrther } = useSelector(
+  const { listOrther } = useSelector(
     (state) => state.addcart,
     shallowEqual
   );

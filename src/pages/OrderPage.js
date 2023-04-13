@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Card,
-  Checkbox,
   Container,
   Table,
   TableBody,
@@ -13,7 +12,6 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import React, { useEffect } from "react";
-import GradingIcon from "@mui/icons-material/Grading";
 import BallotIcon from "@mui/icons-material/Ballot";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrder } from "../features/oderCartSlice";
@@ -21,7 +19,6 @@ import { useSnackbar } from "notistack";
 import { fCurrency } from "../utils/numberFormat";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
-import EditIcon from "@mui/icons-material/Edit";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 const StyledTableCell = styled(TableCell)({
@@ -38,13 +35,13 @@ const StyledTableCellBody = styled(TableCell)({
 
 function OrderPage() {
   const { listOrder } = useSelector((state) => state?.ordercart);
-  console.log(listOrder);
+
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(getOrder(enqueueSnackbar));
-  }, []);
+  },[]);
   return (
     <Container sx={{ paddingBottom: "400px" }}>
       <Box

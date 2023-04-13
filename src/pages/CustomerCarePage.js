@@ -10,7 +10,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import React from "react";
 import { FormProvider, FTextField } from "../componets/form";
 import { useForm } from "react-hook-form";
-import { border } from "@mui/system";
 import { TOPIC_OPTIONS } from "../options/option";
 
 const defaultValues = {
@@ -19,13 +18,13 @@ const defaultValues = {
 
 function CustomerCarePage() {
   const methods = useForm({ defaultValues });
+  
   const {
     handleSubmit,
-    reset,
-    setError,
-    formState: { errors, isSubmitting },
   } = methods;
+
   const onSubmit = () => {};
+
   return (
     <Box sx={{ textAlign: "center", paddingBottom: "318px" }}>
       <Box sx={{ backgroundColor: "tomato", height: "150px" }}>

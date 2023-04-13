@@ -1,5 +1,5 @@
 import { IconButton } from "@mui/material";
-import { SnackbarProvider, useSnackbar } from "notistack";
+import { useSnackbar } from "notistack";
 import CloseIcon from "@mui/icons-material/Close";
 
 function SnackbarCloseButton({ snackbarKey }) {

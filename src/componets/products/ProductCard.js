@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Card,
   CardActionArea,
   CardActions,
@@ -19,7 +18,7 @@ import DiscountNew from "../DiscountNew";
 import ProductInformation from "./ProductInformation";
 import { capitalCase } from "change-case";
 import FButton from "../form/FButton";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 import { addToCart } from "../../features/addCartSlice";
 

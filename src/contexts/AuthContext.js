@@ -1,7 +1,6 @@
 import { useSnackbar } from "notistack";
 import { createContext, useEffect, useReducer } from "react";
 import { useSelector } from "react-redux/es";
-import { toast } from "react-toastify";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
 

@@ -7,7 +7,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -16,7 +16,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 import { checkBoxOrther, setQuanlityOrther } from "../../features/addCartSlice";
 import { useNavigate } from "react-router-dom";
-import DialogInformation from "../DialogInformation";
 
 const StyledTableCell = styled(TableCell)({
   textAlign: "center",

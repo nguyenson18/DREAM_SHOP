@@ -5,7 +5,6 @@ import {
   Container,
   Divider,
   FormControl,
-  IconButton,
   InputAdornment,
   InputLabel,
   MenuItem,
@@ -20,12 +19,9 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
-import { FormProvider, FTextField } from "../componets/form";
 import SearchIcon from "@mui/icons-material/Search";
 import { useForm } from "react-hook-form";
 import SortIcon from "@mui/icons-material/Sort";
-
-
 import { RATING_OPTIONS, SORT_OPTIONS } from "../options/option";
 import CollapseFilter from "../componets/CollapseFilter";
 import { useDispatch, useSelector } from "react-redux";
@@ -295,7 +291,8 @@ function HomePage() {
           justifyContent="flex-end"
           alignItems='end'
         >
-          <Button sx={{display:{xs:"block", sm:"none"}}} onClick={toggleDrawer(!leftToggle)}>Filter</Button>
+          {/* is mobile */}
+          <Button sx={{display:{xs:"block", sm:"none"}}} onClick={toggleDrawer(!leftToggle)}>Filter</Button> 
           <TextField
             name="searchQuery"
             sx={{ width: 180 }}

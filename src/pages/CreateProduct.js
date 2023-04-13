@@ -1,5 +1,4 @@
 import { Box, Button, Card, Container, Typography } from "@mui/material";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import React, { useCallback } from "react";
 import { FTextField, FormProvider } from "../componets/form";
 import styled from "@emotion/styled";
@@ -44,10 +43,7 @@ function CreateProduct() {
   });
   const {
     handleSubmit,
-    reset,
-    getValues,
     setValue,
-    setError,
     formState: { errors, isSubmitting },
   } = methods;
 
@@ -68,6 +64,7 @@ function CreateProduct() {
   );
 
   const onSubmit = async (data) => {};
+  
   return (
     <Container sx={{ paddingBottom: "400px", marginTop: 5 , textAlign:'end'}}>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>

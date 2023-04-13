@@ -2,11 +2,8 @@ import {
   Box,
   Button,
   Card,
-  CardActions,
-  CardContent,
   Checkbox,
   Container,
-  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -15,24 +12,16 @@ import {
   Typography,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { useDispatch, useSelector } from "react-redux";
 import {
   checkBoxOrther,
-  deleteOrther,
-  getOther,
-  setQuanlityOrther,
+  deleteOrther
 } from "../features/addCartSlice";
 import { useSnackbar } from "notistack";
-import { FCheckbox } from "../componets/form";
-import { fCurrency } from "../utils/numberFormat";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import Dailogconfim from "../componets/form/Dailogconfim";
-import { useNavigate } from "react-router-dom";
 import ArepareInvoice from "../componets/checkout/ArepareInvoice";
 import { ListOrtherComponent } from "../componets/checkout";
 

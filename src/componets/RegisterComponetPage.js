@@ -7,8 +7,7 @@ import {
   Stack,
 } from "@mui/material";
 import React, { useState } from "react";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { FCheckbox, FormProvider, FTextField } from "./form";
+import { FormProvider, FTextField } from "./form";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { LoadingButton } from "@mui/lab";
@@ -16,8 +15,6 @@ import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { toast, ToastContainer } from "react-toastify";
-import apiService from "../app/apiService";
 import { useSnackbar } from "notistack";
 
 const schemaRegister = Yup.object().shape({

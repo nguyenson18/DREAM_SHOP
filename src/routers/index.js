@@ -11,11 +11,9 @@ import CustomerCarePage from "../pages/CustomerCarePage";
 import DetailPages from "../pages/DetailPages";
 import AccountPages from "../pages/AccountPages";
 import AuthRequire from "./AuthRequire";
-import useAuth from "../hooks/useAuth";
 import CreateProduct from "../pages/CreateProduct";
 
 function Router() {
-  const auth = useAuth();
   return (
     <Routes>
       <Route
