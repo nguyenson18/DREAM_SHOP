@@ -30,6 +30,8 @@ import LoadingScreen from "../componets/LoadingScreen";
 import { useSnackbar } from "notistack";
 import styled from "@emotion/styled";
 import { ProductList } from "../componets/products";
+import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 const StyledSlider = styled(Slider)({
   width: "100%",
@@ -147,9 +149,8 @@ function HomePage() {
             onClose={toggleDrawer(false)}
             onOpen={toggleDrawer( true)}
           >
-            
-        
           <Box sx={{margin:"22px"}}>
+          <Button onClick={toggleDrawer(false)} sx={{color:'black'}}><ChevronLeftIcon/></Button>
           <CollapseFilter
             search={search}
             setBrand={setBrand}
@@ -210,7 +211,8 @@ function HomePage() {
           </Box>
       
       </SwipeableDrawer>
-  )
+  );
+
   return (
     <Container
       sx={{
@@ -292,7 +294,7 @@ function HomePage() {
           alignItems='end'
         >
           {/* is mobile */}
-          <Button sx={{display:{xs:"block", sm:"none"}}} onClick={toggleDrawer(!leftToggle)}>Filter</Button> 
+          <Button sx={{display:{xs:"block", sm:"none", position:'fixed', left:'20px', color:"tomato"}}} onClick={toggleDrawer(!leftToggle)}><FormatAlignJustifyIcon/></Button> 
           <TextField
             name="searchQuery"
             sx={{ width: 180 }}

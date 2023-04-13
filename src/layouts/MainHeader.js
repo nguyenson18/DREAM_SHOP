@@ -292,6 +292,7 @@ function MainHeader() {
       </MenuItem>
     </Menu>
   );
+  
   return (
     <Box sx={{ backgroundColor: "rgb(255, 255, 255)" }}>
       <AppBar
@@ -366,7 +367,7 @@ function MainHeader() {
       <div
         style={{
           display: "flex",
-          height: "55px",
+          minHeight:'55px',
           width: "100%",
           boxShadow: "rgb(43 52 69 / 10%) 0px 4px 16px",
           justifyContent: "space-around",
@@ -383,14 +384,14 @@ function MainHeader() {
         >
           <div
             className="link-effect-3"
-            style={{ display: "flex", alignItems: "center" }}
+            style={{ display: "flex", alignItems: "center", flexWrap:'wrap' }}
           >
             {LIST_OPTIONS_NAV.map((e) => {
               const checkRole = e?.role?.includes(auth?.role);
               const path = location?.pathname;
               return (
                 <div
-                  style={{ display: "flex", alignItems: "center" }}
+                  style={{ display: "flex", alignItems: "center", flexWrap:'wrap' }}
                   key={e?.value}
                 >
                   {checkRole && (
