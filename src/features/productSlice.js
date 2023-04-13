@@ -45,7 +45,7 @@ const slice = createSlice({
 export default slice.reducer;
 
 export const getAllProducts =
-  ({ search, type, page, limit = 20 }, enqueueSnackbar) =>
+  ({ search, type, price, rating, page, limit = 20 }, enqueueSnackbar) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
@@ -73,7 +73,7 @@ export const getDetailProduct =
   };
 
 export const filterBrandProduct =
-  ({category, search, brand,type, page, limit = 20 }, enqueueSnackbar) =>
+  ({category, search, brand,type, price , rating, page, limit = 20 }, enqueueSnackbar) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {

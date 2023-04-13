@@ -35,7 +35,7 @@ import { filterBrandProduct } from "../features/productSlice";
 import { useSnackbar } from "notistack";
 import { capitalCase } from "change-case";
 
-function CollapseFilter({ search, setBrand, type, setCategory }) {
+function CollapseFilter({ search, setBrand, type, setCategory, brand }) {
   const [open, setOpen] = useState(true);
 
   const [listCategory, setListCategory] = useState();
@@ -223,6 +223,7 @@ function CollapseFilter({ search, setBrand, type, setCategory }) {
         <List component="div" disablePadding>
           {listCategory?.map((option) => (
             <Box key={option?.id}>
+              {/* collapse parent */}
               <ListItemButton
                 sx={{ pl: 4 }}
                 onClick={() => handleOpenExpand(option?.value)}
@@ -239,18 +240,18 @@ function CollapseFilter({ search, setBrand, type, setCategory }) {
               </ListItemButton>
               {/* collapse chidren */}
               <Collapse in={option?.open} timeout="auto" unmountOnExit>
-                {option?.brands?.map((brand) => (
+                {option?.brands?.map((item) => (
                   <ListItemButton
-                    key={brand?.id}
-                    sx={{ pl: 4, display: "flex", justifyContent: "center" }}
+                    key={item?.id}
+                    style={{ pl: 4, display: "flex", justifyContent: "center", backgroundColor: item.value == brand ? 'rgba(0, 0, 0, 0.04)' : '' }}
                     onClick={() =>
                       handleFilterBrand(
                         option?.value == "computer" ? "laptop" : option?.value,
-                        brand
+                        item
                       )
                     }
                   >
-                    <ListItemIcon>{brand?.icon}</ListItemIcon>
+                    <ListItemIcon>{item?.icon}</ListItemIcon>
                   </ListItemButton>
                 ))}
               </Collapse>

@@ -32,6 +32,7 @@ import styled from "@emotion/styled";
 import { ProductList } from "../componets/products";
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
 const StyledSlider = styled(Slider)({
   width: "100%",
@@ -57,8 +58,9 @@ function HomePage() {
   const [type, setType] = useState("default");
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
-  const [rating, useRating] = useState(0);
+  const [rating, setRating] = useState(0);
   const [page, setPage] = useState(1);
+
   const { enqueueSnackbar } = useSnackbar();
 
   const { isLoading, products, totalPages } = useSelector(
@@ -85,6 +87,8 @@ function HomePage() {
             search,
             brand: brand,
             type: type == "default" ? "" : type,
+            price: price,
+            rating: rating,
             page,
           },
           enqueueSnackbar
@@ -93,7 +97,13 @@ function HomePage() {
     } else {
       dispatch(
         getAllProducts(
-          { search, type: type == "default" ? "" : type, page },
+          { 
+            search, 
+            type: type == "default" ? "" : type,
+            price: price,
+            rating: rating, 
+            page 
+          },
           enqueueSnackbar
         )
       );
@@ -102,14 +112,6 @@ function HomePage() {
 
   useEffect(() => {
     setPage(1);
-    // if ((search && !brand) || (type && !brand)) {
-    //   dispatch(
-    //     getAllProducts(
-    //       { search, type: type == "default" ? "" : type, page },
-    //       enqueueSnackbar
-    //     )
-    //   );
-    // } else {
       dispatch(
         filterBrandProduct(
           {
@@ -122,8 +124,7 @@ function HomePage() {
           enqueueSnackbar
         )
       );
-    // }
-  }, [search, type, brand]);
+  }, [ type, brand]);
 
   const handleChangeSelect = (e) => {
     setType(e.target.value);
@@ -140,6 +141,24 @@ function HomePage() {
   };
   const toggleDrawer = (open) => (event) => {
     setLeftToggle(open)
+  }
+
+  const handleSearchAll = () =>{
+    setPage(1)
+    dispatch(
+      filterBrandProduct(
+        {
+          category,
+          search,
+          brand: brand,
+          type: type == "default" ? "" : type,
+          price: price,
+          rating: rating,
+          page:1,
+        },
+        enqueueSnackbar
+      )
+    );
   }
 
   const renderMobile = (
@@ -195,6 +214,7 @@ function HomePage() {
               <Typography sx={{ color: "#001c44" }}>{rating?.title}</Typography>
             </Button>
           ))}
+         
           <Button
             sx={{
               marginTop: "15px",
@@ -229,6 +249,7 @@ function HomePage() {
           <CollapseFilter
             search={search}
             setBrand={setBrand}
+            brand={brand}
             setCategory={setCategory}
             type={type}
           />
@@ -265,14 +286,18 @@ function HomePage() {
                 display: "flex",
                 justifyContent: "space-between",
               }}
+              onClick={() => setRating(rating?.value)}
             >
               <Rating name="simple-controlled" value={rating?.value} readOnly />
               <Typography sx={{ color: "#001c44" }}>{rating?.title}</Typography>
             </Button>
           ))}
+           <Button style={{backgroundColor:"#001c44", width:"100%", marginTop:'5px'}} onClick={handleSearchAll}>
+            <ManageSearchIcon style={{fontSize:'30px', color:'tomato'}}/>
+          </Button>
           <Button
             sx={{
-              marginTop: "15px",
+              marginTop: "7px",
               width: "100%",
               border: " 1px solid tomato ",
               color: "tomato",
