@@ -124,7 +124,7 @@ function LoginComponetPage({ setCurrentTab }) {
         >
           LOGIN
         </LoadingButton>
-        <Divider>Or</Divider>
+        {/* <Divider>Or</Divider>
         <Box sx={{ my: 2, display: "flex", justifyContent: "space-between" }}>
           <Button sx={{ width: "40%",backgroundColor: "#001c44" }} variant="contained">
             <FacebookIcon />
@@ -132,7 +132,7 @@ function LoginComponetPage({ setCurrentTab }) {
           <Button sx={{ width: "40%",backgroundColor: "#001c44" }} variant="contained">
             <GoogleIcon />
           </Button>
-        </Box>
+        </Box> */}
       </FormProvider>
     </Container>
   );
