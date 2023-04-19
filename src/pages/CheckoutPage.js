@@ -39,7 +39,6 @@ function CheckoutPage() {
   const { isLoading, listOrther } = useSelector((state) => state?.addcart);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-
   const handleChangeCheckAll =(e) => {
     const checkAll = e?.target?.checked
     setCheckAll(e.target.checked)
@@ -112,6 +111,7 @@ function CheckoutPage() {
           <TableBody>
             {listOrther?.map((row) => (
               <ListOrtherComponent 
+              key={row._id}
               row={row} 
               setCheckAll={setCheckAll}
               setContent={setContent}  

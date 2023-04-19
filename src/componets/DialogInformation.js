@@ -63,14 +63,14 @@ function DialogInformation({ open, handleClose, title, content }) {
   } = methods;
 
   const onSubmit = async (data) => {
-    let dataOrthers = [];
+    let dataOrthersId = [];
     for (let i = 0; i < listOrther?.length; i++) {
       const element = listOrther[i];
-      if (element.check == true) {
-        dataOrthers.push({ id: element?._id });
+      if (element.check === true) {
+        dataOrthersId.push({ id: element?._id });
       }
     }
-    dispatch(ortherConfim({ data, dataOrthers }, enqueueSnackbar));
+    dispatch(ortherConfim({ data, dataOrthers: dataOrthersId }, enqueueSnackbar));
     dispatch(getOther(enqueueSnackbar))
     handleClose()
   };

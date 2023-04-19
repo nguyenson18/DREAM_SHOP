@@ -87,12 +87,10 @@ export const setQuanlityOrther =
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      console.log(ortherId, quantity);
       const res = await apiService.put(`/orther/single/${ortherId}`, {
         quantity: quantity,
       });
       dispatch(getOther(enqueueSnackbar));
-      console.log(res);
     } catch (error) {
       dispatch(slice.actions.hasError(error));
       enqueueSnackbar(error.message, { variant: "error" });
@@ -130,7 +128,10 @@ export const ortherConfim =
         dataOrthers: dataOrthers,
         infoUserBooking: data,
       });
-      console.log(res);
+      if(res.success) {
+        dispatch(getOther(enqueueSnackbar));
+        enqueueSnackbar("Order successfully", { variant: "success" });
+      }
     } catch (error) {
       dispatch(slice.actions.hasError(error));
       enqueueSnackbar(error.message, { variant: "error" });

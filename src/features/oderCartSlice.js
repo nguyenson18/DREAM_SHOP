@@ -33,10 +33,21 @@ export const getOrder = (enqueueSnackbar) => async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const res = await apiService.get(`/orther/listbooking`);
-      console.log(res)
       dispatch(slice.actions.getOrderSuccess(res?.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
       enqueueSnackbar(error.message, { variant: "error" });
     }
   };
+
+  export const deleteOrther = ({ortherId}, enqueueSnackbar) => async (dispatch) => {
+    dispatch(slice.actions.startLoading())
+    try {
+      const res = await apiService.delete(`/orther/single/${ortherId}`)
+      dispatch(getOrder(enqueueSnackbar))
+      enqueueSnackbar("Delete Order successfully", { variant: "success" });
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
+  }

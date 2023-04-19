@@ -14,7 +14,7 @@ import { styled } from "@mui/system";
 import React, { useEffect } from "react";
 import BallotIcon from "@mui/icons-material/Ballot";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrder } from "../features/oderCartSlice";
+import { deleteOrther, getOrder } from "../features/oderCartSlice";
 import { useSnackbar } from "notistack";
 import { fCurrency } from "../utils/numberFormat";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -42,7 +42,14 @@ function OrderPage() {
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(getOrder(enqueueSnackbar));
-  },[]);
+  }, []);
+
+  const handleDeleteOrther = (row) => async () => {
+    console.log(row);
+    if (row?.status === "confirm") {
+      dispatch(deleteOrther({ ortherId: row?._id }, enqueueSnackbar));
+    }else return enqueueSnackbar("Status confirm not delete order", { variant:'warning' });
+  };
   return (
     <Container sx={{ paddingBottom: "400px" }}>
       <Box
@@ -66,7 +73,7 @@ function OrderPage() {
         <Table>
           <TableHead>
             <TableRow sx={{ backgroundColor: "tomato" }}>
-              <TableCell sx={{ fontWeight: 550, color: "white" }}>
+              <TableCell sx={{ fontWeight: 550, color: "white", width:'35%' }}>
                 Product
               </TableCell>
               <StyledTableCell>Status</StyledTableCell>
@@ -127,9 +134,12 @@ function OrderPage() {
                 </StyledTableCellBody>
                 <StyledTableCellBody>
                   <Button sx={{ minWidth: "30px" }}>
-                    <RemoveRedEyeIcon sx={{color:"#001c44"}} />
+                    <RemoveRedEyeIcon sx={{ color: "#001c44" }} />
                   </Button>
-                  <Button sx={{ minWidth: "30px" }} onClick={() => {}}>
+                  <Button
+                    sx={{ minWidth: "30px" }}
+                    onClick={handleDeleteOrther(row)}
+                  >
                     <DeleteIcon sx={{ color: "tomato" }} />
                   </Button>
                 </StyledTableCellBody>

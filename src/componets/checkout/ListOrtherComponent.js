@@ -7,7 +7,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -32,7 +32,7 @@ function ListOrtherComponent({ row ,setOpen, setContent,setOrtherId, setCheckAll
   const handleChangeCheckBox = (e, id) => {
     let value = e.target.checked;
     const data = listOrther?.map((e) => {
-      if (e?._id == id) {
+      if (e?._id === id) {
         return { ...e, check: value };
       } else return { ...e };
     });
@@ -54,6 +54,11 @@ function ListOrtherComponent({ row ,setOpen, setContent,setOrtherId, setCheckAll
       setQuanlityOrther({ ortherId, quantity: newQuantity }, enqueueSnackbar)
     );
   };
+
+  useEffect(() => {
+    const checkAll = listOrther.every((item) => item.check);
+    setCheckAll(checkAll);
+  }, [listOrther])
 
   
   return (
