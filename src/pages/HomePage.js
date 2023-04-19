@@ -119,6 +119,7 @@ function HomePage() {
             search,
             brand: brand,
             type: type == "default" ? "" : type,
+            price: price,
             page,
           },
           enqueueSnackbar

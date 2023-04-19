@@ -48,9 +48,12 @@ export const getAllProducts =
   ({ search, type, price, rating, page, limit = 20 }, enqueueSnackbar) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
+    console.log(price)
+    let gte = price[0]
+    let lte = price[1]
     try {
       const res = await apiService.get(
-        `category/allproduct/?page=${page}&limit=${limit}&search=${search}&type=${type}`
+        `category/allproduct/?page=${page}&limit=${limit}&search=${search}&type=${type}&gte=${gte}&lte=${lte}`
       );
       dispatch(slice.actions.getProductSuccess(res?.data));
     } catch (error) {
@@ -76,9 +79,12 @@ export const filterBrandProduct =
   ({category, search, brand,type, price , rating, page, limit = 20 }, enqueueSnackbar) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
+    console.log(price)
+    let gte = price[0] || ""
+    let lte = price[1] || ""
     try {
       const res = await apiService.get(
-        `/category/brand?category=${category}&page=${page}&limit=${limit}&brand=${brand}&search=${search}&type=${type}`
+        `/category/brand?category=${category}&page=${page}&limit=${limit}&brand=${brand}&search=${search}&type=${type}&gte=${gte}&lte=${lte}`
       );
       dispatch(slice.actions.getProductSuccess(res?.data));
     } catch (error) {
