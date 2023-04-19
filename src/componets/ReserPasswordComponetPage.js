@@ -25,26 +25,6 @@ function ReserPasswordComponetPage({ setCurrentTab }) {
     const { email } = data;
     try {
       await auth.resetPassword({ email }, setCurrentTab, enqueueSnackbar);
-      // function sendEmail() {
-      //   //This is important, i'm not sure why, but the email won't send without it
-
-      //   emailjs
-      //     .sendForm(
-      //       "service_dczkgcf",
-      //       "template_8tnjnpk",
-      //       form.current,
-      //       "zf8za9ku6AvHW9H7J"
-      //     )
-      //     .then(
-      //       (result) => {
-      //         console.log(result.text);
-      //       },
-      //       (error) => {
-      //         console.log(error.text);
-      //       }
-      //     );
-      // }
-      // sendEmail();
     } catch (error) {
       reset();
       setError("responseError", error.message);
