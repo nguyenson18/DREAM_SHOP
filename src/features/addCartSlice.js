@@ -7,6 +7,7 @@ const initialState = {
   carts: null,
   listOrther: null,
   totalCart: null,
+  infoUserBooking: null
 };
 
 const slice = createSlice({
@@ -48,6 +49,11 @@ const slice = createSlice({
       state.listOrther = null;
       state.totalCart = null;
     },
+    infoUserSuccess(state, action) {
+      state.isLoading = null;
+      state.error =null;
+      state.infoUserBooking = action
+    }
   },
 });
 
@@ -137,3 +143,12 @@ export const ortherConfim =
       enqueueSnackbar(error.message, { variant: "error" });
     }
   };
+
+  export const inFoUserBooking = () => async(dispatch)=>{
+    try {
+     const res = await apiService.get('/users/userBooking')
+    
+    } catch (error) {
+      console.log(error)
+    }
+  }

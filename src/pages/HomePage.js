@@ -125,7 +125,7 @@ function HomePage() {
           enqueueSnackbar
         )
       );
-  }, [ type, brand]);
+  }, [search, type, brand]);
 
   const handleChangeSelect = (e) => {
     setType(e.target.value);

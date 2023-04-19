@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FormProvider, FTextField } from "./form";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
@@ -15,7 +15,7 @@ import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { getOther, ortherConfim } from "../features/addCartSlice";
+import { getOther, inFoUserBooking, ortherConfim } from "../features/addCartSlice";
 import { useSnackbar } from "notistack";
 
 const StyledBox = styled(Box)({
@@ -49,6 +49,10 @@ function DialogInformation({ open, handleClose, title, content }) {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
+  useEffect(() => {
+    dispatch(inFoUserBooking());
+  }, [open]);
+
   const methods = useForm({
     defaultValue,
     resolver: yupResolver(schemaInfoUser),
@@ -70,10 +74,13 @@ function DialogInformation({ open, handleClose, title, content }) {
         dataOrthersId.push({ id: element?._id });
       }
     }
-    dispatch(ortherConfim({ data, dataOrthers: dataOrthersId }, enqueueSnackbar));
-    dispatch(getOther(enqueueSnackbar))
-    handleClose()
+    dispatch(
+      ortherConfim({ data, dataOrthers: dataOrthersId }, enqueueSnackbar)
+    );
+    dispatch(getOther(enqueueSnackbar));
+    handleClose();
   };
+
   return (
     <Dialog
       open={open}

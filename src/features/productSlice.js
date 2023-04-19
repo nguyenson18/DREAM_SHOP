@@ -48,7 +48,6 @@ export const getAllProducts =
   ({ search, type, price, rating, page, limit = 20 }, enqueueSnackbar) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
-    console.log(price)
     let gte = price[0]
     let lte = price[1]
     try {
@@ -79,7 +78,6 @@ export const filterBrandProduct =
   ({category, search, brand,type, price , rating, page, limit = 20 }, enqueueSnackbar) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
-    console.log(price)
     let gte = price[0] || ""
     let lte = price[1] || ""
     try {
