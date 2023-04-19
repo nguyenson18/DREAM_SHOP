@@ -45,14 +45,24 @@ const defaultValue = {
 };
 
 function DialogInformation({ open, handleClose, title, content }) {
-  const { listOrther } = useSelector((state) => state?.addcart);
+  const { listOrther, infoUserBooking } = useSelector((state) => state?.addcart);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-
+  
   useEffect(() => {
     dispatch(inFoUserBooking());
   }, [open]);
 
+  useEffect(() => {
+    setValue('name', infoUserBooking?.name)
+    setValue('phone', infoUserBooking?.phone) 
+    setValue('email', infoUserBooking?.email)
+    setValue('address', infoUserBooking?.address)
+    setValue('streetsName', infoUserBooking?.streetsName)
+    setValue('district', infoUserBooking?.district)
+    setValue('city', infoUserBooking?.city)
+  }, [infoUserBooking])
+  
   const methods = useForm({
     defaultValue,
     resolver: yupResolver(schemaInfoUser),

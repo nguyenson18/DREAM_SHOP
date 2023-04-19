@@ -40,11 +40,11 @@ function ArepareInvoice() {
     let startPrice = 0;
     let startQuanlity = 0;
     let startPriceSale = 0;
-    let totalProducts = []
+    let totalProducts = [];
     for (let i = 0; i < listOrther?.length; i++) {
       const element = listOrther[i];
       if (element.check === true) {
-        totalProducts.push(element)
+        totalProducts.push(element);
         startPrice = startPrice + +element?.totalAmount;
         startPriceSale =
           startPriceSale +
@@ -55,7 +55,7 @@ function ArepareInvoice() {
     setTotalPrice(startPrice);
     setTotalPriceSale(startPriceSale);
     setTotalQuanlity(startQuanlity);
-    setTotalProduct(totalProducts)
+    setTotalProduct(totalProducts);
   }, [listOrther]);
 
   const handleClose = () => {
@@ -104,7 +104,11 @@ function ArepareInvoice() {
               "&:hover": { opacity: 0.9, backgroundColor: "#001c44" },
             }}
             onClick={() => {
-              if (!listOrther?.length) {
+              if (!totalProduct?.length) {
+                enqueueSnackbar("Please choose a product", {
+                  variant: "warning",
+                });
+              } else if (!listOrther.length) {
                 enqueueSnackbar("No products", { variant: "warning" });
               } else {
                 setOpen(true);

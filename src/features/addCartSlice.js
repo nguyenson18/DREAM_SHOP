@@ -52,7 +52,7 @@ const slice = createSlice({
     infoUserSuccess(state, action) {
       state.isLoading = null;
       state.error =null;
-      state.infoUserBooking = action
+      state.infoUserBooking = action.payload[0]
     }
   },
 });
@@ -147,7 +147,7 @@ export const ortherConfim =
   export const inFoUserBooking = () => async(dispatch)=>{
     try {
      const res = await apiService.get('/users/userBooking')
-    
+      dispatch(slice.actions.infoUserSuccess(res?.data))
     } catch (error) {
       console.log(error)
     }
