@@ -17,10 +17,16 @@ function Dailogconfim({ open, handleClose, title, content, handleDelete }) {
         textAlign:"center"
       }}
     >
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle sx={{color:'tomato'}}>{title}</DialogTitle>
       <DialogContent>{content}</DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} sx={{ color: "tomato" }}>
+        <Button onClick={handleClose}  sx={{
+              border: " 1px solid tomato ",
+              color: "tomato",
+              "&:hover": { color: "tomato", border: " 1px solid tomato " },
+            }}
+            variant="outlined"
+            >
           No
         </Button>
         <Button
@@ -28,8 +34,8 @@ function Dailogconfim({ open, handleClose, title, content, handleDelete }) {
           autoFocus
           sx={{
             color: "white",
-            backgroundColor: "tomato",
-            "&:hover": { backgroundColor: "tomato", opacity: 0.9 },
+            backgroundColor: "#001c44",
+            "&:hover": { backgroundColor: "#001c44", opacity: 0.9 },
           }}
         >
           Yes
