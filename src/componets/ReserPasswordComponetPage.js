@@ -18,16 +18,18 @@ function ReserPasswordComponetPage({ setCurrentTab }) {
   const {
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
     setError,
+    formState: { errors, isSubmitting },
   } = methods;
+  console.log(errors)
   const onSubmit = async (data) => {
     const { email } = data;
     try {
       await auth.resetPassword({ email }, setCurrentTab, enqueueSnackbar);
     } catch (error) {
+      console.log(error)
       reset();
-      setError("responseError", error.message);
+      setError("responseError", error);
       enqueueSnackbar(error.message || "Not Found", { variant: "error" });
     }
   };
