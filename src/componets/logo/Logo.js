@@ -13,7 +13,7 @@ function Logo({ disabledLink = false, sx, onClick }) {
   const { enqueueSnackbar } = useSnackbar();
   const handleResetApp = async () => {
     dispatch(
-      getAllProducts({ search: "", type: "defaul", page: 1 }, enqueueSnackbar)
+      getAllProducts({ search: "", type: "",price:[], page: 1 }, enqueueSnackbar)
     );
   };
   const logo = (

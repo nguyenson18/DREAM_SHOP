@@ -21,6 +21,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { statusComfim } from "../utils/statusOrder";
+import Listorder from "../componets/order/Listorder";
 
 const StyledTableCell = styled(TableCell)({
   textAlign: "center",
@@ -87,63 +88,7 @@ function OrderPage() {
           </TableHead>
           <TableBody>
             {listOrder?.map((row) => (
-              <TableRow key={row._id} sx={{ height: "100px" }}>
-                <StyledTableCellBody>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      height: "100%",
-                    }}
-                  >
-                    <Button
-                      onClick={() => navigate(`/products/${row?.productId}`)}
-                    >
-                      <img
-                        src={row?.imageUrl}
-                        alt=""
-                        style={{ height: "80px" }}
-                      />
-                    </Button>
-                    <Typography
-                      sx={{
-                        fontSize: "16px",
-                        fontWeight: 500,
-                        paddingLeft: "50px",
-                        width: "100%",
-                      }}
-                    >
-                      {row?.name}
-                    </Typography>
-                  </Box>
-                </StyledTableCellBody>
-                <StyledTableCellBody>
-                  {statusComfim(row?.status)}
-                </StyledTableCellBody>
-                <StyledTableCellBody>
-                  {fCurrency(row?.latestPrice)} $
-                </StyledTableCellBody>
-                <StyledTableCellBody>
-                  {fCurrency(row?.oldPrice)} $
-                </StyledTableCellBody>
-                <StyledTableCellBody>{row?.discount}%</StyledTableCellBody>
-                <StyledTableCellBody>{row?.quantity}</StyledTableCellBody>
-                <StyledTableCellBody>
-                  {fCurrency(row?.totalAmount)} $
-                </StyledTableCellBody>
-                <StyledTableCellBody>
-                  <Button sx={{ minWidth: "30px" }}>
-                    <RemoveRedEyeIcon sx={{ color: "#001c44" }} />
-                  </Button>
-                  <Button
-                    sx={{ minWidth: "30px" }}
-                    onClick={handleDeleteOrther(row)}
-                  >
-                    <DeleteIcon sx={{ color: "tomato" }} />
-                  </Button>
-                </StyledTableCellBody>
-              </TableRow>
+              <Listorder key={row._id} row={row}/>
             ))}
           </TableBody>
         </Table>

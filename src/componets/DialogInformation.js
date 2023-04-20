@@ -44,7 +44,7 @@ const defaultValue = {
   city: "",
 };
 
-function DialogInformation({ open, handleClose, title, content }) {
+const  DialogInformation = React.memo(({ open, handleClose, title, content }) =>  {
   const { listOrther, infoUserBooking } = useSelector((state) => state?.addcart);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -200,6 +200,6 @@ function DialogInformation({ open, handleClose, title, content }) {
       </FormProvider>
     </Dialog>
   );
-}
+})
 
 export default DialogInformation;

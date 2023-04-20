@@ -12,7 +12,7 @@ function Logo({ disabledLink = false, sx }) {
   const { enqueueSnackbar } = useSnackbar();
   const handleResetApp = async () => {
     dispatch(
-      getAllProducts({ search: "", type: "", page: 1 }, enqueueSnackbar)
+      getAllProducts({ search: "", type: "", price:[], page: 1 }, enqueueSnackbar)
     );
   };
   const logo = (

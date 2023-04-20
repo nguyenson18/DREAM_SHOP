@@ -1,8 +1,12 @@
 import { Box } from "@mui/material";
 import React from "react";
 import ProductCard from "./ProductCard";
+import { useSelector } from "react-redux";
 
-function ProductList({ products }) {
+function ProductList() {
+  const { isLoading, products, totalPages } = useSelector(
+    (state) => state.product
+  );
   return (
     <Box
       sx={{

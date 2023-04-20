@@ -48,8 +48,8 @@ export const getAllProducts =
   ({ search, type, price, rating, page, limit = 20 }, enqueueSnackbar) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
-    let gte = price[0]
-    let lte = price[1]
+    let gte = price[0] || ''
+    let lte = price[1] || ''
     try {
       const res = await apiService.get(
         `category/allproduct/?page=${page}&limit=${limit}&search=${search}&type=${type}&gte=${gte}&lte=${lte}`

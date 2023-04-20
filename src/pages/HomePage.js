@@ -20,7 +20,6 @@ import {
 import React, { useEffect, useState } from "react";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import SearchIcon from "@mui/icons-material/Search";
-import { useForm } from "react-hook-form";
 import SortIcon from "@mui/icons-material/Sort";
 import { RATING_OPTIONS, SORT_OPTIONS } from "../options/option";
 import CollapseFilter from "../componets/CollapseFilter";
@@ -47,7 +46,6 @@ const StyledSlider = styled(Slider)({
 
 function valueLabelFormat(value) {
   const units = '$';
-
   return `${value} ${units}`;
 }
 
@@ -68,15 +66,6 @@ function HomePage() {
   );
 
   const dispatch = useDispatch();
-
-  const methods = useForm({});
-  const {
-    handleSubmit,
-    reset,
-    setError,
-    getValues,
-    formState: { isSubmitting, errors },
-  } = methods;
 
   useEffect(() => {
     if (brand) {

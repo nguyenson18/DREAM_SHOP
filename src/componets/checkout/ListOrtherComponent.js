@@ -23,7 +23,7 @@ const StyledTableCell = styled(TableCell)({
   fontSize: "16px",
 });
 
-function ListOrtherComponent({ row ,setOpen, setContent,setOrtherId, setCheckAll }) {
+const  ListOrtherComponent = React.memo(({ row ,setOpen, setContent,setOrtherId, setCheckAll }) => {
   const { listOrther } = useSelector((state) => state?.addcart);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -138,6 +138,6 @@ function ListOrtherComponent({ row ,setOpen, setContent,setOrtherId, setCheckAll
       </StyledTableCell>
     </TableRow>
   );
-}
-
+})
+ListOrtherComponent.displayName = 'ListOrtherComponent'
 export default ListOrtherComponent;
