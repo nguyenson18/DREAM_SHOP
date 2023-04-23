@@ -78,8 +78,8 @@ export const filterBrandProduct =
   ({category, search, brand,type, price , rating, page, limit = 20 }, enqueueSnackbar) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
-    let gte = price[0] || ""
-    let lte = price[1] || ""
+    let gte = price[0] 
+    let lte = price[1] 
     try {
       const res = await apiService.get(
         `/category/brand?category=${category}&page=${page}&limit=${limit}&brand=${brand}&search=${search}&type=${type}&gte=${gte}&lte=${lte}`

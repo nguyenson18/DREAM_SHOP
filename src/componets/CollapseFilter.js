@@ -35,7 +35,7 @@ import { filterBrandProduct } from "../features/productSlice";
 import { useSnackbar } from "notistack";
 import { capitalCase } from "change-case";
 
-function CollapseFilter({ search, setBrand, type, setCategory, brand }) {
+function CollapseFilter({ search, setBrand, type, setCategory, brand, price }) {
   const [open, setOpen] = useState(true);
 
   const [listCategory, setListCategory] = useState();
@@ -192,6 +192,7 @@ function CollapseFilter({ search, setBrand, type, setCategory, brand }) {
           search,
           brand: brand?.value,
           type: type == "default" ? "" : type,
+          price: price,
           page: 1,
         },
         enqueueSnackbar

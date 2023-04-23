@@ -65,6 +65,21 @@ function HomePage() {
     (state) => state.product
   );
 
+  const getAll = () => {
+    dispatch(
+      getAllProducts(
+        { 
+          search, 
+          type: type == "default" ? "" : type,
+          price: price,
+          rating: rating, 
+          page 
+        },
+        enqueueSnackbar
+      )
+    );
+  }
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -84,23 +99,13 @@ function HomePage() {
         )
       );
     } else {
-      dispatch(
-        getAllProducts(
-          { 
-            search, 
-            type: type == "default" ? "" : type,
-            price: price,
-            rating: rating, 
-            page 
-          },
-          enqueueSnackbar
-        )
-      );
+      getAll()
     }
   }, [page]);
 
   useEffect(() => {
     setPage(1);
+    if (brand) {
       dispatch(
         filterBrandProduct(
           {
@@ -114,6 +119,7 @@ function HomePage() {
           enqueueSnackbar
         )
       );
+    }
   }, [search, type, brand]);
 
   const handleChangeSelect = (e) => {
@@ -242,6 +248,7 @@ function HomePage() {
             brand={brand}
             setCategory={setCategory}
             type={type}
+            price={price}
           />
           <Divider />
           <Box>
