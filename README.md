@@ -30,4 +30,4 @@ REACT_APP_CLOUDINARY_UPLOAD_PRESET = dream_shop
 
 
 ### demo
-The demo app is running on: https://dreamshopecomerc.netlify.app/
+The demo app is running on: https://dreamshopp.netlify.app/
