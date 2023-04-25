@@ -5,15 +5,14 @@ A demo application for me
 In the project directory, you can run:
 
 ### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
 ### `yarn dev`
-
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
+
+
+## docs projcet
+https://docs.google.com/document/d/1xgi_UeEIAkkWIjudJhk29rK9bvIbJNNLUMzbkcYYzWQ/edit?usp=sharing
 ### `env`
 
 - Register for a [Cloudinary](https://cloudinary.com/) account. And create a **unsigned** upload preset: https://cloudinary.com/documentation/upload_presets
