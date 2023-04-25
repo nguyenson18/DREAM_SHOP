@@ -3,7 +3,7 @@ A demo application for me
 ## Available Scripts
 
 In the project directory, you can run:
-
+### `npm i or yarn install`
 ### `npm start`
 ### `yarn dev`
 Runs the app in the development mode.\
