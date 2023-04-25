@@ -12,7 +12,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 
 ## docs projcet
-https://docs.google.com/document/d/1xgi_UeEIAkkWIjudJhk29rK9bvIbJNNLUMzbkcYYzWQ/edit?usp=sharing
+- FE : https://docs.google.com/document/d/1xgi_UeEIAkkWIjudJhk29rK9bvIbJNNLUMzbkcYYzWQ/edit?usp=sharing
 ### `env`
 
 - Register for a [Cloudinary](https://cloudinary.com/) account. And create a **unsigned** upload preset: https://cloudinary.com/documentation/upload_presets
