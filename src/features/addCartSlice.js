@@ -93,9 +93,7 @@ export const setQuanlityOrther =
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const res = await apiService.put(`/orther/single/${ortherId}`, {
-        quantity: quantity,
-      });
+      const res = await apiService.put(`/orther/single/${ortherId}?quantity=${quantity}`);
       dispatch(getOther(enqueueSnackbar));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
@@ -126,13 +124,13 @@ export const resfreshData = () => async (dispatch) => {
   }
 };
 export const ortherConfim =
-  ({ data, dataOrthers }, enqueueSnackbar) =>
+  ({ data, dataOrthers,userId }, enqueueSnackbar) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const res = await apiService.put(`/orther/confirm`, {
+      const res = await apiService.put(`/orther/status?userId=${userId}`, {
         dataOrthers: dataOrthers,
-        infoUserBooking: data,
+        // infoUserBooking: data,
       });
       if(res.success) {
         dispatch(getOther(enqueueSnackbar));

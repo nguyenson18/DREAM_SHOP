@@ -42,17 +42,16 @@ const  ListOrtherComponent = React.memo(({ row ,setOpen, setContent,setOrtherId,
   };
 
   const handleQuanlity = ({ name, ortherId, quantity }) => {
-    let newQuantity = +quantity;
-    if (name === "increase") {
-      const quanlityCover = newQuantity + 1;
-      newQuantity = quanlityCover;
-    } else if (name === "decrease") {
-      const quanlityCover = newQuantity - 1;
-      newQuantity = quanlityCover;
+    switch (name) {
+      case "increase":
+        return dispatch(setQuanlityOrther({ ortherId, quantity: 1 }, enqueueSnackbar));
+      case "decrease":
+       return dispatch(
+          setQuanlityOrther({ ortherId, quantity: -1 }, enqueueSnackbar)
+        );
+      default:
+        break;
     }
-    dispatch(
-      setQuanlityOrther({ ortherId, quantity: newQuantity }, enqueueSnackbar)
-    );
   };
 
   useEffect(() => {
