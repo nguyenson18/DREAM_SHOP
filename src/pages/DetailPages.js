@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Container } from "@mui/system";
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fCurrency } from "../utils/numberFormat";
 
@@ -24,6 +24,7 @@ import { ProductInformation } from "./home/components";
 
 
 function DetailPages() {
+  const [urlImg, setUrlImg] = useState('')
   const { isLoading, productDetail } = useSelector((state) => state.product);
   const params = useParams();
   const auth = useAuth()
@@ -43,6 +44,11 @@ function DetailPages() {
       dispatch(addToCart({productId: params?.id}, enqueueSnackbar))
     }
   };
+  useEffect(()=>{
+    if(productDetail?.imageUrl){
+      setUrlImg(productDetail?.imageUrl[0])
+    }
+  },[productDetail])
   return (
     <>
       {isLoading ? (
@@ -65,7 +71,7 @@ function DetailPages() {
                 }}
               >
                 <img
-                  src={productDetail?.imageUrl[0]}
+                  src={urlImg}
                   alt="productDetail"
                   style={{
                     borderRadius: "10px",
@@ -82,15 +88,18 @@ function DetailPages() {
                   marginTop:"20px"
                 }}
               >
-                {productDetail?.imageUrl?.map(element => (
+                {productDetail?.imageUrl?.map((element, index) => (
                   <Card style={{
                     width:'80px',
+                    cursor: 'pointer',
                     display: "flex",
                     alignItems: "center",
                     justifyContent:'center', 
                     minHeight:'100px', 
                     textAlign:'center', 
-                    margin:'0 5px'}}>
+                    margin:'0 5px'}}
+                    onClick={() => {setUrlImg(productDetail?.imageUrl[index])}}
+                    >
                       <img
                       src={element}
                       alt="productDetail"

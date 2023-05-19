@@ -130,7 +130,7 @@ const ListOrtherComponent = React.memo(
             <AddIcon sx={{ color: "tomato" }} />
           </Button>
         </StyledTableCell>
-        <StyledTableCell>{fCurrency(row?.totalAmount)} $</StyledTableCell>
+        <StyledTableCell>{fCurrency(row?.description?.latest_price * row?.quantity)} $</StyledTableCell>
         <StyledTableCell>
           <Button
             onClick={() => {

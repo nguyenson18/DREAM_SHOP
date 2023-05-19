@@ -55,11 +55,11 @@ const Listorder = React.memo(({ row }) => {
         </Box>
       </StyledTableCellBody>
       <StyledTableCellBody>{statusComfim(row?.status)}</StyledTableCellBody>
-      <StyledTableCellBody>{fCurrency(row?.latestPrice)} $</StyledTableCellBody>
-      <StyledTableCellBody>{fCurrency(row?.oldPrice)} $</StyledTableCellBody>
-      <StyledTableCellBody>{row?.discount}%</StyledTableCellBody>
+      <StyledTableCellBody>{fCurrency(row?.description?.latest_price)} $</StyledTableCellBody>
+      <StyledTableCellBody>{fCurrency(row?.description?.old_price)} $</StyledTableCellBody>
+      <StyledTableCellBody>{row?.description?.discount}%</StyledTableCellBody>
       <StyledTableCellBody>{row?.quantity}</StyledTableCellBody>
-      <StyledTableCellBody>{fCurrency(row?.totalAmount)} $</StyledTableCellBody>
+      <StyledTableCellBody>{fCurrency(row?.description?.latest_price * row?.quantity)} $</StyledTableCellBody>
       <StyledTableCellBody>
         <Button sx={{ minWidth: "30px" }}>
           <RemoveRedEyeIcon sx={{ color: "#001c44" }} />
