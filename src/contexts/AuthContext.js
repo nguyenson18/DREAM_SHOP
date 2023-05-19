@@ -145,6 +145,7 @@ function AuthProvider({ children }) {
       name,
       email,
       password,
+      role:'master'
     });
     dispatch({ type: REGISTER_SUCCESS });
     enqueueSnackbar("Register Successlly", { variant: "success" });

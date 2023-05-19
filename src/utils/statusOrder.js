@@ -3,6 +3,11 @@ import HourglassTopIcon from '@mui/icons-material/HourglassTop';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
 export function statusComfim(status) {
+    if(status === 'paid'){
+        return (
+            <Box sx={{ color:'#007FFF', display:'flex', alignContent:'center', justifyContent:'space-between'}}><HourglassTopIcon/>{status}</Box>
+        )
+    }
     if(status === 'confirm'){
         return (
             <Box sx={{ color:'#007FFF', display:'flex', alignContent:'center', justifyContent:'space-between'}}><HourglassTopIcon/>{status}</Box>

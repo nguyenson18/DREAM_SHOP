@@ -9,18 +9,16 @@ import {
   Link,
   Stack,
 } from "@mui/material";
-import { FCheckbox, FormProvider, FTextField } from "./form";
+import { FCheckbox, FormProvider, FTextField } from "../../../componets/form";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import GoogleIcon from "@mui/icons-material/Google";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
 import { useSnackbar } from "notistack";
 
 const schemaLogin = Yup.object().shape({
@@ -75,7 +73,11 @@ function LoginComponetPage({ setCurrentTab }) {
           )}
           <Alert severity="info">
             Don’t have an account?{" "}
-            <Link sx={{color:"tomato",textDecorationColor:"tomato"}} variant="subtitle2" onClick={() => setCurrentTab("REGISTER")}>
+            <Link
+              sx={{ color: "tomato", textDecorationColor: "tomato" }}
+              variant="subtitle2"
+              onClick={() => setCurrentTab("REGISTER")}
+            >
               Get started
             </Link>
           </Alert>
@@ -109,7 +111,12 @@ function LoginComponetPage({ setCurrentTab }) {
           sx={{ my: 2 }}
         >
           <FCheckbox name="remember" label="Remember me" />
-          <Link sx={{color:"tomato",textDecorationColor:"tomato"}} component={RouterLink} variant="subtitle2" onClick={() => setCurrentTab("RESER PASSWORD")}>
+          <Link
+            sx={{ color: "tomato", textDecorationColor: "tomato" }}
+            component={RouterLink}
+            variant="subtitle2"
+            onClick={() => setCurrentTab("RESER PASSWORD")}
+          >
             Forgot password?
           </Link>
         </Stack>

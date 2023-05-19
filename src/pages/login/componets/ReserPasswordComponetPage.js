@@ -1,9 +1,9 @@
 import { Alert, Container, Link, Stack } from "@mui/material";
 import React, { useRef } from "react";
-import { FormProvider, FTextField } from "./form";
+import { FormProvider, FTextField } from "../../../componets/form";
 import { LoadingButton } from "@mui/lab";
 import { useForm } from "react-hook-form";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
 import { useSnackbar } from "notistack";
 
 const defaultValues = {
@@ -21,13 +21,13 @@ function ReserPasswordComponetPage({ setCurrentTab }) {
     setError,
     formState: { errors, isSubmitting },
   } = methods;
-  console.log(errors)
+  console.log(errors);
   const onSubmit = async (data) => {
     const { email } = data;
     try {
       await auth.resetPassword({ email }, setCurrentTab, enqueueSnackbar);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       reset();
       setError("responseError", error);
       enqueueSnackbar(error.message || "Not Found", { variant: "error" });

@@ -60,9 +60,7 @@ function ProductCard({ product }) {
           component="div"
           noWrap
         >
-          {`${capitalCase(product?.authorBrand?.brand || "")} ${
-            product?.model || ""
-          } ${product?.processor_name || ""} `}
+          {`${capitalCase(product?.authorCatego?.name || "")} ${product?.authorBrand?.brand || ""}`}
         </Typography>
         <ProductInformation sx={{height:"21px", fontSize: "14px"}} product={product} />
         <Stack
@@ -85,7 +83,7 @@ function ProductCard({ product }) {
                 color="text.secondary"
                 sx={{ textDecoration: "line-through", color: "text.disabled" }}
               >
-                {fCurrency(product?.old_price)} $
+                {fCurrency(product?.description?.old_price)} $
               </Typography>
             )}
             <Typography
@@ -93,7 +91,7 @@ function ProductCard({ product }) {
               color="#001c44"
               style={{ marginLeft: "5px", fontWeight: 600, fontSize: "16px" }}
             >
-              {fCurrency(product?.latest_price)} $
+              {fCurrency(product?.description?.latest_price)} $
             </Typography>
           </Box>
         </Stack>

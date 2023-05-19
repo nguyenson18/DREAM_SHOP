@@ -14,7 +14,7 @@ function DiscountNew({ product }) {
         height:"22px"
       }}
     >
-      {product?.newProduct == "new" && (
+      {product?.newProduct === "new" && (
         <div
           style={{
             height: "100%",
@@ -36,48 +36,8 @@ function DiscountNew({ product }) {
           <NewReleasesIcon sx={{ fontSize:"19px", marginRight:"2px" }} />
           <span>{capitalCase(product?.newProduct)}</span>
         </div>
-        // <Box
-        //     sx={{
-        //       maxWidth: "100%",
-        //       display: "inline-flex",
-        //       alignItems: "center",
-        //       justifyContent: "center",
-        //       height: "32px",
-        //       color: "rgb(255, 255,255)",
-        //       borderRadius: "16px",
-        //       cursor: "pointer",
-        //       background:
-        //         "linear-gradient(to right, rgb(241, 39, 17), rgb(245, 175, 25))",
-        //     }}
-        //   >
-        //     <NewReleasesIcon sx={{ marginLeft: "5px" }} />
-        //     <span style={{ paddingLeft: "10px", paddingRight: "10px" }}>
-        //     {capitalCase(product?.newProduct)}
-        //     </span>
-        //   </Box>
       )}
-      {product?.discount && product?.discount != "0" && (
-        <>
-          {/* <span
-            style={{
-              height: "22px",
-              minWidth: "22px",
-              lineHeight: "0",
-              borderRadius: "8px",
-              cursor: "pointer",
-              alignItems: "center",
-              background:
-                "linear-gradient(45deg, rgb(18, 194, 233), rgb(196, 113, 237), rgb(246, 79, 89))",
-              color: "white",
-              padding: "0 6px",
-              fontWeight: 600,
-              display: "inline-flex",
-              justifyContent: "center",
-            }}
-          >
-            {product?.discount}%
-            <KeyboardDoubleArrowDownIcon />
-          </span> */}
+      {product?.description?.discount !== "0" && (
           <span
             style={{
               height: "100%",
@@ -95,10 +55,9 @@ function DiscountNew({ product }) {
               justifyContent: "center",
             }}
           >
-            {Number(product?.discount)/10 }%
+            {Number(product?.description?.discount)}%
             <KeyboardDoubleArrowDownIcon />
           </span>
-        </>
       )}
       
     </div>

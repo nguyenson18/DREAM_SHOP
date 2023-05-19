@@ -64,7 +64,7 @@ export const getDetailProduct =
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const res = await apiService.get(`/category/single/${productId}`);
+      const res = await apiService.get(`/products/single/${productId}`);
       dispatch(slice.actions.getDetailProductSuccess(res?.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));

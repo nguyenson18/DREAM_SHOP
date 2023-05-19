@@ -19,7 +19,7 @@ const slice = createSlice({
         state.error = action.payload;
       },
       getOrderSuccess(state, action){
-        let data = action?.payload?.data
+        let data = action?.payload
         state.isLoading = false;
         state.error = action.payload;
         state.listOrder = data;

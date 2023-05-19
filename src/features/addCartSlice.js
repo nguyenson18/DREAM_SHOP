@@ -46,7 +46,6 @@ const slice = createSlice({
       state.isLoading = null;
       state.error = null;
       state.carts = null;
-      state.listOrther = null;
       state.totalCart = null;
     },
     infoUserSuccess(state, action) {
@@ -93,7 +92,7 @@ export const setQuanlityOrther =
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const res = await apiService.put(`/orther/single/${ortherId}?quantity=${quantity}`);
+      const res = await apiService.put(`/orther/quantity/${ortherId}?quantity=${quantity}`);
       dispatch(getOther(enqueueSnackbar));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
@@ -128,7 +127,7 @@ export const ortherConfim =
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const res = await apiService.put(`/orther/status?userId=${userId}`, {
+      const res = await apiService.put(`/orther/status`, {
         dataOrthers: dataOrthers,
         // infoUserBooking: data,
       });

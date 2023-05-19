@@ -15,15 +15,12 @@ import { styled } from "@mui/system";
 import React, { useState } from "react";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  checkBoxOrther,
-  deleteOrther
-} from "../features/addCartSlice";
+import { checkBoxOrther, deleteOrther } from "../../features/addCartSlice";
 import { useSnackbar } from "notistack";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
-import Dailogconfim from "../componets/form/Dailogconfim";
-import ArepareInvoice from "../componets/checkout/ArepareInvoice";
-import { ListOrtherComponent } from "../componets/checkout";
+import Dailogconfim from "../../componets/form/Dailogconfim";
+import ArepareInvoice from "./componets/ArepareInvoice";
+import { ListOrtherComponent } from "./componets";
 
 const StyledTableCell = styled(TableCell)({
   textAlign: "center",
@@ -36,12 +33,12 @@ function CheckoutPage() {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState("");
   const [ortherId, setOrtherId] = useState();
-  const { isLoading, listOrther } = useSelector((state) => state?.addcart);
+  const { listOrther } = useSelector((state) => state?.addcart);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const handleChangeCheckAll =(e) => {
-    const checkAll = e?.target?.checked
-    setCheckAll(e.target.checked)
+  const handleChangeCheckAll = (e) => {
+    const checkAll = e?.target?.checked;
+    setCheckAll(e.target.checked);
     if (checkAll == true) {
       const data = listOrther?.map((e) => {
         return { ...e, check: checkAll };
@@ -53,7 +50,7 @@ function CheckoutPage() {
       });
       dispatch(checkBoxOrther(data));
     }
-  }
+  };
   const handleDelete = () => {
     dispatch(deleteOrther({ ortherId }, enqueueSnackbar));
     setOpen(false);
@@ -61,7 +58,6 @@ function CheckoutPage() {
   const handleClose = () => {
     setOpen(false);
   };
-
 
   return (
     <Container sx={{ paddingBottom: "400px" }}>
@@ -110,13 +106,14 @@ function CheckoutPage() {
           </TableHead>
           <TableBody>
             {listOrther?.map((row) => (
-              <ListOrtherComponent 
-              key={row._id}
-              row={row} 
-              setCheckAll={setCheckAll}
-              setContent={setContent}  
-              setOpen={setOpen} 
-              setOrtherId={setOrtherId}/>
+              <ListOrtherComponent
+                key={row._id}
+                row={row}
+                setCheckAll={setCheckAll}
+                setContent={setContent}
+                setOpen={setOpen}
+                setOrtherId={setOrtherId}
+              />
             ))}
           </TableBody>
         </Table>
@@ -132,7 +129,7 @@ function CheckoutPage() {
         <DeleteSweepIcon />
       </Button>
       <ArepareInvoice />
-      <Dailogconfim 
+      <Dailogconfim
         open={open}
         title={"Do you want to delete this product?"}
         content={content}

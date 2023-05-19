@@ -11,8 +11,8 @@ import { Box } from "@mui/system";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { fCurrency } from "../../utils/numberFormat";
-import DialogInformation from "../DialogInformation";
+import { fCurrency } from "../../../utils/numberFormat";
+import DialogInformation from "../../../componets/DialogInformation";
 import PaymentIcon from "@mui/icons-material/Payment";
 
 const StyledBox = styled(Box)({
@@ -27,7 +27,7 @@ const StyledBox = styled(Box)({
   fontWeight: 550,
 });
 
-function ArepareInvoice() {
+const ArepareInvoice = () => {
   const [totalPrice, setTotalPrice] = useState("");
   const [totalQuanlity, setTotalQuanlity] = useState("");
   const [totalPriceSale, setTotalPriceSale] = useState("");
@@ -45,10 +45,12 @@ function ArepareInvoice() {
       const element = listOrther[i];
       if (element.check === true) {
         totalProducts.push(element);
-        startPrice = startPrice + +element?.totalAmount;
+        startPrice = startPrice + +element?.description?.latest_price;
         startPriceSale =
           startPriceSale +
-          (+element?.oldPrice - +element?.latestPrice) * +element?.quantity;
+          (+element?.description?.old_price -
+            +element?.description?.latest_price) *
+            +element?.quantity;
         startQuanlity = startQuanlity + +element?.quantity;
       }
     }

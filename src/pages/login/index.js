@@ -1,18 +1,12 @@
-import {
-  Box,
-  Card,
-  IconButton,
-  Tab,
-  Tabs,
-} from "@mui/material";
+import { Box, Card, IconButton, Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
 import "./Login.css";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { capitalCase } from "change-case";
-import LoginComponetPage from "../../componets/LoginComponetPage";
-import RegisterComponetPage from "../../componets/RegisterComponetPage";
-import ReserPasswordComponetPage from "../../componets/ReserPasswordComponetPage";
+import LoginComponetPage from "./componets/LoginComponetPage";
+import RegisterComponetPage from "./componets/RegisterComponetPage";
+import ReserPasswordComponetPage from "./componets/ReserPasswordComponetPage";
 import { LogoWhite } from "../../componets/logo";
 
 function LoginPage() {
@@ -42,7 +36,7 @@ function LoginPage() {
 
   return (
     <div className="img">
-      <div style={{ textAlign: "center", width:"100%" }}>
+      <div style={{ textAlign: "center", width: "100%" }}>
         <IconButton
           size="large"
           edge="start"

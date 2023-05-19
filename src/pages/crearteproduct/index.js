@@ -1,19 +1,19 @@
 import { Box, Button, Card, Container, Typography } from "@mui/material";
 import React, { useCallback } from "react";
-import { FTextField, FormProvider } from "../componets/form";
+import { FTextField, FormProvider } from "../../componets/form";
 import styled from "@emotion/styled";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import FUploadAvatar from "../componets/form/FUploadAvatar";
-import { fDate } from "../utils/formatTime";
+import FUploadAvatar from "../../componets/form/FUploadAvatar";
+import { fDate } from "../../utils/formatTime";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 
 const StyledBox = styled(Box)({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  margin:'30px 0'
+  margin: "30px 0",
 });
 
 const schemaInfoUser = Yup.object().shape({
@@ -64,9 +64,9 @@ function CreateProduct() {
   );
 
   const onSubmit = async (data) => {};
-  
+
   return (
-    <Container sx={{ paddingBottom: "400px", marginTop: 5 , textAlign:'end'}}>
+    <Container sx={{ paddingBottom: "400px", marginTop: 5, textAlign: "end" }}>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ width: "45%" }}>

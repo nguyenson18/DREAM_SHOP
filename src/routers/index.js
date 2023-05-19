@@ -1,17 +1,17 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import HomePage from "../pages/HomePage";
 import MainLayout from "../layouts/MainLayout";
-import LoginPage from "../pages/LoginPage";
 import BlankLayout from "../layouts/BlankLayout";
-import NotFoundPage from "../pages/NotFoundPage";
-import CheckoutPage from "../pages/CheckoutPage";
-import OrderPage from "../pages/OrderPage";
-import CustomerCarePage from "../pages/CustomerCarePage";
+import NotFoundPage from "../pages/notfound";
+import OrderPage from "../pages/order";
+import CustomerCarePage from "../pages/customercare";
 import DetailPages from "../pages/DetailPages";
-import AccountPages from "../pages/AccountPages";
 import AuthRequire from "./AuthRequire";
-import CreateProduct from "../pages/CreateProduct";
+import CreateProduct from "../pages/crearteproduct";
+import HomePage from "../pages/home";
+import LoginPage from "../pages/login";
+import AccountPages from "../pages/account";
+import CheckoutPage from "../pages/checkout";
 
 function Router() {
   return (

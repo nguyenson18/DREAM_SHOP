@@ -1,14 +1,14 @@
 import styled from "@emotion/styled";
 import { Box, Button, TableCell, TableRow, Typography } from "@mui/material";
 import React from "react";
-import { statusComfim } from "../../utils/statusOrder";
-import { fCurrency } from "../../utils/numberFormat";
+import { statusComfim } from "../../../utils/statusOrder";
+import { fCurrency } from "../../../utils/numberFormat";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
-import { deleteOrther } from "../../features/oderCartSlice";
+import { deleteOrther } from "../../../features/oderCartSlice";
 
 const StyledTableCellBody = styled(TableCell)({
   textAlign: "center",
@@ -21,7 +21,6 @@ const Listorder = React.memo(({ row }) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const handleDeleteOrther = (row) => async () => {
-    console.log(row);
     if (row?.status === "confirm") {
       dispatch(deleteOrther({ ortherId: row?._id }, enqueueSnackbar));
     } else
@@ -51,7 +50,7 @@ const Listorder = React.memo(({ row }) => {
               width: "100%",
             }}
           >
-            {row?.name}
+            {row?.description?.brand}
           </Typography>
         </Box>
       </StyledTableCellBody>
@@ -72,5 +71,5 @@ const Listorder = React.memo(({ row }) => {
     </TableRow>
   );
 });
-Listorder.displayName= 'Listorder'
+Listorder.displayName = "Listorder";
 export default Listorder;

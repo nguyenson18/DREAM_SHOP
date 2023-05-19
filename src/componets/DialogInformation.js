@@ -81,7 +81,7 @@ const  DialogInformation = React.memo(({ open, handleClose, title, content }) =>
     for (let i = 0; i < listOrther?.length; i++) {
       const element = listOrther[i];
       if (element.check === true) {
-        dataOrthersId.push({ id: element?._id });
+        dataOrthersId.push({ _id: element?._id });
       }
     }
     dispatch(

@@ -52,7 +52,7 @@ function CollapseFilter({ search, setBrand, type, setCategory, brand, price }) {
       id: "0de0daa6-1fe0-4ef0-9644-39e89a5b0618",
       value: "computer",
       icon: <ComputerIcon />,
-      open: false,
+      open: true,
       brands: [
         {
           id: "aff09f21-acce-402f-a57e-30ef40a70ce8",
@@ -90,7 +90,7 @@ function CollapseFilter({ search, setBrand, type, setCategory, brand, price }) {
       id: "17d4afa7-a8f5-481c-9c70-ed11f8ff4401",
       value: "camera",
       icon: <CameraIcon />,
-      open: false,
+      open: true,
       brands: [
         {
           id: "aff09f21-acce-402f-a57e-30ef40a70ce8",
@@ -123,7 +123,7 @@ function CollapseFilter({ search, setBrand, type, setCategory, brand, price }) {
       id: "e2df4188-47a1-4281-a45c-c516b1aa257c",
       value: "phone",
       icon: <PhoneIphoneIcon />,
-      open: false,
+      open: true,
       brands: [
         {
           id: "bdeebce0-d953-4ad4-a9f8-c059368d6e76",

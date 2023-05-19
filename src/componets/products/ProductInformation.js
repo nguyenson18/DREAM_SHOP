@@ -6,19 +6,19 @@ function ProductInformation({ product, sx }) {
     <>
       {product?.authorCatego?.name == "laptop" && (
         <Typography {...sx} noWrap>{`${
-          product?.processor_brand || ""
+          product?.description?.model || ""
         } ${product?.processor_name || ""}, ${product?.ram_type || ""} ${
-          product?.ram_gb || ""
-        }, ssd ${product?.ssd || ""}`}</Typography>
+          product?.description?.ram_gb || ""
+        }, ${product?.description?.ssd || ""}`}</Typography>
       )}
       {product?.authorCatego?.name == "phone" && (
         <Typography {...sx} noWrap>{`${
-          product?.model || ""
+          product?.description?.model || ""
         }`}</Typography>
       )}
       {product?.authorCatego?.name == "camera" && (
         <Typography {...sx} noWrap>{`${
-          product?.model || ""
+          product?.description?.model || ""
         }`}</Typography>
       )}
        {product?.authorCatego?.name == "watch" && (

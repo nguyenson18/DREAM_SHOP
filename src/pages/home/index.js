@@ -21,17 +21,18 @@ import React, { useEffect, useState } from "react";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import SearchIcon from "@mui/icons-material/Search";
 import SortIcon from "@mui/icons-material/Sort";
-import { RATING_OPTIONS, SORT_OPTIONS } from "../options/option";
-import CollapseFilter from "../componets/CollapseFilter";
+import { RATING_OPTIONS, SORT_OPTIONS } from "../../options/option";
+import CollapseFilter from "../../componets/CollapseFilter";
 import { useDispatch, useSelector } from "react-redux";
-import { filterBrandProduct, getAllProducts } from "../features/productSlice";
-import LoadingScreen from "../componets/LoadingScreen";
+import { filterBrandProduct, getAllProducts } from "../../features/productSlice";
+import LoadingScreen from "../../componets/LoadingScreen";
 import { useSnackbar } from "notistack";
 import styled from "@emotion/styled";
-import { ProductList } from "../componets/products";
+import { ProductList } from "../../componets/products";
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import { resfreshData } from "../../features/addCartSlice";
 
 const StyledSlider = styled(Slider)({
   width: "100%",
@@ -81,6 +82,11 @@ function HomePage() {
   }
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(resfreshData())
+  }, [])
+  
 
   useEffect(() => {
     if (brand) {

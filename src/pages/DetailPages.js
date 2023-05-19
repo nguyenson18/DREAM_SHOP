@@ -1,5 +1,6 @@
 import {
   Box,
+  Card,
   Divider,
   Rating,
   Stack,
@@ -9,6 +10,7 @@ import { Container } from "@mui/system";
 import React, { useEffect} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fCurrency } from "../utils/numberFormat";
+import 'react-slideshow-image/dist/styles.css'
 
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +22,22 @@ import LoadingScreen from "../componets/LoadingScreen";
 import useAuth from "../hooks/useAuth";
 import { addToCart } from "../features/addCartSlice";
 import { ProductInformation } from "../componets/products";
+import { Slide } from "react-slideshow-image";
+
+
+const spanStyle = {
+  padding: '20px',
+  background: '#efefef',
+  color: '#000000'
+}
+
+const divStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundSize: 'cover',
+  height: '150px'
+}
 
 function DetailPages() {
   const { isLoading, productDetail } = useSelector((state) => state.product);
@@ -49,12 +67,12 @@ function DetailPages() {
         </Box>
       ) : (
         <Container sx={{ my: 5, position: "relative", paddingBottom: "400px" }}>
-          <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+          <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent:'space-beween' }}>
             <Box sx={{ width: "33.3333%" }}>
-              <Box
+              <Card
                 sx={{
                   width: "100%",
-                  height: "385px",
+                  height: "370px",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
@@ -63,52 +81,44 @@ function DetailPages() {
                 }}
               >
                 <img
-                  src={productDetail?.imageUrl}
+                  src={productDetail?.imageUrl[0]}
                   alt="productDetail"
                   style={{
                     borderRadius: "10px",
-                    maxWidth: "100%",
-                    height: "100%",
+                    height: "90%",
                     transition:
                       "transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, hover 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
                   }}
                 />
-              </Box>
+              </Card>
               <Box
                 sx={{
                   display: "flex",
-                  justifyContent: "space-between",
                   alignItems: "center",
+                  marginTop:"20px"
                 }}
               >
-                {/* {productDetail?.images?.map((img) => (
-          <Card
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "rgb(255, 255, 255",
-              color: "rgb(33, 43, 54",
-              transition:
-                "box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-              borderRadius: "8px",
-              boxShadow:
-                "rgb(0 0 0 / 20%) 0px 2px 1px -1px, rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px",
-              overflow: "hidden",
-
-            }}
-          >
-            <img
-              src={img}
-              alt=""
-              style={{
-                width: "80%",
-                cursor: "pointer",
-                backgroundSize: "cover",
-              }}
-            />
-          </Card>
-        ))} */}
+                {productDetail?.imageUrl?.map(element => (
+                  <Card style={{
+                    width:'80px',
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent:'center', 
+                    minHeight:'100px', 
+                    textAlign:'center', 
+                    margin:'0 5px'}}>
+                      <img
+                      src={element}
+                      alt="productDetail"
+                      style={{
+                        borderRadius: "10px",
+                        width: "90%",
+                        transition:
+                          "transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, hover 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+                      }}
+                    />
+                  </Card>
+                ))}
               </Box>
             </Box>
 
@@ -159,18 +169,18 @@ function DetailPages() {
                       color="text.secondary"
                       sx={{
                         textDecoration: "line-through",
-                        color: "rgb(110, 109, 109)",
+                        color: "rgb(110, 109, 100)",
                       }}
                     >
-                      {fCurrency(productDetail?.old_price)}
+                      {fCurrency(productDetail?.description?.old_price)} $
                     </Typography>
                   )}
                   <Typography
                     variant="h5"
                     color="#001c44"
-                    style={{ marginLeft: "5px", fontWeight: 550 }}
+                    style={{ marginLeft: "10px", fontWeight: 550 }}
                   >
-                    {fCurrency(productDetail?.latest_price)}
+                    {fCurrency(productDetail?.description?.latest_price)} $
                   </Typography>
                 </Box>
 

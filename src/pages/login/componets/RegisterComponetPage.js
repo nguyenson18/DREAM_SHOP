@@ -7,12 +7,12 @@ import {
   Stack,
 } from "@mui/material";
 import React, { useState } from "react";
-import { FormProvider, FTextField } from "./form";
+import { FormProvider, FTextField } from "../../../componets/form";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { LoadingButton } from "@mui/lab";
 import { useForm } from "react-hook-form";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSnackbar } from "notistack";
@@ -78,7 +78,11 @@ function RegisterComponetPage({ setCurrentTab }) {
           )}
           <Alert severity="info">
             Already have an account?{" "}
-            <Link sx={{color:"tomato",textDecorationColor:"tomato"}} variant="subtitle2" onClick={() => setCurrentTab("LOGIN")}>
+            <Link
+              sx={{ color: "tomato", textDecorationColor: "tomato" }}
+              variant="subtitle2"
+              onClick={() => setCurrentTab("LOGIN")}
+            >
               Sing in
             </Link>
           </Alert>

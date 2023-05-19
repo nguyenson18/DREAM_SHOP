@@ -14,14 +14,14 @@ import { styled } from "@mui/system";
 import React, { useEffect } from "react";
 import BallotIcon from "@mui/icons-material/Ballot";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteOrther, getOrder } from "../features/oderCartSlice";
+import { deleteOrther, getOrder } from "../../features/oderCartSlice";
 import { useSnackbar } from "notistack";
-import { fCurrency } from "../utils/numberFormat";
+import { fCurrency } from "../../utils/numberFormat";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import { statusComfim } from "../utils/statusOrder";
-import Listorder from "../componets/order/Listorder";
+import { statusComfim } from "../../utils/statusOrder";
+import Listorder from "./componets/Listorder";
 
 const StyledTableCell = styled(TableCell)({
   textAlign: "center",
@@ -44,12 +44,13 @@ function OrderPage() {
   useEffect(() => {
     dispatch(getOrder(enqueueSnackbar));
   }, []);
-
   const handleDeleteOrther = (row) => async () => {
-    console.log(row);
     if (row?.status === "confirm") {
       dispatch(deleteOrther({ ortherId: row?._id }, enqueueSnackbar));
-    }else return enqueueSnackbar("Status confirm not delete order", { variant:'warning' });
+    } else
+      return enqueueSnackbar("Status confirm not delete order", {
+        variant: "warning",
+      });
   };
   return (
     <Container sx={{ paddingBottom: "400px" }}>
@@ -74,7 +75,7 @@ function OrderPage() {
         <Table>
           <TableHead>
             <TableRow sx={{ backgroundColor: "tomato" }}>
-              <TableCell sx={{ fontWeight: 550, color: "white", width:'35%' }}>
+              <TableCell sx={{ fontWeight: 550, color: "white", width: "35%" }}>
                 Product
               </TableCell>
               <StyledTableCell>Status</StyledTableCell>
@@ -88,7 +89,7 @@ function OrderPage() {
           </TableHead>
           <TableBody>
             {listOrder?.map((row) => (
-              <Listorder key={row._id} row={row}/>
+              <Listorder key={row._id} row={row} />
             ))}
           </TableBody>
         </Table>

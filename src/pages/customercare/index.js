@@ -8,9 +8,9 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import React from "react";
-import { FormProvider, FTextField } from "../componets/form";
+import { FormProvider, FTextField } from "../../componets/form";
 import { useForm } from "react-hook-form";
-import { TOPIC_OPTIONS } from "../options/option";
+import { TOPIC_OPTIONS } from "../../options/option";
 
 const defaultValues = {
   searchQuery: "",
@@ -18,10 +18,8 @@ const defaultValues = {
 
 function CustomerCarePage() {
   const methods = useForm({ defaultValues });
-  
-  const {
-    handleSubmit,
-  } = methods;
+
+  const { handleSubmit } = methods;
 
   const onSubmit = () => {};
 
@@ -115,7 +113,7 @@ function CustomerCarePage() {
 
       <Box
         sx={{
-          marginTop:3,
+          marginTop: 3,
           backgroundColor: "tomato",
           color: "white",
           height: "150px",
