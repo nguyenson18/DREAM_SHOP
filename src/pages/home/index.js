@@ -22,16 +22,19 @@ import ClearAllIcon from "@mui/icons-material/ClearAll";
 import SearchIcon from "@mui/icons-material/Search";
 import SortIcon from "@mui/icons-material/Sort";
 import { RATING_OPTIONS, SORT_OPTIONS } from "../../options/option";
-import CollapseFilter from "../../componets/CollapseFilter";
+import CollapseFilter from "./components/CollapseFilter";
 import { useDispatch, useSelector } from "react-redux";
-import { filterBrandProduct, getAllProducts } from "../../features/productSlice";
+import {
+  filterBrandProduct,
+  getAllProducts,
+} from "../../features/productSlice";
 import LoadingScreen from "../../componets/LoadingScreen";
 import { useSnackbar } from "notistack";
 import styled from "@emotion/styled";
-import { ProductList } from "../../componets/products";
-import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import { ProductList } from "./components";
+import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import { resfreshData } from "../../features/addCartSlice";
 
 const StyledSlider = styled(Slider)({
@@ -39,19 +42,19 @@ const StyledSlider = styled(Slider)({
   marginTop: "10px",
   marginBottom: "10px",
   color: "#001c44",
-  '& .MuiSlider-valueLabel': {
-    backgroundColor: '#001c44',
-    borderRadius:"7px"
+  "& .MuiSlider-valueLabel": {
+    backgroundColor: "#001c44",
+    borderRadius: "7px",
   },
 });
 
 function valueLabelFormat(value) {
-  const units = '$';
+  const units = "$";
   return `${value} ${units}`;
 }
 
 function HomePage() {
-  const [leftToggle, setLeftToggle] = useState(false)
+  const [leftToggle, setLeftToggle] = useState(false);
   const [price, setPrice] = useState([0, 340000]);
   const [search, setSearch] = useState("");
   const [type, setType] = useState("default");
@@ -69,24 +72,23 @@ function HomePage() {
   const getAll = () => {
     dispatch(
       getAllProducts(
-        { 
-          search, 
+        {
+          search,
           type: type == "default" ? "" : type,
           price: price,
-          rating: rating, 
-          page 
+          rating: rating,
+          page,
         },
         enqueueSnackbar
       )
     );
-  }
+  };
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(resfreshData())
-  }, [])
-  
+    dispatch(resfreshData());
+  }, []);
 
   useEffect(() => {
     if (brand) {
@@ -105,7 +107,7 @@ function HomePage() {
         )
       );
     } else {
-      getAll()
+      getAll();
     }
   }, [page]);
 
@@ -142,11 +144,11 @@ function HomePage() {
     setSearch("");
   };
   const toggleDrawer = (open) => (event) => {
-    setLeftToggle(open)
-  }
+    setLeftToggle(open);
+  };
 
-  const handleSearchAll = () =>{
-    setPage(1)
+  const handleSearchAll = () => {
+    setPage(1);
     dispatch(
       filterBrandProduct(
         {
@@ -156,83 +158,94 @@ function HomePage() {
           type: type == "default" ? "" : type,
           price: price,
           rating: rating,
-          page:1,
+          page: 1,
         },
         enqueueSnackbar
       )
     );
-  }
+  };
 
   const renderMobile = (
     <SwipeableDrawer
-            anchor='left'
-            open={leftToggle}
-            onClose={toggleDrawer(false)}
-            onOpen={toggleDrawer( true)}
-          >
-          <Box sx={{margin:"22px"}}>
-          <Button onClick={toggleDrawer(false)} sx={{color:'black'}}><ChevronLeftIcon/></Button>
-          <CollapseFilter
-            search={search}
-            setBrand={setBrand}
-            setCategory={setCategory}
-            type={type}
-          />
-          <Divider />
-          <Box>
-            <Typography sx={{ marginTop: "10px", fontWeight: 600 }}>
-              Price
-            </Typography>
-            <Box sx={{display:'flex', justifyContent:'space-between', marginTop:'5px'}}>
-              <Typography >Start: <span style={{fontWeight: 500}}>{price[0]}$</span></Typography>
-              <Typography >End: <span style={{fontWeight: 500}}>{price[1]}$</span></Typography>
-            </Box>
-            <StyledSlider
-              getAriaLabel={() => "Money range"}
-              value={price}
-              getAriaValueText={valueLabelFormat}
-              valueLabelFormat={valueLabelFormat}
-              valueLabelDisplay="auto"
-              max={340000}
-              onChange={handleChangePrice}
-            />
-          </Box>
-          <Divider />
-
+      anchor="left"
+      open={leftToggle}
+      onClose={toggleDrawer(false)}
+      onOpen={toggleDrawer(true)}
+    >
+      <Box sx={{ margin: "22px" }}>
+        <Button onClick={toggleDrawer(false)} sx={{ color: "black" }}>
+          <ChevronLeftIcon />
+        </Button>
+        <CollapseFilter
+          search={search}
+          setBrand={setBrand}
+          setCategory={setCategory}
+          type={type}
+        />
+        <Divider />
+        <Box>
           <Typography sx={{ marginTop: "10px", fontWeight: 600 }}>
-            Rating
+            Price
           </Typography>
-
-          {RATING_OPTIONS.map((rating) => (
-            <Button
-              key={rating?.value}
-              sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <Rating name="simple-controlled" value={rating?.value} readOnly />
-              <Typography sx={{ color: "#001c44" }}>{rating?.title}</Typography>
-            </Button>
-          ))}
-         
-          <Button
+          <Box
             sx={{
-              marginTop: "15px",
-              width: "100%",
-              border: " 1px solid tomato ",
-              color: "tomato",
+              display: "flex",
+              justifyContent: "space-between",
+              marginTop: "5px",
             }}
-            variant="outlined"
-            startIcon={<ClearAllIcon sx={{ color: "tomato" }} />}
-            onClick={handleClickClear}
           >
-            Clear All
-          </Button>
+            <Typography>
+              Start: <span style={{ fontWeight: 500 }}>{price[0]}$</span>
+            </Typography>
+            <Typography>
+              End: <span style={{ fontWeight: 500 }}>{price[1]}$</span>
+            </Typography>
           </Box>
-      
-      </SwipeableDrawer>
+          <StyledSlider
+            getAriaLabel={() => "Money range"}
+            value={price}
+            getAriaValueText={valueLabelFormat}
+            valueLabelFormat={valueLabelFormat}
+            valueLabelDisplay="auto"
+            max={340000}
+            onChange={handleChangePrice}
+          />
+        </Box>
+        <Divider />
+
+        <Typography sx={{ marginTop: "10px", fontWeight: 600 }}>
+          Rating
+        </Typography>
+
+        {RATING_OPTIONS.map((rating) => (
+          <Button
+            key={rating?.value}
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Rating name="simple-controlled" value={rating?.value} readOnly />
+            <Typography sx={{ color: "#001c44" }}>{rating?.title}</Typography>
+          </Button>
+        ))}
+
+        <Button
+          sx={{
+            marginTop: "15px",
+            width: "100%",
+            border: " 1px solid tomato ",
+            color: "tomato",
+          }}
+          variant="outlined"
+          startIcon={<ClearAllIcon sx={{ color: "tomato" }} />}
+          onClick={handleClickClear}
+        >
+          Clear All
+        </Button>
+      </Box>
+    </SwipeableDrawer>
   );
 
   return (
@@ -246,8 +259,15 @@ function HomePage() {
         maxWidth: "1500px !important",
       }}
     >
-      <Stack sx={{ marginRight: "24px", width: 300}}>
-        <Card sx={{ width: 250, textAlign: "center", padding: "10px", display:{xs:'none', sm:'block'} }}>
+      <Stack sx={{ marginRight: "24px", width: 300 }}>
+        <Card
+          sx={{
+            width: 250,
+            textAlign: "center",
+            padding: "10px",
+            display: { xs: "none", sm: "block" },
+          }}
+        >
           <CollapseFilter
             search={search}
             setBrand={setBrand}
@@ -261,9 +281,19 @@ function HomePage() {
             <Typography sx={{ marginTop: "10px", fontWeight: 600 }}>
               Price
             </Typography>
-            <Box sx={{display:'flex', justifyContent:'space-between', marginTop:'5px'}}>
-              <Typography >Start: <span style={{fontWeight: 500}}>{price[0]}$</span></Typography>
-              <Typography >End: <span style={{fontWeight: 500}}>{price[1]}$</span></Typography>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "5px",
+              }}
+            >
+              <Typography>
+                Start: <span style={{ fontWeight: 500 }}>{price[0]}$</span>
+              </Typography>
+              <Typography>
+                End: <span style={{ fontWeight: 500 }}>{price[1]}$</span>
+              </Typography>
             </Box>
             <StyledSlider
               getAriaLabel={() => "Money range"}
@@ -295,8 +325,15 @@ function HomePage() {
               <Typography sx={{ color: "#001c44" }}>{rating?.title}</Typography>
             </Button>
           ))}
-           <Button style={{backgroundColor:"#001c44", width:"100%", marginTop:'5px'}} onClick={handleSearchAll}>
-            <ManageSearchIcon style={{fontSize:'30px', color:'tomato'}}/>
+          <Button
+            style={{
+              backgroundColor: "#001c44",
+              width: "100%",
+              marginTop: "5px",
+            }}
+            onClick={handleSearchAll}
+          >
+            <ManageSearchIcon style={{ fontSize: "30px", color: "tomato" }} />
           </Button>
           <Button
             sx={{
@@ -319,10 +356,23 @@ function HomePage() {
           spacing={2}
           direction={{ xs: "row", sm: "row" }}
           justifyContent="flex-end"
-          alignItems='end'
+          alignItems="end"
         >
           {/* is mobile */}
-          <Button sx={{display:{xs:"block", sm:"none", position:'fixed', left:'20px', color:"tomato"}}} onClick={toggleDrawer(!leftToggle)}><FormatAlignJustifyIcon/></Button> 
+          <Button
+            sx={{
+              display: {
+                xs: "block",
+                sm: "none",
+                position: "fixed",
+                left: "20px",
+                color: "tomato",
+              },
+            }}
+            onClick={toggleDrawer(!leftToggle)}
+          >
+            <FormatAlignJustifyIcon />
+          </Button>
           <TextField
             name="searchQuery"
             sx={{ width: 180 }}

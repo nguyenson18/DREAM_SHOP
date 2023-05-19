@@ -9,13 +9,13 @@ import {
 import { Box } from "@mui/system";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { FormProvider, FTextField } from "./form";
+import { FormProvider, FTextField } from "../../../componets/form";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { getOther, inFoUserBooking, ortherConfim } from "../features/addCartSlice";
+import { getOther, inFoUserBooking, ortherConfim } from "../../../features/addCartSlice";
 import { useSnackbar } from "notistack";
 
 const StyledBox = styled(Box)({

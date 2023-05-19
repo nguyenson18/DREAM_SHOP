@@ -11,28 +11,28 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-import { fCurrency } from "../../utils/numberFormat";
+import useAuth from "../../../hooks/useAuth";
+import { fCurrency } from "../../../utils/numberFormat";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import DiscountNew from "../DiscountNew";
+import DiscountNew from "../../../componets/DiscountNew";
 import ProductInformation from "./ProductInformation";
 import { capitalCase } from "change-case";
-import FButton from "../form/FButton";
+import FButton from "../../../componets/form/FButton";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
-import { addToCart } from "../../features/addCartSlice";
+import { addToCart } from "../../../features/addCartSlice";
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
   const auth = useAuth();
   // const {} = useSelector((state) => state.addcart)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const handleAddToCard = () => {
     if (!auth?.isAuthenticated) {
       navigate("/login");
     } else {
-      dispatch(addToCart({productId: product._id}, enqueueSnackbar))
+      dispatch(addToCart({ productId: product._id }, enqueueSnackbar));
     }
   };
   return (
@@ -60,9 +60,14 @@ function ProductCard({ product }) {
           component="div"
           noWrap
         >
-          {`${capitalCase(product?.authorCatego?.name || "")} ${product?.authorBrand?.brand || ""}`}
+          {`${capitalCase(product?.authorCatego?.name || "")} ${
+            product?.authorBrand?.brand || ""
+          }`}
         </Typography>
-        <ProductInformation sx={{height:"21px", fontSize: "14px"}} product={product} />
+        <ProductInformation
+          sx={{ height: "21px", fontSize: "14px" }}
+          product={product}
+        />
         <Stack
           direction="row"
           spacing={0.5}

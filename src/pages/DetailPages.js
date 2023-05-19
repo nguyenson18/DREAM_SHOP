@@ -10,7 +10,6 @@ import { Container } from "@mui/system";
 import React, { useEffect} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fCurrency } from "../utils/numberFormat";
-import 'react-slideshow-image/dist/styles.css'
 
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,23 +20,8 @@ import FButton from "../componets/form/FButton";
 import LoadingScreen from "../componets/LoadingScreen";
 import useAuth from "../hooks/useAuth";
 import { addToCart } from "../features/addCartSlice";
-import { ProductInformation } from "../componets/products";
-import { Slide } from "react-slideshow-image";
+import { ProductInformation } from "./home/components";
 
-
-const spanStyle = {
-  padding: '20px',
-  background: '#efefef',
-  color: '#000000'
-}
-
-const divStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundSize: 'cover',
-  height: '150px'
-}
 
 function DetailPages() {
   const { isLoading, productDetail } = useSelector((state) => state.product);
