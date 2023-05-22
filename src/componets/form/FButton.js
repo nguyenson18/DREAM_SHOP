@@ -2,10 +2,10 @@ import { Button } from "@mui/material";
 import React from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
-function FButton({ product, handleAddToCard, ...sx }) {
+function FButton({disabled, product, handleAddToCard, ...sx }) {
   return (
     <Button
-      disabled={product?.stock != "stocking"}
+      disabled={disabled}
       sx={{
         background: "#001c44",
         width: "20%",

@@ -25,6 +25,7 @@ import { addToCart } from "../../../features/addCartSlice";
 function ProductCard({ product }) {
   const navigate = useNavigate();
   const auth = useAuth();
+  const isDisabled = auth?.role === 'master'
   // const {} = useSelector((state) => state.addcart)
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -35,6 +36,7 @@ function ProductCard({ product }) {
       dispatch(addToCart({ productId: product._id }, enqueueSnackbar));
     }
   };
+  
   return (
     <Card sx={{ width: 280, height: 420, borderRadius: "10px" }}>
       <CardActionArea onClick={() => navigate(`/products/${product._id}`)}>
@@ -103,7 +105,7 @@ function ProductCard({ product }) {
       </CardContent>
 
       <CardActions sx={{ justifyContent: "flex-end", padding: "10px" }}>
-        <FButton product={product} handleAddToCard={handleAddToCard}>
+        <FButton disabled={isDisabled} product={product} handleAddToCard={handleAddToCard}>
           <AddShoppingCartIcon sx={{ fontSize: "22px" }} />
         </FButton>
       </CardActions>
