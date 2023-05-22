@@ -64,7 +64,7 @@ const ListOrtherComponent = React.memo(
       const checkAll = listOrther.every((item) => item.check);
       setCheckAll(checkAll);
     }, [listOrther]);
-
+    
     return (
       <TableRow key={row._id} sx={{ height: "100px" }}>
         <TableCell sx={{ width: "2px", padding: "10px" }}>
