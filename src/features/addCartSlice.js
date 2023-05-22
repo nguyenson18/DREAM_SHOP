@@ -32,7 +32,7 @@ const slice = createSlice({
     },
     getOtherSuccess(state, action) {
       let total = action.payload.total;
-      let data = action?.payload?.data.map((e) => {
+      let data = action?.payload?.data?.map((e) => {
         if (!e?.check) {
           return { ...e, check: false };
         }
@@ -123,13 +123,12 @@ export const resfreshData = () => async (dispatch) => {
   }
 };
 export const ortherConfim =
-  ({ data, dataOrthers,userId }, enqueueSnackbar) =>
+  ({ dataOrthers }, enqueueSnackbar) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const res = await apiService.put(`/orther/status`, {
         dataOrthers: dataOrthers,
-        // infoUserBooking: data,
       });
       if(res.success) {
         dispatch(getOther(enqueueSnackbar));

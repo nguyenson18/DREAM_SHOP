@@ -389,6 +389,7 @@ function MainHeader() {
             {LIST_OPTIONS_NAV.map((e) => {
               const checkRole = e?.role?.includes(auth?.role);
               const path = location?.pathname;
+              
               return (
                 <div
                   style={{ display: "flex", alignItems: "center", flexWrap:'wrap' }}
@@ -401,7 +402,9 @@ function MainHeader() {
                           color:
                             path == e?.navigateValue ? "tomato" : "#001c44",
                         }}
-                        onClick={() => navigate(e?.navigateValue)}
+                        onClick={() => {
+                          navigate(e?.navigateValue); 
+                        }}
                         data-hover={e?.value}
                       >
                         {e?.value}

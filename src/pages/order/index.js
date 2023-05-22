@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Card,
   Container,
   Table,
@@ -14,14 +13,12 @@ import { styled } from "@mui/system";
 import React, { useEffect } from "react";
 import BallotIcon from "@mui/icons-material/Ballot";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteOrther, getOrder } from "../../features/oderCartSlice";
+import { getOrder } from "../../features/oderCartSlice";
 import { useSnackbar } from "notistack";
-import { fCurrency } from "../../utils/numberFormat";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { useNavigate } from "react-router-dom";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import { statusComfim } from "../../utils/statusOrder";
 import Listorder from "./componets/Listorder";
+import useAuth from "../../hooks/useAuth";
+import ListBrowseProducts from "./componets/ListBrowseProducts";
+import { getListBrowsProduct } from "../../features/browseProducts";
 
 const StyledTableCell = styled(TableCell)({
   textAlign: "center",
@@ -29,29 +26,21 @@ const StyledTableCell = styled(TableCell)({
   fontSize: "16px",
   color: "white",
 });
-const StyledTableCellBody = styled(TableCell)({
-  textAlign: "center",
-  fontWeight: 550,
-  fontSize: "16px",
-});
+
 
 function OrderPage() {
   const { listOrder } = useSelector((state) => state?.ordercart);
-
+  const { listBrowseProducts } = useSelector((state) => state?.browseproduct);
+  const { role } = useAuth();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getOrder(enqueueSnackbar));
+    if(role == "master"){
+      dispatch(getListBrowsProduct(enqueueSnackbar));
+    }
   }, []);
-  const handleDeleteOrther = (row) => async () => {
-    if (row?.status === "confirm") {
-      dispatch(deleteOrther({ ortherId: row?._id }, enqueueSnackbar));
-    } else
-      return enqueueSnackbar("Status confirm not delete order", {
-        variant: "warning",
-      });
-  };
+  
   return (
     <Container sx={{ paddingBottom: "400px" }}>
       <Box
@@ -88,9 +77,16 @@ function OrderPage() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {listOrder?.map((row) => (
+            {role !== 'master' && listOrder?.map((row) => (
               <Listorder key={row._id} row={row} />
             ))}
+            {role == 'master' && listBrowseProducts?.map((row) => {
+              if(row?.ortherItems?.length ){
+                return row?.ortherItems?.map((item) => (
+                  <ListBrowseProducts key={row?._id} row={item} />
+                ))
+              }
+            })}
           </TableBody>
         </Table>
       </Card>

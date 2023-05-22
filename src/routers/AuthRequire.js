@@ -5,17 +5,15 @@ import useAuth from "../hooks/useAuth";
 function AuthRequire({ children }) {
   const { isInitialized, role } = useAuth();
   const routersCheckRoleMaster = [
-     "/checkout",
-     "/order" 
+    "/checkout",
+    //  "/order"
   ];
-  const routersCheckRoleNormal = [
-    "/createproduct"
-  ]
+  const routersCheckRoleNormal = ["/createproduct"];
   const accessToken = window.localStorage.getItem("accessToken");
   const location = useLocation();
 
-  const checkRoleMaster = routersCheckRoleMaster.includes(location.pathname)
-  const checkRoleNormal = routersCheckRoleNormal.includes(location.pathname)
+  const checkRoleMaster = routersCheckRoleMaster.includes(location.pathname);
+  const checkRoleNormal = routersCheckRoleNormal.includes(location.pathname);
 
   if (location.pathname == "/account" && !accessToken) {
     return <Navigate to="/login" state={{ from: location }} replace />;
@@ -25,8 +23,11 @@ function AuthRequire({ children }) {
     return <LoadingScreen />;
   }
 
-  if((checkRoleMaster && (role === 'master' || !role)) || (checkRoleNormal && role ==='normal')){
-    return <Navigate to='/*'/>
+  if (
+    (checkRoleMaster && (role === "master" || !role)) ||
+    (checkRoleNormal && role === "normal")
+  ) {
+    return <Navigate to="/*" />;
   }
 
   return children;

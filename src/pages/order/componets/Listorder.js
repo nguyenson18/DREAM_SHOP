@@ -4,7 +4,6 @@ import React from "react";
 import { statusComfim } from "../../../utils/statusOrder";
 import { fCurrency } from "../../../utils/numberFormat";
 import DeleteIcon from "@mui/icons-material/Delete";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
@@ -61,9 +60,9 @@ const Listorder = React.memo(({ row }) => {
       <StyledTableCellBody>{row?.quantity}</StyledTableCellBody>
       <StyledTableCellBody>{fCurrency(row?.description?.latest_price * row?.quantity)} $</StyledTableCellBody>
       <StyledTableCellBody>
-        <Button sx={{ minWidth: "30px" }}>
+        {/* <Button sx={{ minWidth: "30px" }}>
           <RemoveRedEyeIcon sx={{ color: "#001c44" }} />
-        </Button>
+        </Button> */}
         <Button sx={{ minWidth: "30px" }} onClick={handleDeleteOrther(row)}>
           <DeleteIcon sx={{ color: "tomato" }} />
         </Button>
