@@ -47,7 +47,7 @@ function ProductCard({ product }) {
             sx={{ borderRadius: "5px", margin: "auto", width: "75%" }}
             component="img"
             height="190"
-            image={product?.imageUrl[0]}
+            image={product?.imageUrl[1]}
             alt={product?.authorBrand?.brand}
           />
         </Box>
