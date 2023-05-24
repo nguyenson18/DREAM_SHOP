@@ -23,9 +23,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 - Create /.env:
 
 ```
-REACT_APP_BACKEND_API = https://shop-app-backend-production-5c4e.up.railway.app/api
+// REACT_APP_BACKEND_API = https://shop-app-backend-production-5c4e.up.railway.app/api
 // REACT_APP_BACKEND_API = http://localhost:8000/api
-REACT_APP_BACKEND_API2 = https://shopapp-be-booking.onrender.com/api
+REACT_APP_BACKEND_API = https://shopapp-be-booking.onrender.com/api
 REACT_APP_CLOUDINARY_CLOUD_NAME = nguy-n-tr-ng-s-n
 REACT_APP_CLOUDINARY_UPLOAD_PRESET = dream_shop
 // REACT_PUBLIC_GOOGLE_CLIENT_ID = 466401349875-e6olg4cl8ph7aaiaofe61ov0vvk1lf4j.apps.googleusercontent.com
