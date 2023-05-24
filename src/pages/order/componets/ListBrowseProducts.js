@@ -16,7 +16,6 @@ const StyledTableCellBody = styled(TableCell)({
 
 function ListBrowseProducts({row}) {
     const dispatch = useDispatch();
-    console.log(row)
    const isDisabled = row?.status !== 'paid'
    const { enqueueSnackbar } = useSnackbar();
    const handleSubmit = async(data) => {

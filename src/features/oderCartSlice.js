@@ -4,11 +4,11 @@ import apiService from "../app/apiService";
 const initialState = {
   isLoading: false,
   error: null,
-  listOrder: null,
+  listOrder: [],
 };
 
 const slice = createSlice({
-  name: "addcart",
+  name: "ordercart",
   initialState,
   reducers: {
     startLoading(state) {
@@ -33,7 +33,7 @@ export const getOrder = (enqueueSnackbar) => async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const res = await apiService.get(`/orther/listbooking`);
-      dispatch(slice.actions.getOrderSuccess(res?.data));
+      dispatch(slice.actions.getOrderSuccess(res?.data?.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
       enqueueSnackbar(error.message, { variant: "error" });

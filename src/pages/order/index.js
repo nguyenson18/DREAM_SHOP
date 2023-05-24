@@ -40,7 +40,6 @@ function OrderPage() {
       dispatch(getListBrowsProduct(enqueueSnackbar));
     }
   }, []);
-  
   return (
     <Container sx={{ paddingBottom: "400px" }}>
       <Box
@@ -78,7 +77,7 @@ function OrderPage() {
           </TableHead>
           <TableBody>
             {role !== 'master' && listOrder?.map((row) => (
-              <Listorder key={row._id} row={row} />
+               <Listorder key={row._id} row={row} />
             ))}
             {role == 'master' && listBrowseProducts?.map((row) => {
               if(row?.ortherItems?.length ){

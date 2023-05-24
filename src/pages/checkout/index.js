@@ -58,7 +58,6 @@ function CheckoutPage() {
   const handleClose = () => {
     setOpen(false);
   };
-
   return (
     <Container sx={{ paddingBottom: "400px" }}>
       <Box
