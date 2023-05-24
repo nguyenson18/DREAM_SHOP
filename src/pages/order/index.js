@@ -62,7 +62,7 @@ function OrderPage() {
       <Card>
         <Table>
           <TableHead>
-            <TableRow sx={{ backgroundColor: "tomato" }}>
+            <TableRow sx={{ backgroundColor: "#001c44" }}>
               <TableCell sx={{ fontWeight: 550, color: "white", width: "35%" }}>
                 Product
               </TableCell>

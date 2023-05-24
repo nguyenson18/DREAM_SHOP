@@ -86,7 +86,7 @@ const ListOrtherComponent = React.memo(
             }}
           >
             <Button onClick={() => navigate(`/products/${row?.productId}`)}>
-              <img src={row?.imageUrl} alt="" style={{ height: "80px" }} />
+              <img src={row?.imageUrl[1]} alt="" style={{ height: "80px" }} />
             </Button>
             <Typography
               sx={{

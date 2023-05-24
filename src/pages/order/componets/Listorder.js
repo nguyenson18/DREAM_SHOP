@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 import { deleteOrther } from "../../../features/oderCartSlice";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const StyledTableCellBody = styled(TableCell)({
   textAlign: "center",
@@ -27,6 +28,7 @@ const Listorder = React.memo(({ row }) => {
         variant: "warning",
       });
   };
+
   return (
     <TableRow key={row._id} sx={{ height: "100px" }}>
       <StyledTableCellBody>
@@ -39,7 +41,7 @@ const Listorder = React.memo(({ row }) => {
           }}
         >
           <Button onClick={() => navigate(`/products/${row?.productId}`)}>
-            <img src={row?.imageUrl} alt="" style={{ height: "80px" }} />
+            <img src={row?.imageUrl[1]} alt="" style={{ height: "80px" }} />
           </Button>
           <Typography
             sx={{
@@ -60,12 +62,14 @@ const Listorder = React.memo(({ row }) => {
       <StyledTableCellBody>{row?.quantity}</StyledTableCellBody>
       <StyledTableCellBody>{fCurrency(row?.description?.latest_price * row?.quantity)} $</StyledTableCellBody>
       <StyledTableCellBody>
-        {/* <Button sx={{ minWidth: "30px" }}>
-          <RemoveRedEyeIcon sx={{ color: "#001c44" }} />
-        </Button> */}
-        <Button sx={{ minWidth: "30px" }} onClick={handleDeleteOrther(row)}>
-          <DeleteIcon sx={{ color: "tomato" }} />
+        <Button sx={{ minWidth: "30px" }}>
+          <VisibilityIcon sx={{ color: "#001c44" }} />
         </Button>
+        {row?.status === 'paid' && (
+          <Button sx={{ minWidth: "30px" }} onClick={handleDeleteOrther(row)}>
+          <DeleteIcon sx={{ color: "tomato" }} />
+          </Button>
+        )}
       </StyledTableCellBody>
     </TableRow>
   );
