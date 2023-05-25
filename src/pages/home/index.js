@@ -73,11 +73,12 @@ function HomePage() {
     dispatch(
       getAllProducts(
         {
+          category,
           search,
           type: type == "default" ? "" : type,
           price: price,
           rating: rating,
-          page,
+          page: 1,
         },
         enqueueSnackbar
       )
@@ -112,22 +113,7 @@ function HomePage() {
   }, [page]);
 
   useEffect(() => {
-    setPage(1);
-    if (brand) {
-      dispatch(
-        filterBrandProduct(
-          {
-            category,
-            search,
-            brand: brand,
-            type: type == "default" ? "" : type,
-            price: price,
-            page,
-          },
-          enqueueSnackbar
-        )
-      );
-    }
+    onSubmit()
   }, [search, type, brand]);
 
   const handleChangeSelect = (e) => {
@@ -146,23 +132,26 @@ function HomePage() {
   const toggleDrawer = (open) => (event) => {
     setLeftToggle(open);
   };
-
-  const handleSearchAll = () => {
+  console.log(products)
+  const onSubmit = () => {
     setPage(1);
-    dispatch(
-      filterBrandProduct(
-        {
-          category,
-          search,
-          brand: brand,
-          type: type == "default" ? "" : type,
-          price: price,
-          rating: rating,
-          page: 1,
-        },
-        enqueueSnackbar
-      )
-    );
+    if (brand) {
+      dispatch(
+        filterBrandProduct(
+          {
+            category,
+            search,
+            brand: brand,
+            type: type == "default" ? "" : type,
+            price: price,
+            page,
+          },
+          enqueueSnackbar
+        )
+      );
+    }else {
+      getAll()
+    }
   };
 
   const renderMobile = (
@@ -331,7 +320,7 @@ function HomePage() {
               width: "100%",
               marginTop: "5px",
             }}
-            onClick={handleSearchAll}
+            onClick={onSubmit}
           >
             <ManageSearchIcon style={{ fontSize: "30px", color: "tomato" }} />
           </Button>
@@ -415,7 +404,7 @@ function HomePage() {
         </Stack>
         {isLoading ? (
           <LoadingScreen />
-        ) : (
+        ) : products.length ? ((
           <>
             <ProductList products={products} />
             <Pagination
@@ -428,6 +417,10 @@ function HomePage() {
               onChange={(e, page) => setPage(page)}
             />
           </>
+        )) : (
+          <div>
+            Không có sản phẩm
+          </div>
         )}
       </Stack>
       {renderMobile}

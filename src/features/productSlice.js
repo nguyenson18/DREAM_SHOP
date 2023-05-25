@@ -47,10 +47,12 @@ export default slice.reducer;
 export const getAllProducts =
   ({ search, type, price, rating, page, limit = 20 }, enqueueSnackbar) =>
   async (dispatch) => {
+    let gte = price[0] 
+    let lte = price[1] 
     dispatch(slice.actions.startLoading());
     try {
       const res = await apiService.get(
-        `products/allproduct`
+        `products/allproduct?page=${page}&limit=${limit}&search=${search}&type=${type}&gte=${gte}&lte=${lte}`
       );
       dispatch(slice.actions.getProductSuccess(res?.data));
     } catch (error) {
