@@ -30,19 +30,13 @@ import Sony from "../../../img/sony.png";
 import Canon from "../../../img/canon.png";
 import Nikon from "../../../img/nikon.png";
 import Fujifilm from "../../../img/fujifilm.png";
-import { useDispatch, useSelector } from "react-redux";
-import { filterBrandProduct } from "../../../features/productSlice";
-import { useSnackbar } from "notistack";
 import { capitalCase } from "change-case";
 
-function CollapseFilter({ search, setBrand, type, setCategory, brand, price }) {
+function CollapseFilter({  setBrand, setCategory, brand, setPage }) {
   const [open, setOpen] = useState(true);
 
   const [listCategory, setListCategory] = useState();
 
-  const { products } = useSelector((state) => state.product);
-  const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     setListCategory(LISTCATERGORY_OPTIONS);
   }, []);
@@ -185,19 +179,7 @@ function CollapseFilter({ search, setBrand, type, setCategory, brand, price }) {
   const handleFilterBrand = async (category, brand) => {
     setBrand(brand?.value);
     setCategory(category);
-    dispatch(
-      filterBrandProduct(
-        {
-          category,
-          search,
-          brand: brand?.value,
-          type: type == "default" ? "" : type,
-          price: price,
-          page: 1,
-        },
-        enqueueSnackbar
-      )
-    );
+    setPage(1)
   };
 
   return (

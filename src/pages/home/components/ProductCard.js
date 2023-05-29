@@ -76,13 +76,16 @@ function ProductCard({ product }) {
           alignItems="center"
           sx={{ display: "block" }}
         >
-          <Rating
+          <Box sx={{display:'flex', alignItems:'center'}}>
+            <Rating
             name="read-only"
             value={Number(product?.ratings)}
             readOnly
             size="small"
-            sx={{ my: 0.5 }}
-          />
+            sx={{ my: 0.5, mr:'5px' }}
+            />
+            <Typography fontSize={'15px'}>({product?.reviews?.length})</Typography>
+          </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             {product?.old_price !== "0" && (
               <Typography

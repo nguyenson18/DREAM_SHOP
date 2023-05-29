@@ -11,7 +11,6 @@ function FUploadAvatar({ name, ...other }) {
       control={control}
       render={({ field, fieldState: { error } }) => {
         const checkError = !!error && !field.value;
-
         return (
           <div>
             <UploadAvatar error={checkError} {...other} file={field.value} />

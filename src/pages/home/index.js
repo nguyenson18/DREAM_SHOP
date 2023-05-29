@@ -92,7 +92,7 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    if (brand) {
+    if (brand !== '') {
       dispatch(
         filterBrandProduct(
           {
@@ -110,16 +110,14 @@ function HomePage() {
     } else {
       getAll();
     }
-  }, [page]);
-
-  useEffect(() => {
-    onSubmit()
-  }, [search, type, brand]);
+  }, [page, search, type, brand]);
 
   const handleChangeSelect = (e) => {
+    setPage(1)
     setType(e.target.value);
   };
   const handleChangePrice = (event, newValue) => {
+    setPage(1)
     setPrice(newValue);
   };
   const handleClickClear = () => {
@@ -132,7 +130,6 @@ function HomePage() {
   const toggleDrawer = (open) => (event) => {
     setLeftToggle(open);
   };
-  console.log(products)
   const onSubmit = () => {
     setPage(1);
     if (brand) {
@@ -258,12 +255,10 @@ function HomePage() {
           }}
         >
           <CollapseFilter
-            search={search}
             setBrand={setBrand}
-            brand={brand}
             setCategory={setCategory}
-            type={type}
-            price={price}
+            setPage ={setPage}
+            brand={brand}
           />
           <Divider />
           <Box>
@@ -419,7 +414,7 @@ function HomePage() {
           </>
         )) : (
           <div>
-            Không có sản phẩm
+            <Typography variant="h6">No products found</Typography>
           </div>
         )}
       </Stack>

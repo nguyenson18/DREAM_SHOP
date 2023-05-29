@@ -69,11 +69,7 @@ const  DialogInformation = React.memo(({ open, handleClose, title, content }) =>
   });
   const {
     handleSubmit,
-    reset,
-    getValues,
-    setValue,
-    setError,
-    formState: { errors, isSubmitting },
+    setValue
   } = methods;
 
   const onSubmit = async (data) => {

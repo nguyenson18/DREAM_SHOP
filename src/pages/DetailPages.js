@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Card,
   Divider,
@@ -7,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Container } from "@mui/system";
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fCurrency } from "../utils/numberFormat";
 
@@ -22,13 +23,12 @@ import useAuth from "../hooks/useAuth";
 import { addToCart } from "../features/addCartSlice";
 import { ProductInformation } from "./home/components";
 
-
 function DetailPages() {
-  const [urlImg, setUrlImg] = useState('')
+  const [urlImg, setUrlImg] = useState("");
   const { isLoading, productDetail } = useSelector((state) => state.product);
   const params = useParams();
-  const auth = useAuth()
-  const navigate = useNavigate()
+  const auth = useAuth();
+  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -41,14 +41,14 @@ function DetailPages() {
     if (!auth?.isAuthenticated) {
       navigate("/login");
     } else {
-      dispatch(addToCart({productId: params?.id}, enqueueSnackbar))
+      dispatch(addToCart({ productId: params?.id }, enqueueSnackbar));
     }
   };
-  useEffect(()=>{
-    if(productDetail?.imageUrl){
-      setUrlImg(productDetail?.imageUrl[1])
+  useEffect(() => {
+    if (productDetail?.imageUrl) {
+      setUrlImg(productDetail?.imageUrl[1]);
     }
-  },[productDetail])
+  }, [productDetail]);
   return (
     <>
       {isLoading ? (
@@ -57,7 +57,13 @@ function DetailPages() {
         </Box>
       ) : (
         <Container sx={{ my: 5, position: "relative", paddingBottom: "400px" }}>
-          <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent:'space-beween' }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-beween",
+            }}
+          >
             <Box sx={{ width: "33.3333%" }}>
               <Card
                 sx={{
@@ -81,38 +87,6 @@ function DetailPages() {
                   }}
                 />
               </Card>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginTop:"20px"
-                }}
-              >
-                {productDetail?.imageUrl?.map((element, index) => (
-                  <Card style={{
-                    width:'80px',
-                    cursor: 'pointer',
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent:'center', 
-                    minHeight:'100px', 
-                    textAlign:'center', 
-                    margin:'0 5px'}}
-                    onClick={() => {setUrlImg(productDetail?.imageUrl[index])}}
-                    >
-                      <img
-                      src={element}
-                      alt="productDetail"
-                      style={{
-                        borderRadius: "10px",
-                        width: "90%",
-                        transition:
-                          "transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, hover 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-                      }}
-                    />
-                  </Card>
-                ))}
-              </Box>
             </Box>
 
             <Box
@@ -151,7 +125,7 @@ function DetailPages() {
                     readOnly
                   />
                   <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    ({productDetail?.totalReview} reviews)
+                    ({productDetail?.reviews?.length} reviews)
                   </Typography>
                 </Stack>
 
@@ -183,11 +157,89 @@ function DetailPages() {
               </Box>
 
               <Box>
-                <FButton product={productDetail} handleAddToCard={handleAddToCard}>
+                <FButton
+                  product={productDetail}
+                  handleAddToCard={handleAddToCard}
+                >
                   <AddShoppingCartIcon />
                 </FButton>
               </Box>
             </Box>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              marginTop: "20px",
+            }}
+          >
+            {productDetail?.imageUrl?.map((element, index) => (
+              <Card
+                style={{
+                  width: "80px",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minHeight: "100px",
+                  textAlign: "center",
+                  margin: "0 5px",
+                }}
+                onClick={() => {
+                  setUrlImg(productDetail?.imageUrl[index]);
+                }}
+              >
+                <img
+                  src={element}
+                  alt="productDetail"
+                  style={{
+                    borderRadius: "10px",
+                    width: "90%",
+                    transition:
+                      "transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, hover 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+                  }}
+                />
+              </Card>
+            ))}
+          </Box>
+          <Box>
+            <Card
+              sx={{
+                width: "100%",
+                minHeight: "150px",
+                display: "flex",
+                marginTop: "15px",
+                flexDirection: "column",
+                overflow: "hidden",
+              }}
+            >
+              <p
+                style={{ margin: "10px 15px", fontSize: "", fontWeight: "500" }}
+              >
+                {productDetail?.reviews?.length} reviews
+              </p>
+              {productDetail?.reviews?.map((item) => (
+                <Box sx={{ width: "100%", margin: "10px", display: "flex" }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                  <Card
+                    sx={{
+                      width: "90%",
+                      padding: "10px",
+                      ml: "10px",
+                    }}
+                  >
+                    <Box>
+                      <Rating
+                        value={Number(item?.rating)}
+                        precision={0.5}
+                        readOnly
+                      />
+                      <Typography>{item.content}</Typography>
+                    </Box>
+                  </Card>
+                </Box>
+              ))}
+            </Card>
           </Box>
         </Container>
       )}

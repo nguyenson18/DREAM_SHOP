@@ -61,7 +61,6 @@ function UploadAvatar({ error, file, helperText, sx, ...other }) {
     multiple: false,
     ...other,
   });
-
   return (
     <>
       <RootStyle
