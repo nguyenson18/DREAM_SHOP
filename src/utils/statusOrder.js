@@ -15,7 +15,7 @@ export function statusComfim(status) {
           justifyContent: "space-between",
         }}
       >
-        {status}
+        <p style={{fontSize:'15px'}}>Pending</p>
         <HourglassTopIcon />
       </Box>
     );
@@ -30,7 +30,7 @@ export function statusComfim(status) {
           justifyContent: "space-between",
         }}
       >
-        {status}
+        <p style={{fontSize:'15px'}}>Orders are being delivered</p>
         <LocalShippingIcon />
       </Box>
     );
@@ -45,7 +45,7 @@ export function statusComfim(status) {
           justifyContent: "space-between",
         }}
       >
-        {status}
+        <p style={{fontSize:'15px'}}>Approved seller</p>
         <HowToRegIcon />
       </Box>
     );

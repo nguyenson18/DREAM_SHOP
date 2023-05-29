@@ -63,7 +63,7 @@ function OrderPage() {
         <Table>
           <TableHead>
             <TableRow sx={{ backgroundColor: "#001c44" }}>
-              <TableCell sx={{ fontWeight: 550, color: "white", width: "35%" }}>
+              <TableCell sx={{ fontWeight: 550, color: "white" }}>
                 Product
               </TableCell>
               <StyledTableCell>Status</StyledTableCell>

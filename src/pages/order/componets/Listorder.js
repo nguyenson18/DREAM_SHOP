@@ -53,7 +53,7 @@ const Listorder = React.memo(({ row }) => {
               fontSize: "16px",
               fontWeight: 500,
               paddingLeft: "50px",
-              width: "100%",
+              width: "90%",
             }}
           >
             {row?.description?.brand}
