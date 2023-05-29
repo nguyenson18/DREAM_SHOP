@@ -59,7 +59,12 @@ function CheckoutPage() {
     setOpen(false);
   };
   return (
-    <Container sx={{ paddingBottom: "400px" }}>
+    <Container sx={{ 
+      paddingBottom: "400px",
+      minHeight: "100vh",
+      mt: 3,
+      maxWidth: "1500px !important",
+      }}>
       <Box
         sx={{
           display: "flex",

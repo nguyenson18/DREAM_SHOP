@@ -1,8 +1,8 @@
 import { LoadingButton } from "@mui/lab";
-import { Box, Card, Grid, Stack, Typography } from "@mui/material";
+import { Box, Card, Grid, MenuItem, Stack, Typography } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { FormProvider, FTextField } from "../../componets/form";
+import { FormProvider, FSelect, FTextField } from "../../componets/form";
 import FUploadAvatar from "../../componets/form/FUploadAvatar";
 import { fDate } from "../../utils/formatTime";
 import useAuth from "../../hooks/useAuth";
@@ -10,6 +10,11 @@ import { Container } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux/es";
 import { updateUserProfile } from "../../features/userSlice";
 import { useSnackbar } from "notistack";
+
+
+const role = [
+  { value: 'normal' },
+  { value: 'driver' }]
 
 function AccountPages() {
   const [isSubmit, setIsSubmit] = useState(false);
@@ -116,6 +121,11 @@ function AccountPages() {
 
                 <FTextField name="phone" label="Phone Number" />
                 <FTextField name="address" label="Address" />
+                {role !== 'master' && (
+                  <FSelect name='role' label="Role" children={role.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>{option.value}</MenuItem>
+                  ))}/>
+                )}
               </Box>
 
               <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>

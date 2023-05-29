@@ -49,6 +49,7 @@ function DetailPages() {
       setUrlImg(productDetail?.imageUrl[1]);
     }
   }, [productDetail]);
+  
   return (
     <>
       {isLoading ? (
@@ -185,6 +186,7 @@ function DetailPages() {
                   textAlign: "center",
                   margin: "0 5px",
                 }}
+                key={index}
                 onClick={() => {
                   setUrlImg(productDetail?.imageUrl[index]);
                 }}
@@ -219,7 +221,7 @@ function DetailPages() {
                 {productDetail?.reviews?.length} reviews
               </p>
               {productDetail?.reviews?.map((item) => (
-                <Box sx={{ width: "100%", margin: "10px", display: "flex" }}>
+                <Box sx={{ width: "100%", margin: "10px", display: "flex" }} key={item?._id}>
                   <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                   <Card
                     sx={{

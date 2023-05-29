@@ -310,7 +310,7 @@ function MainHeader() {
       <AppBar
         position="fixed"
         color="transparent"
-        sx={{ backgroundColor: "#001c44", padding: "0 10px" }}
+        sx={{ backgroundColor: "#001c44", padding: "0 10px", height:'75px' }}
       >
         <Toolbar>
           <LogoWhite
@@ -319,7 +319,6 @@ function MainHeader() {
           <Typography
             variant="h6"
             noWrap
-            component="div"
             sx={{ display: { xs: "none", sm: "block" }, color: "white" }}
           >
             DREAM SHOP
@@ -392,6 +391,7 @@ function MainHeader() {
             display: "flex",
             justifyContent: "flex-end",
             alignItems: "center",
+            marginTop: "15px",
           }}
         >
           <div
@@ -407,7 +407,6 @@ function MainHeader() {
                     display: "flex",
                     alignItems: "center",
                     flexWrap: "wrap",
-                    marginTop: "20px",
                   }}
                   key={e?.value}
                 >

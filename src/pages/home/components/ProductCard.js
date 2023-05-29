@@ -79,6 +79,7 @@ function ProductCard({ product }) {
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Rating
               name="read-only"
+              precision={0.5}
               value={Number(product?.ratings)}
               readOnly
               size="small"

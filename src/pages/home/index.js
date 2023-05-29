@@ -305,7 +305,7 @@ function HomePage() {
               }}
               onClick={() => setRating(rating?.value)}
             >
-              <Rating name="simple-controlled" value={rating?.value} readOnly />
+              <Rating name="simple-controlled"  value={rating?.value} readOnly />
               <Typography sx={{ color: "#001c44" }}>{rating?.title}</Typography>
             </Button>
           ))}
