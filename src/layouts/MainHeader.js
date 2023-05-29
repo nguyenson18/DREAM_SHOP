@@ -18,11 +18,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import {
-  Link as RouterLink,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import "./mainHeader.scss";
@@ -40,6 +36,8 @@ import { LIST_OPTIONS_NAV } from "../options/option";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getOther, resfreshData } from "../features/addCartSlice";
 import { LogoWhite } from "../componets/logo";
+import { getListBrowsProduct } from "../features/browseProducts";
+import { getOrder } from "../features/oderCartSlice";
 
 const schemaChangePassword = Yup.object()
   .shape({
@@ -65,11 +63,10 @@ function MainHeader() {
   const [password, setPassword] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const { listOrther } = useSelector(
-    (state) => state.addcart,
-    shallowEqual
-  );
-  
+  const { listOrther } = useSelector((state) => state.addcart, shallowEqual);
+  const { listBrowseProducts } = useSelector((state) => state?.browseproduct);
+  const { listOrder } = useSelector((state) => state?.ordercart);
+
   const { enqueueSnackbar } = useSnackbar();
   const auth = useAuth();
   const navigate = useNavigate();
@@ -158,12 +155,27 @@ function MainHeader() {
   };
 
   useEffect(() => {
-    if(auth.isAuthenticated){
+    if (auth.isAuthenticated) {
       dispatch(getOther(enqueueSnackbar));
-    }else {
-      dispatch(resfreshData())
+      dispatch(getListBrowsProduct(enqueueSnackbar));
+      dispatch(getOrder(enqueueSnackbar));
+    } else {
+      dispatch(resfreshData());
     }
   }, []);
+
+  const handleBage = (e) => {
+    if (e?.value == "Checkout") {
+      return listOrther?.length;
+    }
+    if (e?.value == "Order" && auth?.role == "master") {
+      return listBrowseProducts?.length;
+    }
+    if (e?.value == "Order" && auth?.role !== "master") {
+      return listOrder?.length;
+    }
+    return null;
+  };
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -184,25 +196,25 @@ function MainHeader() {
       PaperProps={{
         elevation: 0,
         sx: {
-          overflow: 'visible',
-          filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+          overflow: "visible",
+          filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
           mt: 1.5,
-          '& .MuiAvatar-root': {
+          "& .MuiAvatar-root": {
             width: 32,
             height: 32,
             ml: -0.5,
             mr: 1,
           },
-          '&:before': {
+          "&:before": {
             content: '""',
-            display: 'block',
-            position: 'absolute',
+            display: "block",
+            position: "absolute",
             top: 0,
             right: 25,
             width: 10,
             height: 10,
-            bgcolor: 'background.paper',
-            transform: 'translateY(-50%) rotate(45deg)',
+            bgcolor: "background.paper",
+            transform: "translateY(-50%) rotate(45deg)",
             zIndex: 0,
           },
         },
@@ -269,30 +281,30 @@ function MainHeader() {
         <p>Add To Cart</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
-      {auth?.isAuthenticated ? (
-              <IconButton onClick={handleProfileMenuOpen}>
-                <Avatar
-                  alt={auth?.user?.name}
-                  src={auth?.user?.avatarUrl}
-                  sx={{ width: 45, height: 45 }}
-                />
-              </IconButton>
-            ) : (
-              <IconButton
-                onClick={() => {
-                  navigate("/login");
-                }}
-              >
-                <LockOpenIcon
-                  sx={{ fontSize: "30px", color: "rgb(237, 50, 56)" }}
-                />
-              </IconButton>
-            )}
-        <p>{auth?.user?.name ? auth?.user?.name : 'Login'}</p>
+        {auth?.isAuthenticated ? (
+          <IconButton onClick={handleProfileMenuOpen}>
+            <Avatar
+              alt={auth?.user?.name}
+              src={auth?.user?.avatarUrl}
+              sx={{ width: 45, height: 45 }}
+            />
+          </IconButton>
+        ) : (
+          <IconButton
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            <LockOpenIcon
+              sx={{ fontSize: "30px", color: "rgb(237, 50, 56)" }}
+            />
+          </IconButton>
+        )}
+        <p>{auth?.user?.name ? auth?.user?.name : "Login"}</p>
       </MenuItem>
     </Menu>
   );
-  
+
   return (
     <Box sx={{ backgroundColor: "rgb(255, 255, 255)" }}>
       <AppBar
@@ -367,7 +379,7 @@ function MainHeader() {
       <div
         style={{
           display: "flex",
-          minHeight:'55px',
+          minHeight: "55px",
           width: "100%",
           boxShadow: "rgb(43 52 69 / 10%) 0px 4px 16px",
           justifyContent: "space-around",
@@ -384,31 +396,37 @@ function MainHeader() {
         >
           <div
             className="link-effect-3"
-            style={{ display: "flex", alignItems: "center", flexWrap:'wrap' }}
+            style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}
           >
             {LIST_OPTIONS_NAV.map((e) => {
               const checkRole = e?.role?.includes(auth?.role);
               const path = location?.pathname;
-              
               return (
                 <div
-                  style={{ display: "flex", alignItems: "center", flexWrap:'wrap' }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                    marginTop: "20px",
+                  }}
                   key={e?.value}
                 >
                   {checkRole && (
                     <>
-                      <a
-                        style={{
-                          color:
-                            path == e?.navigateValue ? "tomato" : "#001c44",
-                        }}
-                        onClick={() => {
-                          navigate(e?.navigateValue); 
-                        }}
-                        data-hover={e?.value}
-                      >
-                        {e?.value}
-                      </a>
+                      <Badge badgeContent={handleBage(e)} color="error">
+                        <a
+                          style={{
+                            color:
+                              path == e?.navigateValue ? "tomato" : "#001c44",
+                          }}
+                          onClick={() => {
+                            navigate(e?.navigateValue);
+                          }}
+                          data-hover={e?.value}
+                        >
+                          {e?.value}
+                        </a>
+                      </Badge>
                       {e?.line}
                     </>
                   )}

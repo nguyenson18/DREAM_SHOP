@@ -20,7 +20,7 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    resetApp(state, action){
+    resetApp(state, action) {
       state.error = null;
       state.isLoading = false;
       state.products = action.payload?.data;
@@ -47,8 +47,8 @@ export default slice.reducer;
 export const getAllProducts =
   ({ search, type, price, rating, page, limit = 20 }, enqueueSnackbar) =>
   async (dispatch) => {
-    let gte = price[0] 
-    let lte = price[1] 
+    let gte = price[0];
+    let lte = price[1];
     dispatch(slice.actions.startLoading());
     try {
       const res = await apiService.get(
@@ -66,7 +66,7 @@ export const getDetailProduct =
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const {data} = await apiService.get(`/products/single/${productId}`);
+      const { data } = await apiService.get(`/products/single/${productId}`);
       dispatch(slice.actions.getDetailProductSuccess(data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
@@ -75,11 +75,14 @@ export const getDetailProduct =
   };
 
 export const filterBrandProduct =
-  ({category, search, brand,type, price , rating, page, limit = 20 }, enqueueSnackbar) =>
+  (
+    { category, search, brand, type, price, rating, page, limit = 20 },
+    enqueueSnackbar
+  ) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
-    let gte = price[0] 
-    let lte = price[1] 
+    let gte = price[0];
+    let lte = price[1];
     try {
       const res = await apiService.get(
         `/products/brand?category=${category}&page=${page}&limit=${limit}&brand=${brand}&search=${search}&type=${type}&gte=${gte}&lte=${lte}`
@@ -90,4 +93,3 @@ export const filterBrandProduct =
       enqueueSnackbar(error.message, { variant: "error" });
     }
   };
-

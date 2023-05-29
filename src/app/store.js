@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "../features/userSlice";
-import productReducer from "../features/productSlice"
-import addcartReducer from "../features/addCartSlice"
-import ordercartReducer from "../features/oderCartSlice"
-import browseproductReducer from "../features/browseProducts"
+import productReducer from "../features/productSlice";
+import addcartReducer from "../features/addCartSlice";
+import ordercartReducer from "../features/oderCartSlice";
+import browseproductReducer from "../features/browseProducts";
 
 const rootReducer = combineReducers({
   user: userReducer,

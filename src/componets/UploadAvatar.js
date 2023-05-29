@@ -105,8 +105,10 @@ function UploadAvatar({ error, file, helperText, sx, ...other }) {
               }),
             }}
           >
-            <AddAPhotoRoundedIcon sx={{ width: 24, height: 24, mb: 1, color:"white" }} />
-            <Typography variant="caption" sx={{color:"white"}}>
+            <AddAPhotoRoundedIcon
+              sx={{ width: 24, height: 24, mb: 1, color: "white" }}
+            />
+            <Typography variant="caption" sx={{ color: "white" }}>
               {file ? "Update photo" : "Upload photo"}
             </Typography>
           </PlaceholderStyle>

@@ -4,7 +4,6 @@ import { useSelector } from "react-redux/es";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
 
-
 const initialState = {
   isInitialized: false,
   isAuthenticated: false,
@@ -45,9 +44,13 @@ const reducer = (state, action) => {
     case CHANGEPASSWORD:
       return { ...state };
     case LOGOUT:
-      return { ...state, isAuthenticated: false, user: null, role:null };
+      return { ...state, isAuthenticated: false, user: null, role: null };
     case UPDATEDPROFILE:
-      return { ...state, user: action?.payload?.user, role: action?.payload?.user?.role };
+      return {
+        ...state,
+        user: action?.payload?.user,
+        role: action?.payload?.user?.role,
+      };
     default:
       return state;
   }
@@ -145,7 +148,7 @@ function AuthProvider({ children }) {
       name,
       email,
       password,
-      role:'master'
+      role: "master",
     });
     dispatch({ type: REGISTER_SUCCESS });
     enqueueSnackbar("Register Successlly", { variant: "success" });

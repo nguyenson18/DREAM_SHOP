@@ -92,7 +92,7 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    if (brand !== '') {
+    if (brand !== "") {
       dispatch(
         filterBrandProduct(
           {
@@ -113,11 +113,11 @@ function HomePage() {
   }, [page, search, type, brand]);
 
   const handleChangeSelect = (e) => {
-    setPage(1)
+    setPage(1);
     setType(e.target.value);
   };
   const handleChangePrice = (event, newValue) => {
-    setPage(1)
+    setPage(1);
     setPrice(newValue);
   };
   const handleClickClear = () => {
@@ -146,8 +146,8 @@ function HomePage() {
           enqueueSnackbar
         )
       );
-    }else {
-      getAll()
+    } else {
+      getAll();
     }
   };
 
@@ -257,7 +257,7 @@ function HomePage() {
           <CollapseFilter
             setBrand={setBrand}
             setCategory={setCategory}
-            setPage ={setPage}
+            setPage={setPage}
             brand={brand}
           />
           <Divider />
@@ -399,7 +399,7 @@ function HomePage() {
         </Stack>
         {isLoading ? (
           <LoadingScreen />
-        ) : products.length ? ((
+        ) : products.length ? (
           <>
             <ProductList products={products} />
             <Pagination
@@ -412,7 +412,7 @@ function HomePage() {
               onChange={(e, page) => setPage(page)}
             />
           </>
-        )) : (
+        ) : (
           <div>
             <Typography variant="h6">No products found</Typography>
           </div>

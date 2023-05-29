@@ -32,7 +32,7 @@ import Nikon from "../../../img/nikon.png";
 import Fujifilm from "../../../img/fujifilm.png";
 import { capitalCase } from "change-case";
 
-function CollapseFilter({  setBrand, setCategory, brand, setPage }) {
+function CollapseFilter({ setBrand, setCategory, brand, setPage }) {
   const [open, setOpen] = useState(true);
 
   const [listCategory, setListCategory] = useState();
@@ -179,7 +179,7 @@ function CollapseFilter({  setBrand, setCategory, brand, setPage }) {
   const handleFilterBrand = async (category, brand) => {
     setBrand(brand?.value);
     setCategory(category);
-    setPage(1)
+    setPage(1);
   };
 
   return (
@@ -226,7 +226,13 @@ function CollapseFilter({  setBrand, setCategory, brand, setPage }) {
                 {option?.brands?.map((item) => (
                   <ListItemButton
                     key={item?.id}
-                    style={{ pl: 4, display: "flex", justifyContent: "center", backgroundColor: item.value == brand ? 'rgba(0, 0, 0, 0.04)' : '' }}
+                    style={{
+                      pl: 4,
+                      display: "flex",
+                      justifyContent: "center",
+                      backgroundColor:
+                        item.value == brand ? "rgba(0, 0, 0, 0.04)" : "",
+                    }}
                     onClick={() =>
                       handleFilterBrand(
                         option?.value == "computer" ? "laptop" : option?.value,

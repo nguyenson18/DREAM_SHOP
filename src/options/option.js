@@ -99,6 +99,6 @@ export const LIST_OPTIONS_NAV = [
   {
     value: "CreateProduct",
     role: ["master"],
-    navigateValue: "/createproduct"
+    navigateValue: "/createproduct",
   },
 ];

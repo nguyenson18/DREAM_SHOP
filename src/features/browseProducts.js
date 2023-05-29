@@ -19,31 +19,31 @@ const slice = createSlice({
       state.error = action.payload;
     },
     getListBrowseProductSuccess(state, action) {
-        let data = action?.payload?.data?.map((e) => {
-          if (!e?.check) {
-            return { ...e, check: false };
-          }
-        });
-        state.isLoading = false;
-        state.error = null;
-        state.listBrowseProducts = data;
-      },
+      let data = action?.payload?.data?.map((e) => {
+        if (!e?.check) {
+          return { ...e, check: false };
+        }
+      });
+      state.isLoading = false;
+      state.error = null;
+      state.listBrowseProducts = data;
+    },
   },
 });
 
 export default slice.reducer;
 
 export const getListBrowsProduct = (enqueueSnackbar) => async (dispatch) => {
-    dispatch(slice.actions.startLoading());
-    try {
-      const res = await apiService.get(`/orther/listorther`);
-      dispatch(slice.actions.getListBrowseProductSuccess(res));
-    } catch (error) {
-      dispatch(slice.actions.hasError(error));
-      enqueueSnackbar(error.message, { variant: "error" });
-    }
-  };
-  export const browsProduct =
+  dispatch(slice.actions.startLoading());
+  try {
+    const { data } = await apiService.get(`/orther/listorther`);
+    dispatch(slice.actions.getListBrowseProductSuccess(data));
+  } catch (error) {
+    dispatch(slice.actions.hasError(error));
+    enqueueSnackbar(error.message, { variant: "error" });
+  }
+};
+export const browsProduct =
   ({ dataOrthers }, enqueueSnackbar) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
@@ -51,7 +51,7 @@ export const getListBrowsProduct = (enqueueSnackbar) => async (dispatch) => {
       const res = await apiService.put(`/orther/status`, {
         dataOrthers: dataOrthers,
       });
-      if(res.success) {
+      if (res.success) {
         dispatch(getListBrowsProduct(enqueueSnackbar));
         enqueueSnackbar("brows successfully", { variant: "success" });
       }

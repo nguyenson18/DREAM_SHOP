@@ -40,7 +40,9 @@ function AccountPages() {
 
   const onSubmit = async (data) => {
     setIsSubmit(!isSubmit);
-    dispatch(updateUserProfile({ userId: user?._id, ...data }, enqueueSnackbar));
+    dispatch(
+      updateUserProfile({ userId: user?._id, ...data }, enqueueSnackbar)
+    );
   };
 
   const handleDrop = useCallback(
@@ -60,7 +62,10 @@ function AccountPages() {
   );
   return (
     <Container sx={{ marginTop: 5 }}>
-      <Typography variant="h5" sx={{ marginBottom: "10px",color:"tomato", fontWeight: 600 }}>
+      <Typography
+        variant="h5"
+        sx={{ marginBottom: "10px", color: "tomato", fontWeight: 600 }}
+      >
         Account Settings
       </Typography>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>

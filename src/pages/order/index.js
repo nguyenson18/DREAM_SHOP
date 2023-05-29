@@ -27,7 +27,6 @@ const StyledTableCell = styled(TableCell)({
   color: "white",
 });
 
-
 function OrderPage() {
   const { listOrder } = useSelector((state) => state?.ordercart);
   const { listBrowseProducts } = useSelector((state) => state?.browseproduct);
@@ -36,7 +35,7 @@ function OrderPage() {
   const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     dispatch(getOrder(enqueueSnackbar));
-    if(role == "master"){
+    if (role == "master") {
       dispatch(getListBrowsProduct(enqueueSnackbar));
     }
   }, []);
@@ -76,16 +75,16 @@ function OrderPage() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {role !== 'master' && listOrder?.map((row) => (
-               <Listorder key={row._id} row={row} />
-            ))}
-            {role == 'master' && listBrowseProducts?.map((row) => {
-              if(row?.ortherItems?.length ){
-                return row?.ortherItems?.map((item) => (
-                  <ListBrowseProducts key={row?._id} row={item} />
-                ))
-              }
-            })}
+            {role !== "master" &&
+              listOrder?.map((row) => <Listorder key={row._id} row={row} />)}
+            {role == "master" &&
+              listBrowseProducts?.map((row) => {
+                if (row?.ortherItems?.length) {
+                  return row?.ortherItems?.map((item) => (
+                    <ListBrowseProducts key={row?._id} row={item} />
+                  ));
+                }
+              })}
           </TableBody>
         </Table>
       </Card>

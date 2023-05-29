@@ -7,7 +7,7 @@ const initialState = {
   carts: null,
   listOrther: null,
   totalCart: null,
-  infoUserBooking: null
+  infoUserBooking: null,
 };
 
 const slice = createSlice({
@@ -50,9 +50,9 @@ const slice = createSlice({
     },
     infoUserSuccess(state, action) {
       state.isLoading = null;
-      state.error =null;
-      state.infoUserBooking = action.payload[0]
-    }
+      state.error = null;
+      state.infoUserBooking = action.payload[0];
+    },
   },
 });
 
@@ -92,7 +92,9 @@ export const setQuanlityOrther =
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const res = await apiService.put(`/orther/quantity/${ortherId}?quantity=${quantity}`);
+      const res = await apiService.put(
+        `/orther/quantity/${ortherId}?quantity=${quantity}`
+      );
       dispatch(getOther(enqueueSnackbar));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
@@ -130,7 +132,7 @@ export const ortherConfim =
       const res = await apiService.put(`/orther/status`, {
         dataOrthers: dataOrthers,
       });
-      if(res.success) {
+      if (res.success) {
         dispatch(getOther(enqueueSnackbar));
         enqueueSnackbar("Order successfully", { variant: "success" });
       }
@@ -140,11 +142,11 @@ export const ortherConfim =
     }
   };
 
-  export const inFoUserBooking = () => async(dispatch)=>{
-    try {
-     const res = await apiService.get('/users/userBooking')
-      dispatch(slice.actions.infoUserSuccess(res?.data))
-    } catch (error) {
-      console.log(error)
-    }
+export const inFoUserBooking = () => async (dispatch) => {
+  try {
+    const res = await apiService.get("/users/userBooking");
+    dispatch(slice.actions.infoUserSuccess(res?.data));
+  } catch (error) {
+    console.log(error);
   }
+};

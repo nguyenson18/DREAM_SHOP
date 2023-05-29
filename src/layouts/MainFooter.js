@@ -1,4 +1,4 @@
-import { Container,Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import React from "react";
 import EmailIcon from "@mui/icons-material/Email";
@@ -23,9 +23,9 @@ function MainFooter() {
       sx={{
         backgroundColor: "#001c44",
         color: "white",
-        position:"absolute",
-        bottom:"0px",
-        width:"100%"
+        position: "absolute",
+        bottom: "0px",
+        width: "100%",
       }}
     >
       <Container
@@ -42,18 +42,17 @@ function MainFooter() {
             sx={{ width: "400px", fontSize: "14px", marginTop: "5px" }}
           >
             Established in 2021, Dream is the leading e-commerce platform
-            Southeast Asia, pioneering development in the region through
-            Trade & Technology. Currently, with platform and system logistics
-            Largest payment in the region, Dream to be a part of life
-            of users and aims to serve 300 million VND
-            customers across Southeast Asia by 2030.
+            Southeast Asia, pioneering development in the region through Trade &
+            Technology. Currently, with platform and system logistics Largest
+            payment in the region, Dream to be a part of life of users and aims
+            to serve 300 million VND customers across Southeast Asia by 2030.
           </Typography>
           <br />
           <Typography style={{ width: "400px", fontSize: "14px" }}>
-            In Vietnam, Dream is a familiar e-commerce platform of
-            millions of consumers by the leading variety of products
-            products, smart shopping and entertainment technology applications and
-            logistics skills
+            In Vietnam, Dream is a familiar e-commerce platform of millions of
+            consumers by the leading variety of products products, smart
+            shopping and entertainment technology applications and logistics
+            skills
           </Typography>
         </div>
 

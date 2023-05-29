@@ -11,7 +11,7 @@ function DiscountNew({ product }) {
         justifyContent: "space-between",
         marginBottom: "12px",
         marginTop: "5px",
-        height:"22px"
+        height: "22px",
       }}
     >
       {product?.newProduct === "new" && (
@@ -30,36 +30,35 @@ function DiscountNew({ product }) {
             fontWeight: 600,
             display: "flex",
             justifyContent: "center",
-            alignItems:"center"
+            alignItems: "center",
           }}
         >
-          <NewReleasesIcon sx={{ fontSize:"19px", marginRight:"2px" }} />
+          <NewReleasesIcon sx={{ fontSize: "19px", marginRight: "2px" }} />
           <span>{capitalCase(product?.newProduct)}</span>
         </div>
       )}
       {product?.description?.discount !== "0" && (
-          <span
-            style={{
-              height: "100%",
-              minWidth: "22px",
-              lineHeight: "0",
-              borderRadius: "8px",
-              cursor: "pointer",
-              alignItems: "center",
-              background:
-                "linear-gradient(to right, rgb(241, 39, 17), rgb(245, 175, 25))",
-              color: "white",
-              padding: "0 8px",
-              fontWeight: 600,
-              display: "inline-flex",
-              justifyContent: "center",
-            }}
-          >
-            {Number(product?.description?.discount)}%
-            <KeyboardDoubleArrowDownIcon />
-          </span>
+        <span
+          style={{
+            height: "100%",
+            minWidth: "22px",
+            lineHeight: "0",
+            borderRadius: "8px",
+            cursor: "pointer",
+            alignItems: "center",
+            background:
+              "linear-gradient(to right, rgb(241, 39, 17), rgb(245, 175, 25))",
+            color: "white",
+            padding: "0 8px",
+            fontWeight: 600,
+            display: "inline-flex",
+            justifyContent: "center",
+          }}
+        >
+          {Number(product?.description?.discount)}%
+          <KeyboardDoubleArrowDownIcon />
+        </span>
       )}
-      
     </div>
   );
 }

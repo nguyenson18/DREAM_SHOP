@@ -1,12 +1,21 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Rating, Typography, alpha } from '@mui/material';
-import React from 'react'
-import { Controller, useForm } from 'react-hook-form';
-import { FTextField, FormProvider } from '../../../componets/form';
-import apiService from '../../../app/apiService';
-import { useSnackbar } from 'notistack';
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Rating,
+  Typography,
+  alpha,
+} from "@mui/material";
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
+import { FTextField, FormProvider } from "../../../componets/form";
+import apiService from "../../../app/apiService";
+import { useSnackbar } from "notistack";
 
-const EvaluateComfirm = ({ open, handleClose, title, id , content }) => {
-
+const EvaluateComfirm = ({ open, handleClose, title, id, content }) => {
   const { enqueueSnackbar } = useSnackbar();
   const methods = useForm();
   const {
@@ -17,17 +26,15 @@ const EvaluateComfirm = ({ open, handleClose, title, id , content }) => {
     formState: { errors, isSubmitting },
   } = methods;
 
-  const onSubmit = async(data)=>{
+  const onSubmit = async (data) => {
     try {
-        await apiService.post(`/reviews/${id}`, data)
-        handleClose()
-        enqueueSnackbar('successful product review', { variant: "success" });
-    }catch (error){
+      await apiService.post(`/reviews/${id}`, data);
+      handleClose();
+      enqueueSnackbar("successful product review", { variant: "success" });
+    } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }
-    
-    
-  }
+  };
   return (
     <Dialog
       open={open}
@@ -38,7 +45,7 @@ const EvaluateComfirm = ({ open, handleClose, title, id , content }) => {
       }}
     >
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <DialogTitle>
+        <DialogTitle>
           <Box
             sx={{
               display: "flex",
@@ -57,7 +64,7 @@ const EvaluateComfirm = ({ open, handleClose, title, id , content }) => {
           </Box>
         </DialogTitle>
         <DialogContent>
-        <FTextField
+          <FTextField
             name="content"
             multiline
             fullWidth
@@ -71,15 +78,15 @@ const EvaluateComfirm = ({ open, handleClose, title, id , content }) => {
             }}
           />
           <Controller
-            name='rating'
+            name="rating"
             control={control}
             render={(field) => (
               <Rating
-                style={{marginTop:'5px'}}
+                style={{ marginTop: "5px" }}
                 value={field.value}
                 precision={0.5}
                 onChange={(event, newValue) => {
-                  setValue('rating', newValue)
+                  setValue("rating", newValue);
                 }}
               />
             )}
@@ -110,9 +117,9 @@ const EvaluateComfirm = ({ open, handleClose, title, id , content }) => {
             Yes
           </Button>
         </DialogActions>
-      </FormProvider> 
+      </FormProvider>
     </Dialog>
-  )
-}
+  );
+};
 
-export default EvaluateComfirm
+export default EvaluateComfirm;
