@@ -60,7 +60,7 @@ export function statusComfim(status) {
           justifyContent: "space-between",
         }}
       >
-        {status}
+        <p style={{fontSize:'15px'}}>Done</p>
         <TaskAltIcon />
       </Box>
     );

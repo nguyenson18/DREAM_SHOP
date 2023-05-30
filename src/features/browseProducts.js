@@ -53,7 +53,7 @@ export const browsProduct =
       });
       if (res.success) {
         dispatch(getListBrowsProduct(enqueueSnackbar));
-        enqueueSnackbar("brows successfully", { variant: "success" });
+        enqueueSnackbar(res?.message, { variant: "success" });
       }
     } catch (error) {
       dispatch(slice.actions.hasError(error));

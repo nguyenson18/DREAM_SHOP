@@ -11,9 +11,11 @@ import {
 import { statusComfim } from "../../../utils/statusOrder";
 import { fCurrency } from "../../../utils/numberFormat";
 import OfflinePinIcon from "@mui/icons-material/OfflinePin";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import { useDispatch } from "react-redux";
 import { browsProduct } from "../../../features/browseProducts";
 import { useSnackbar } from "notistack";
+import useAuth from "../../../hooks/useAuth"
 
 const StyledTableCellBody = styled(TableCell)({
   textAlign: "center",
@@ -23,12 +25,19 @@ const StyledTableCellBody = styled(TableCell)({
 
 function ListBrowseProducts({ row }) {
   const dispatch = useDispatch();
-  const isDisabled = row?.status !== "paid";
+  const auth = useAuth();
+  const isDisabledPaid = row?.status !== "paid";
+  const isDisableConfirmed = row?.status !== "confirmed"
   const { enqueueSnackbar } = useSnackbar();
   const handleSubmit = async (data) => {
-    let dataOrthersId = [];
-    dataOrthersId.push({ _id: data?._id });
-    dispatch(browsProduct({ dataOrthers: dataOrthersId }, enqueueSnackbar));
+    let datas = [];
+    const status = row?.status == 'paid' ? "confirmed" : "delivery"
+    try {
+      datas.push({ _id: data?._id, status: status, userId: auth?.user?._id });
+      dispatch(browsProduct({ dataOrthers: datas }, enqueueSnackbar));
+    } catch (error) {
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
   };
   return (
     <TableRow key={row._id} sx={{ height: "100px" }}>
@@ -69,13 +78,21 @@ function ListBrowseProducts({ row }) {
         {fCurrency(row?.description?.latest_price * row?.quantity)} $
       </StyledTableCellBody>
       <StyledTableCellBody>
-        {!isDisabled && (
+        {!isDisabledPaid && (
           <IconButton onClick={() => handleSubmit(row)}>
             <OfflinePinIcon
               style={{ color: "rgb(46, 125, 50)", fontSize: "25px" }}
             />
           </IconButton>
         )}
+         {!isDisableConfirmed && (
+          <IconButton onClick={() => handleSubmit(row)}>
+            <LocalShippingIcon
+              style={{ color: "tomato", fontSize: "25px" }}
+            />
+          </IconButton>
+        )}
+        
       </StyledTableCellBody>
     </TableRow>
   );

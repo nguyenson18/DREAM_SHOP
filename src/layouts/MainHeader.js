@@ -155,13 +155,13 @@ function MainHeader() {
   };
 
   useEffect(() => {
-    if (auth.isAuthenticated) {
-      dispatch(getOther(enqueueSnackbar));
+    if (auth.isAuthenticated && auth?.role =='master') {
       dispatch(getListBrowsProduct(enqueueSnackbar));
       dispatch(getOrder(enqueueSnackbar));
-    } else {
-      dispatch(resfreshData());
-    }
+    } else if(auth.isAuthenticated && auth?.role =='normal'){
+      dispatch(getOther(enqueueSnackbar));
+      dispatch(getOrder(enqueueSnackbar));
+    }else {dispatch(resfreshData());}
   }, []);
 
   const handleBage = (e) => {
