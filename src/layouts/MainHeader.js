@@ -165,11 +165,18 @@ function MainHeader() {
   }, []);
 
   const handleBage = (e) => {
+    let data = []
+     listBrowseProducts?.forEach((item) => {
+      if(item?.ortherItems?.length){
+        item?.ortherItems?.forEach((item) => {data.push(item)});
+      }
+    })
+
     if (e?.value == "Checkout") {
       return listOrther?.length;
     }
     if (e?.value == "Order" && auth?.role == "master") {
-      return listBrowseProducts?.length;
+      return data?.length;
     }
     if (e?.value == "Order" && auth?.role !== "master") {
       return listOrder?.length;

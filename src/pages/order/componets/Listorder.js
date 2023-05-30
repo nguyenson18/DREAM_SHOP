@@ -25,7 +25,7 @@ const Listorder = React.memo(({ row }) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const handleDeleteOrther = (row) => async () => {
-    if (row?.status === "confirm") {
+    if (row?.status === "paid") {
       dispatch(deleteOrther({ ortherId: row?._id }, enqueueSnackbar));
     } else
       return enqueueSnackbar("Status confirm not delete order", {

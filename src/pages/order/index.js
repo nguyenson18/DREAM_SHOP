@@ -81,7 +81,7 @@ function OrderPage() {
               listBrowseProducts?.map((row) => {
                 if (row?.ortherItems?.length) {
                   return row?.ortherItems?.map((item) => (
-                    <ListBrowseProducts key={item?._id} row={item} />
+                    <ListBrowseProducts key={item?._id} row={item} userId={row?.userId}/>
                   ));
                 }
               })}

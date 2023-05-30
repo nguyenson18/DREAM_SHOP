@@ -15,14 +15,20 @@ import { FTextField, FormProvider } from "../../../componets/form";
 import apiService from "../../../app/apiService";
 import { useSnackbar } from "notistack";
 
+const defaultValue = {
+  content:'',
+  rating:0
+}
+
 const EvaluateComfirm = ({ open, handleClose, title, id, content }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const methods = useForm();
+  const methods = useForm({...defaultValue});
   const {
     handleSubmit,
     control,
     getValues,
     setValue,
+    reset,
     formState: { errors, isSubmitting },
   } = methods;
 
@@ -33,7 +39,9 @@ const EvaluateComfirm = ({ open, handleClose, title, id, content }) => {
       enqueueSnackbar("successful product review", { variant: "success" });
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
+      handleClose();
     }
+    reset({...defaultValue})
   };
   return (
     <Dialog

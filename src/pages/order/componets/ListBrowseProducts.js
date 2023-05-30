@@ -23,7 +23,7 @@ const StyledTableCellBody = styled(TableCell)({
   fontSize: "16px",
 });
 
-function ListBrowseProducts({ row }) {
+function ListBrowseProducts({ row, userId }) {
   const dispatch = useDispatch();
   const auth = useAuth();
   const isDisabledPaid = row?.status !== "paid";
@@ -33,7 +33,7 @@ function ListBrowseProducts({ row }) {
     let datas = [];
     const status = row?.status == 'paid' ? "confirmed" : "delivery"
     try {
-      datas.push({ _id: data?._id, status: status, userId: auth?.user?._id });
+      datas.push({ _id: data?._id, status: status, userId: userId});
       dispatch(browsProduct({ dataOrthers: datas }, enqueueSnackbar));
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
