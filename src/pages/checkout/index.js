@@ -122,16 +122,16 @@ function CheckoutPage() {
           </TableBody>
         </Table>
       </Card>
-      <Button
+      {/* <Button
         sx={{
           backgroundColor: "tomato",
           color: "white",
           my: 2,
-          "&:hover": { opacity: 0.9, backgroundColor: "#001c44" },
+          "&:hover": { opacity: 0.9, backgroundColor: "#001c44" },  
         }}
       >
         <DeleteSweepIcon />
-      </Button>
+      </Button> */}
       <ArepareInvoice />
       <Dailogconfim
         open={open}
