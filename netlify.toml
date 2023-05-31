@@ -1,3 +1,0 @@
-REACT_APP_CLOUDINARY_CLOUD_NAME = nguy-n-tr-ng-s-n
-REACT_APP_CLOUDINARY_UPLOAD_PRESET = dream_shop
-REACT_APP_BACKEND_API = https://shopapp-be-booking.onrender.com/api
