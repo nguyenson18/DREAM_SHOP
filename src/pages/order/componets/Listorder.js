@@ -8,9 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 import { deleteOrther } from "../../../features/oderCartSlice";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import EditNoteIcon from "@mui/icons-material/EditNote";
 import EvaluateComfirm from "./EvaluateComfirm";
+import { EditNote } from '@mui/icons-material'
 
 const StyledTableCellBody = styled(TableCell)({
   textAlign: "center",
@@ -83,7 +82,7 @@ const Listorder = React.memo(({ row }) => {
               setId(row?.productId);
             }}
           >
-            <EditNoteIcon sx={{ color: "#001c44", fontSize: "27px" }} />
+            <EditNote sx={{ color: "#001c44", fontSize: "27px" }} />
           </Button>
           {row?.status === "paid" && (
             <Button sx={{ minWidth: "30px" }} onClick={handleDeleteOrther(row)}>
