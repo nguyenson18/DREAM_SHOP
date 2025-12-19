@@ -67,7 +67,7 @@ export const getDetailProduct =
     dispatch(slice.actions.startLoading());
     try {
       const { data } = await apiService.get(`/products/single/${productId}`);
-      dispatch(slice.actions.getDetailProductSuccess(data.data));
+      dispatch(slice.actions.getDetailProductSuccess(data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
       enqueueSnackbar(error.message, { variant: "error" });

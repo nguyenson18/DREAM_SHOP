@@ -46,10 +46,10 @@ function DetailPages() {
   };
   useEffect(() => {
     if (productDetail?.imageUrl) {
-      setUrlImg(productDetail?.imageUrl[1]);
+      setUrlImg(productDetail?.imageUrl[0]);
     }
   }, [productDetail]);
-  
+
   return (
     <>
       {isLoading ? (

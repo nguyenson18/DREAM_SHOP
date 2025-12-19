@@ -405,7 +405,7 @@ function MainHeader() {
             className="link-effect-3"
             style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}
           >
-            {LIST_OPTIONS_NAV.map((e) => {
+            {LIST_OPTIONS_NAV?.map((e) => {
               const checkRole = e?.role?.includes(auth?.role);
               const path = location?.pathname;
               return (
