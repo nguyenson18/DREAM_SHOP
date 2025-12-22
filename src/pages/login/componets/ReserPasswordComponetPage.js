@@ -1,5 +1,4 @@
 import { Alert, Container, Link, Stack } from "@mui/material";
-import React, { useRef } from "react";
 import { FormProvider, FTextField } from "../../../componets/form";
 import { LoadingButton } from "@mui/lab";
 import { useForm } from "react-hook-form";
@@ -12,41 +11,37 @@ const defaultValues = {
 
 function ReserPasswordComponetPage({ setCurrentTab }) {
   const methods = useForm({ defaultValues });
-  const form = useRef();
   const auth = useAuth();
   const { enqueueSnackbar } = useSnackbar();
+
   const {
     handleSubmit,
-    reset,
     setError,
+    clearErrors,
     formState: { errors, isSubmitting },
   } = methods;
-  console.log(errors);
+
   const onSubmit = async (data) => {
-    const { email } = data;
+    clearErrors("root"); 
     try {
-      await auth.resetPassword({ email }, setCurrentTab, enqueueSnackbar);
-    } catch (error) {
-      console.log(error);
-      reset();
-      setError("responseError", error);
-      enqueueSnackbar(error.message || "Not Found", { variant: "error" });
+      await auth.resetPassword({ email: data.email }, setCurrentTab, enqueueSnackbar);
+    } catch (err) {
+      const message =
+        err?.response?.data?.message || err?.message || "Not Found";
+
+      setError("root", { type: "server", message }); 
+      enqueueSnackbar(message, { variant: "error" });
     }
   };
+
   return (
-    <Container
-      maxWidth="xs"
-      style={{ marginBottom: "20px", marginTop: "10px" }}
-    >
-      <FormProvider
-        form={form}
-        methods={methods}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <Stack spacing={3} style={{ marginBottom: "30px" }}>
-          {!!errors.responseError && (
-            <Alert severity="error">{errors.responseError.message}</Alert>
+    <Container maxWidth="xs" style={{ marginBottom: 20, marginTop: 10 }}>
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <Stack spacing={3} style={{ marginBottom: 30 }}>
+          {!!errors.root && (
+            <Alert severity="error">{errors.root.message}</Alert>
           )}
+
           <Alert severity="info">
             Don't have an account?{" "}
             <Link
@@ -57,12 +52,8 @@ function ReserPasswordComponetPage({ setCurrentTab }) {
               Get Started
             </Link>
           </Alert>
-          <FTextField
-            variant="standard"
-            name="email"
-            label="Full Email"
-            id="sendEmail"
-          />
+
+          <FTextField variant="standard" name="email" label="Full Email" />
         </Stack>
 
         <LoadingButton
@@ -79,5 +70,6 @@ function ReserPasswordComponetPage({ setCurrentTab }) {
     </Container>
   );
 }
+
 
 export default ReserPasswordComponetPage;
