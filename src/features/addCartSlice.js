@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import apiService from "../app/apiService";
+import { getListbooking } from "./oderCartSlice";
 
 const initialState = {
   isLoading: false,
@@ -60,17 +61,17 @@ export default slice.reducer;
 
 export const addToCart =
   ({ productId }, enqueueSnackbar) =>
-  async (dispatch) => {
-    dispatch(slice.actions.startLoading());
-    try {
-      await apiService.post(`/orther/${productId}`);
-      dispatch(getOther(enqueueSnackbar));
-      enqueueSnackbar("add to cart success", { variant: "success" });
-    } catch (error) {
-      dispatch(slice.actions.hasError(error));
-      enqueueSnackbar(error.message, { variant: "error" });
-    }
-  };
+    async (dispatch) => {
+      dispatch(slice.actions.startLoading());
+      try {
+        await apiService.post(`/orther/${productId}`);
+        dispatch(getOther(enqueueSnackbar));
+        enqueueSnackbar("add to cart success", { variant: "success" });
+      } catch (error) {
+        dispatch(slice.actions.hasError(error));
+        enqueueSnackbar(error.message, { variant: "error" });
+      }
+    };
 
 export const getOther = (enqueueSnackbar) => async (dispatch) => {
   dispatch(slice.actions.startLoading());
@@ -89,32 +90,32 @@ export const checkBoxOrther = (orther) => async (dispatch) => {
 
 export const setQuanlityOrther =
   ({ ortherId, quantity }, enqueueSnackbar) =>
-  async (dispatch) => {
-    dispatch(slice.actions.startLoading());
-    try {
-      const res = await apiService.put(
-        `/orther/quantity/${ortherId}?quantity=${quantity}`
-      );
-      dispatch(getOther(enqueueSnackbar));
-    } catch (error) {
-      dispatch(slice.actions.hasError(error));
-      enqueueSnackbar(error.message, { variant: "error" });
-    }
-  };
+    async (dispatch) => {
+      dispatch(slice.actions.startLoading());
+      try {
+        const res = await apiService.put(
+          `/orther/quantity/${ortherId}?quantity=${quantity}`
+        );
+        dispatch(getOther(enqueueSnackbar));
+      } catch (error) {
+        dispatch(slice.actions.hasError(error));
+        enqueueSnackbar(error.message, { variant: "error" });
+      }
+    };
 
 export const deleteOrther =
   ({ ortherId }, enqueueSnackbar) =>
-  async (dispatch) => {
-    dispatch(slice.actions.startLoading());
-    try {
-      const res = await apiService.delete(`/orther/single/${ortherId}`);
-      enqueueSnackbar("delete Success", { variant: "success" });
-      dispatch(getOther(enqueueSnackbar));
-    } catch (error) {
-      dispatch(slice.actions.hasError(error));
-      enqueueSnackbar(error.message, { variant: "error" });
-    }
-  };
+    async (dispatch) => {
+      dispatch(slice.actions.startLoading());
+      try {
+        const res = await apiService.delete(`/orther/single/${ortherId}`);
+        enqueueSnackbar("delete Success", { variant: "success" });
+        dispatch(getOther(enqueueSnackbar));
+      } catch (error) {
+        dispatch(slice.actions.hasError(error));
+        enqueueSnackbar(error.message, { variant: "error" });
+      }
+    };
 
 export const resfreshData = () => async (dispatch) => {
   dispatch(slice.actions.startLoading());
@@ -125,22 +126,24 @@ export const resfreshData = () => async (dispatch) => {
   }
 };
 export const ortherConfim =
-  ({ dataOrthers }, enqueueSnackbar) =>
-  async (dispatch) => {
-    dispatch(slice.actions.startLoading());
-    try {
-      const res = await apiService.put(`/orther/status`, {
-        dataOrthers: dataOrthers,
-      });
-      if (res.success) {
-        dispatch(getOther(enqueueSnackbar));
-        enqueueSnackbar("Order successfully", { variant: "success" });
+  ({ data,  dataOrthers }, enqueueSnackbar) =>
+    async (dispatch) => {
+      dispatch(slice.actions.startLoading());
+      try {
+        const res = await apiService.put(`/orther/status`, {
+          dataUser: data,
+          dataOrthers: dataOrthers,
+        });
+        if (res.success) {
+          dispatch(getOther(enqueueSnackbar));
+          dispatch(getListbooking(enqueueSnackbar))
+          enqueueSnackbar("Order successfully", { variant: "success" });
+        }
+      } catch (error) {
+        dispatch(slice.actions.hasError(error));
+        enqueueSnackbar(error.message, { variant: "error" });
       }
-    } catch (error) {
-      dispatch(slice.actions.hasError(error));
-      enqueueSnackbar(error.message, { variant: "error" });
-    }
-  };
+    };
 
 export const inFoUserBooking = () => async (dispatch) => {
   try {
@@ -150,3 +153,19 @@ export const inFoUserBooking = () => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const createUserBooking = (data) => async(dispatch) => {
+  try {
+     const res = await apiService.post("/users/userBooking", data);
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const updateUserBooking = ({id, data}) => async(dispatch) => {
+  try {
+     const res = await apiService.post(`/users/userBooking/${id}`, data);
+  } catch (error) {
+    console.log(error)
+  }
+}

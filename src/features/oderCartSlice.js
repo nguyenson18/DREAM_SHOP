@@ -29,11 +29,11 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-export const getOrder = (enqueueSnackbar) => async (dispatch) => {
+export const getListbooking = (enqueueSnackbar) => async (dispatch) => {
   dispatch(slice.actions.startLoading());
   try {
     const res = await apiService.get(`/orther/listbooking`);
-    dispatch(slice.actions.getOrderSuccess(res?.data?.data));
+    dispatch(slice.actions.getOrderSuccess(res?.data));
   } catch (error) {
     dispatch(slice.actions.hasError(error));
     enqueueSnackbar(error.message, { variant: "error" });
@@ -46,7 +46,7 @@ export const deleteOrther =
     dispatch(slice.actions.startLoading());
     try {
       await apiService.delete(`/orther/single/${ortherId}`);
-      dispatch(getOrder(enqueueSnackbar));
+      dispatch(getListbooking(enqueueSnackbar));
       enqueueSnackbar("Delete Order successfully", { variant: "success" });
     } catch (error) {
       dispatch(slice.actions.hasError(error));

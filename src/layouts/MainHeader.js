@@ -37,7 +37,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getOther, resfreshData } from "../features/addCartSlice";
 import { LogoWhite } from "../componets/logo";
 import { getListBrowsProduct } from "../features/browseProducts";
-import { getOrder } from "../features/oderCartSlice";
+import { getListbooking } from "../features/oderCartSlice";
 
 const schemaChangePassword = Yup.object()
   .shape({
@@ -157,20 +157,15 @@ function MainHeader() {
   useEffect(() => {
     if (auth.isAuthenticated && auth?.role =='master') {
       dispatch(getListBrowsProduct(enqueueSnackbar));
-      dispatch(getOrder(enqueueSnackbar));
+      dispatch(getListbooking(enqueueSnackbar));
     } else if(auth.isAuthenticated && auth?.role =='normal'){
       dispatch(getOther(enqueueSnackbar));
-      dispatch(getOrder(enqueueSnackbar));
+      dispatch(getListbooking(enqueueSnackbar));
     }else {dispatch(resfreshData());}
   }, []);
 
   const handleBage = (e) => {
     let data = []
-     listBrowseProducts?.forEach((item) => {
-      if(item?.ortherItems?.length){
-        item?.ortherItems?.forEach((item) => {data.push(item)});
-      }
-    })
 
     if (e?.value == "Checkout") {
       return listOrther?.length;

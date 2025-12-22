@@ -13,7 +13,7 @@ import { styled } from "@mui/system";
 import React, { useEffect } from "react";
 import BallotIcon from "@mui/icons-material/Ballot";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrder } from "../../features/oderCartSlice";
+import { getListbooking } from "../../features/oderCartSlice";
 import { useSnackbar } from "notistack";
 import Listorder from "./componets/Listorder";
 import useAuth from "../../hooks/useAuth";
@@ -34,11 +34,12 @@ function OrderPage() {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
-    dispatch(getOrder(enqueueSnackbar));
+    dispatch(getListbooking(enqueueSnackbar));
     if (role == "master") {
       dispatch(getListBrowsProduct(enqueueSnackbar));
     }
   }, []);
+
   return (
     <Container sx={{ paddingBottom: "400px" }}>
       <Box
@@ -81,7 +82,7 @@ function OrderPage() {
               listBrowseProducts?.map((row) => {
                 if (row?.ortherItems?.length) {
                   return row?.ortherItems?.map((item) => (
-                    <ListBrowseProducts key={item?._id} row={item} userId={row?.userId}/>
+                    <ListBrowseProducts key={item?._id} row={item} userId={row?.userId} />
                   ));
                 }
               })}

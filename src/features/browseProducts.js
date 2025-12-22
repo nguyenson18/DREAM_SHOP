@@ -4,7 +4,7 @@ import apiService from "../app/apiService";
 const initialState = {
   isLoading: false,
   error: null,
-  listBrowseProducts: null,
+  listBrowseProducts: [],
 };
 
 const slice = createSlice({
@@ -19,6 +19,7 @@ const slice = createSlice({
       state.error = action.payload;
     },
     getListBrowseProductSuccess(state, action) {
+      console.log(action)
       let data = action?.payload?.data?.map((e) => {
         if (!e?.check) {
           return { ...e, check: false };

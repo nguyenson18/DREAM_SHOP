@@ -16,11 +16,14 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
+  createUserBooking,
   getOther,
   inFoUserBooking,
   ortherConfim,
+  updateUserBooking,
 } from "../../../features/addCartSlice";
 import { useSnackbar } from "notistack";
+import useAuth from "../../../hooks/useAuth";
 
 const StyledBox = styled(Box)({
   display: "flex",
@@ -50,12 +53,17 @@ const defaultValue = {
 
 const DialogInformation = React.memo(
   ({ open, handleClose, title, content }) => {
+    const auth = useAuth();
     const { listOrther, infoUserBooking } = useSelector(
       (state) => state?.addcart
     );
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-
+    const methods = useForm({
+      defaultValue,
+      resolver: yupResolver(schemaInfoUser),
+    });
+    const { handleSubmit, setValue } = methods;
     useEffect(() => {
       dispatch(inFoUserBooking());
     }, [open]);
@@ -70,12 +78,6 @@ const DialogInformation = React.memo(
       setValue("city", infoUserBooking?.city);
     }, [infoUserBooking]);
 
-    const methods = useForm({
-      defaultValue,
-      resolver: yupResolver(schemaInfoUser),
-    });
-    const { handleSubmit, setValue } = methods;
-
     const onSubmit = async (data) => {
       let dataOrthersId = [];
       for (let i = 0; i < listOrther?.length; i++) {
@@ -85,7 +87,10 @@ const DialogInformation = React.memo(
         }
       }
       dispatch(
-        ortherConfim({ data, dataOrthers: dataOrthersId }, enqueueSnackbar)
+        ortherConfim({ dataOrthers: dataOrthersId }, enqueueSnackbar)
+      );
+      dispatch(
+        infoUserBooking.authorUser ? updateUserBooking({ id: infoUserBooking.authorUser, data: data }) : createUserBooking(data)
       );
       dispatch(getOther(enqueueSnackbar));
       handleClose();

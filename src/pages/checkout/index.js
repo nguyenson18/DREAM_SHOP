@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Card,
   Checkbox,
   Container,
@@ -12,12 +11,11 @@ import {
   Typography,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import React, { useState } from "react";
+import { useState } from "react";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { useDispatch, useSelector } from "react-redux";
 import { checkBoxOrther, deleteOrther } from "../../features/addCartSlice";
 import { useSnackbar } from "notistack";
-import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import Dailogconfim from "../../componets/form/Dailogconfim";
 import ArepareInvoice from "./componets/ArepareInvoice";
 import { ListOrtherComponent } from "./componets";
@@ -58,6 +56,7 @@ function CheckoutPage() {
   const handleClose = () => {
     setOpen(false);
   };
+ 
   return (
     <Container sx={{ 
       paddingBottom: "400px",
@@ -111,7 +110,6 @@ function CheckoutPage() {
           <TableBody>
             {listOrther?.map((row) => (
               <ListOrtherComponent
-                key={row._id}
                 row={row}
                 setCheckAll={setCheckAll}
                 setContent={setContent}
